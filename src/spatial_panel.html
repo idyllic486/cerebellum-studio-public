@@ -1,0 +1,30 @@
+<section id="spatialPanel" class="panel spatial-panel" aria-labelledby="spatialTitle">
+  <div class="panelhead"><h2 id="spatialTitle">3D section simulation</h2><button id="spatialLoad" type="button">Start from selected data</button></div>
+  <div class="panelbody">
+    <p class="spatial-intro">Select sections to move and rotate them and compare virtual arrangements. The observation data, tissue and exclusion conditions selected above are copied as the starting point. The source data are retained.</p>
+    <div class="spatial-toolbar">
+      <label class="methods-field">Selected section<select id="spatialSection" disabled></select></label>
+      <label class="methods-field">Drag action<select id="spatialMode"><option value="orbit">Rotate view · click to select a section</option><option value="move">Translate selected section in XY</option></select></label>
+      <button id="spatialFront" type="button">Front</button><button id="spatialOblique" type="button">Perspective view</button>
+      <button id="spatialZoomIn" type="button" aria-label="Zoom in 3D">Zoom in +</button><button id="spatialZoomOut" type="button" aria-label="Zoom out 3D">Zoom out −</button><button id="spatialFit" type="button">View all</button>
+    </div>
+    <div id="spatialStage" class="spatial-stage" aria-label="3D workspace comparing observed sections with virtual transformations"><p id="spatialEmpty">Observed contours appear after starting from the selected data.</p></div>
+    <div class="spatial-legend"><span><i class="spatial-original"></i>Original observation</span><span><i class="spatial-scenario"></i>Virtual arrangement</span><span><i class="spatial-selected"></i>Selected section</span></div>
+    <p id="spatialSelection" class="mini">Wheel to zoom · drag to rotate in view mode · drag or arrow keys to move the selected section in translation mode</p>
+    <div class="spatial-fields">
+      <label class="methods-field">X translation · input coordinates<input id="spatialDX" type="number" step="any" value="0" disabled></label>
+      <label class="methods-field">Y translation · input coordinates<input id="spatialDY" type="number" step="any" value="0" disabled></label>
+      <label class="methods-field">Rotation · degrees<input id="spatialAngle" type="range" min="-180" max="180" step="1" value="0" disabled><output id="spatialAngleValue">0°</output></label>
+      <label class="spatial-check"><input id="spatialIncluded" type="checkbox" checked disabled>Include in virtual analysis</label>
+      <label class="spatial-check"><input id="spatialOverlay" type="checkbox" checked>Overlay original observation</label>
+      <label class="methods-field">On-screen section spacing<input id="spatialSpacing" type="range" min="0.5" max="3" step="0.1" value="1"></label>
+    </div>
+    <p class="methods-result-note">Adjusting the spacing changes only the on-screen layout; actual Z coordinates are unchanged. XY and Z are scaled separately, so the 3D view does not preserve physical proportions. Rotation is about the bounding-box centre of each original section.</p>
+    <div class="methods-run-actions spatial-actions"><button id="spatialUndo" type="button" disabled>Undo</button><button id="spatialRedo" type="button" disabled>Redo</button><button id="spatialReset" type="button" disabled>Restore selected section</button><button id="spatialResetAll" type="button" disabled>Restore all</button><button id="spatialExport" type="button" disabled>Save scenario</button><label class="filebutton">Open scenario<input id="spatialImport" type="file" accept=".json,application/json" aria-label="Open saved 3D scenario"></label></div>
+    <details class="help-detail spatial-help"><summary>Comparison of interpolation results for the virtual arrangement</summary>
+      <p>Observed planes are held out and interpolated separately in the original and virtual arrangements. Because changing the arrangement also changes the positions being evaluated, the difference between the two scores cannot be interpreted as an improvement in anatomical accuracy. Virtual exclusion also changes the number of evaluated sections.</p>
+      <div class="methods-run-actions"><button id="spatialCompare" type="button" disabled>Compute both arrangements</button><button id="spatialCancel" type="button" disabled>Stop computation</button></div><div id="spatialComparison"></div>
+    </details>
+    <div id="spatialStatus" class="status" role="status" aria-live="polite">Check the data conditions above before starting. Translation and rotation are virtual transformations, not restored measurements.</div>
+  </div>
+</section>

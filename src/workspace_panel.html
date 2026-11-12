@@ -1,0 +1,66 @@
+<header id="workspaceHeader" class="workspace-header">
+  <div><h2 id="workspaceTitle">My research</h2><p id="workspaceModeSummary">Start with an image, existing observations, or a saved study.</p></div>
+  <button class="workspace-guide" type="button" id="workspaceGuideToggle" aria-expanded="false" aria-controls="workspaceGuide">Workflow guide</button>
+</header>
+<dialog id="workspaceGuide" class="studio-dialog focus-card" aria-labelledby="workspaceGuideTitle">
+  <div class="dialog-top"><span class="eyebrow">Workflow guide</span><button type="button" id="workspaceGuideClose">Close guide</button></div>
+  <div class="focus-card-content" tabindex="0">
+    <p id="workspaceGuideProgress" class="focus-card-progress" aria-live="polite"></p>
+    <h3 id="workspaceGuideTitle">Choose the files you already have.</h3>
+    <article data-workspace-guide-card>
+      <h4>A new TIFF image.</h4><p>Open one section image. Draw boundaries or import existing ROIs, inspect them on the image, and review the measurements. You do not need a model file to begin.</p>
+    </article>
+    <article data-workspace-guide-card hidden>
+      <h4>Existing image, ROI and CSV files.</h4><p>Register one section per row. Match each ROI and measurement file to its source image. Empty rows are not observations.</p>
+    </article>
+    <article data-workspace-guide-card hidden>
+      <h4>A saved study.</h4><p>Open your study file to continue review and physical 3D. Check scale, section spacing, excluded sections and approval status before interpreting volume.</p>
+    </article>
+    <article data-workspace-guide-card hidden>
+      <h4>You decide what is accepted.</h4><p>The program handles file checks, calculations and visualisation. Researchers verify tissue boundaries, calibration, anatomical identity and whether results are suitable for their study.</p><p>Automated ROI generation is experimental and requires a validated compatible model. It is not required for manual review. Keep your original files and export your reviewed work.</p>
+    </article>
+  </div>
+  <div class="dialog-actions"><button type="button" id="workspaceGuidePrevious">Previous</button><button type="button" id="workspaceGuideNext" class="primary">Next</button></div>
+</dialog>
+<nav id="workspaceNav" class="workspace-nav" aria-label="Research workspace">
+  <button type="button" data-workspace-mode="home" aria-current="page">Start</button>
+  <button type="button" data-workspace-mode="image">Image analysis</button>
+  <button type="button" data-workspace-mode="observations">Observations</button>
+  <button type="button" data-workspace-mode="study">Study &amp; 3D</button>
+  <button type="button" data-workspace-mode="tools">Research tools</button>
+</nav>
+<section id="workspaceHome" class="workspace-home" aria-labelledby="workspaceStartTitle" data-workspace-pane="home">
+  <section id="autoROIWorkflow" class="auto-roi-workflow" aria-labelledby="autoROITitle">
+    <div class="auto-roi-heading"><p class="auto-roi-eyebrow">Automatic ROI workflow</p><h3 id="autoROITitle">New montage · ROI draft · reviewed measurements</h3></div>
+    <ol class="auto-roi-steps">
+      <li><span class="auto-roi-step-number" aria-hidden="true">01</span><h4>Choose a model</h4><p class="mini">Use the built-in tissue-layer model, or open a model you trained yourself.</p>
+      </li>
+      <li class="auto-roi-predict"><span class="auto-roi-step-number" aria-hidden="true">02</span><h4>Open a montage</h4><div class="auto-roi-actions"><button id="autoROIBuiltInModel" type="button" hidden>Use the built-in model</button><button id="autoROIOpenModel" type="button">Open trained models</button><button id="autoROIOpenImage" type="button">Open a new montage</button></div><details class="auto-roi-details"><summary>Workflow guide</summary><p>Reuse your reviewed sections to train once. For each new montage, let the model draw a draft, inspect its boundaries and correct what needs attention.</p><p>Open auto-roi-models.json, then select one new section TIFF. Automatic draft generation is enabled when you enter this workflow.</p><p><a href="./downloads/cerebellum-synthetic-example.zip" download>Download a synthetic example section</a> <span class="mini">A drawing with its ROI file, for trying the steps. It is not tissue.</span></p></details></li>
+      <li><span class="auto-roi-step-number" aria-hidden="true">03</span><h4>Review and export</h4><div class="auto-roi-actions"><button id="autoROIReview" type="button" disabled>Inspect ROIs only</button><button id="autoROIMeasurements" type="button" disabled>Review measurements and next actions</button></div><details class="auto-roi-details"><summary>Review guidance</summary><p>Inspect the draft with or without the image. Correct uncertain boundaries, confirm scale when known, then approve and export or continue to Study.</p></details></li>
+    </ol>
+    <p id="autoROIReadiness" class="auto-roi-readiness" role="status">Train once, then open your model file.</p>
+    <details class="auto-roi-responsibility"><summary>Program and researcher</summary><p class="mini">Generated boundaries are drafts. Internal evaluation does not establish anatomical accuracy, and model output never approves itself.</p><p class="mini"><strong>Program:</strong> <span>Source checks, model fitting, draft generation and measurements.</span> <strong>Researcher:</strong> <span>Biological identity, uncertain boundaries, calibration and final acceptance.</span></p></details>
+  </section>
+  <div class="workspace-welcome"><h3 id="workspaceStartTitle">Your next research step.</h3></div>
+  <div class="workspace-choices">
+    <button id="workspaceStartImage" class="workspace-choice" type="button" data-workspace-open="image">
+
+      <span><strong>Start with a new TIFF</strong><small>Open one section, draw or import boundaries, and review measurements. No model file is required to begin.</small></span>
+    </button>
+    <button id="workspaceStartObservations" class="workspace-choice" type="button" data-workspace-open="observations">
+
+      <span><strong>Use existing ROI and CSV files</strong><small>Match each image to its existing contours and measurements. Inspect observed sections together in 3D.</small></span>
+    </button>
+    <button id="workspaceContinueStudy" class="workspace-choice" type="button" data-workspace-open="study">
+
+      <span><strong>Build or continue a study</strong><small>Carry reviewed sections into calibrated 3D and compare animals. Continue from a saved study or set up a new one.</small></span>
+    </button>
+  </div>
+  <p class="workspace-local"><strong>Your data, your review.</strong> Files are processed locally. Save your work to a file before closing or reloading.</p>
+  <h3 class="auto-roi-advanced-title">Advanced · source inventory and preparation reports</h3>
+</section>
+<div id="workspaceToolsNav" class="workspace-tools-nav" aria-label="Research experiment" hidden>
+  <button type="button" data-workspace-tool="methods" aria-pressed="true">Method comparison</button>
+  <button type="button" data-workspace-tool="lab" aria-pressed="false">Sensitivity</button>
+  <button type="button" data-workspace-tool="spatial" aria-pressed="false">Virtual 3D</button>
+</div>

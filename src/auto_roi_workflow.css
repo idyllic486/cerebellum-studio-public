@@ -1,0 +1,107 @@
+/* Automatic ROI uses the same neutral surfaces as the rest of the workspace. */
+.auto-roi-workflow{grid-column:1/-1;padding:clamp(20px,3vw,36px);border:1px solid #dedede;border-radius:20px;background:#fff;margin-bottom:0;overflow-wrap:anywhere}
+.auto-roi-eyebrow{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#686868;margin:0 0 14px;font-weight:650}
+.auto-roi-heading h3{font-size:clamp(1.5rem,3vw,2.15rem);line-height:1.24;letter-spacing:-.035em;margin:0 0 14px;color:#151515;font-weight:650;max-width:100%}
+.auto-roi-heading>p:last-child{max-width:76ch;margin:0 0 28px;line-height:1.7;color:#666;font-size:.91rem}
+.auto-roi-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));list-style:none;padding:0;margin:0;gap:14px;align-items:stretch}
+.auto-roi-steps>li{min-width:0;border:1px solid #e4e4e4;background:#fafafa;border-radius:13px;padding:20px;display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.auto-roi-step-number{font-size:.7rem;letter-spacing:.08em;color:#777;font-variant-numeric:tabular-nums}
+.auto-roi-steps h4{font-size:1.08rem;line-height:1.4;margin:0 0 3px;letter-spacing:-.02em;color:#171717;font-weight:650}
+.auto-roi-steps p{margin:0;line-height:1.7;font-size:.83rem;color:#606060}.auto-roi-steps .mini{font-size:.77rem}
+.auto-roi-actions{display:flex;flex-wrap:wrap;gap:8px;width:100%}
+.auto-roi-actions button,.auto-roi-download{font:inherit;font-weight:600;font-size:.81rem;line-height:1.5;border:1px solid #d4d4d4;border-radius:8px;padding:10px 13px;min-height:42px;background:#fff;color:#222;text-align:left;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.auto-roi-download{display:inline-block;text-decoration:none}.auto-roi-download:hover,.auto-roi-actions button:not(:disabled):hover{background:#ededed;border-color:#aaa}.auto-roi-actions button:disabled{opacity:.42;cursor:default}
+.auto-roi-actions #autoROIOpenImage{background:#171717;border-color:#171717;color:#fff}.auto-roi-actions #autoROIOpenImage:not(:disabled):hover{background:#373737}
+.auto-roi-readiness{border-left:2px solid #333;background:#f4f4f4;border-radius:0 8px 8px 0;padding:12px 15px;margin:20px 0 14px;line-height:1.65;font-size:.84rem;color:#333}
+.auto-roi-readiness[data-state=processing]{border-left-style:dashed}
+.auto-roi-details{width:100%;border-top:1px solid #e4e4e4;padding-top:12px;margin-top:auto}.auto-roi-details summary,.auto-roi-responsibility summary{font-size:.76rem;line-height:1.6;cursor:pointer;font-weight:500;color:#606060;width:fit-content}.auto-roi-details[open] p{margin-top:12px}
+.auto-roi-responsibility{padding-top:2px}.auto-roi-responsibility p{font-size:.77rem;line-height:1.8;color:#666;max-width:100ch;margin:12px 0 0}
+.auto-roi-advanced-title{grid-column:1/-1;font-size:.8rem;color:#777;margin:4px 0 -12px;font-weight:500}
+.auto-roi-analysis-entry{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:16px 0;padding:14px 16px;background:#fafafa;border:1px solid #e4e4e4;border-radius:12px}.auto-roi-analysis-entry button{border:1px solid #252525;background:#252525;color:#fff;padding:10px 14px;border-radius:8px;max-width:100%;white-space:normal;font-size:.82rem;min-height:42px}.auto-roi-analysis-entry button:not(:disabled):hover{background:#444}
+.auto-roi-analysis-entry .mini{flex:1 1 250px;line-height:1.7;color:#666;font-size:.8rem}
+@media(max-width:900px){.auto-roi-steps{grid-template-columns:1fr}.auto-roi-workflow{grid-column:1/-1;padding:20px}.auto-roi-steps>li{gap:10px}.auto-roi-heading>p:last-child{margin-bottom:22px}.auto-roi-advanced-title{margin-bottom:0}}
+@media(max-width:520px){.auto-roi-workflow{padding:17px;border-radius:15px}.auto-roi-steps>li{padding:16px}.auto-roi-heading h3{font-size:1.55rem}.auto-roi-actions{flex-direction:column}.auto-roi-actions button{width:100%}.auto-roi-heading>p:last-child{font-size:.84rem}}
+
+/* A calm gallery of research tasks, with guidance inside each frame. */
+#researchView #workspaceHome{grid-template-columns:minmax(0,1fr);gap:22px;padding-top:8px}
+#researchView #workspaceHome .workspace-welcome{padding:12px 0 0}
+#researchView #workspaceHome .workspace-welcome h3{margin:0;font-size:23px}
+#researchView #workspaceHome .workspace-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+#researchView #workspaceHome .workspace-choice{margin:0;border-radius:22px;display:flex;align-items:flex-start;padding:24px;min-height:170px;background:#fafafa}
+#researchView #workspaceHome .workspace-choice strong{font-size:20px;line-height:1.4;font-weight:600}
+#researchView #workspaceHome .workspace-choice small{font-size:12px;line-height:1.7;color:#777;margin-top:12px}
+#researchView #workspaceHome .workspace-preparation-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0}
+#researchView #workspaceHome .workspace-preparation-cards>details{min-width:0;margin:0;border-radius:22px}
+#researchView #workspaceHome .workspace-preparation-cards>details[open]{grid-column:1/-1}
+#researchView #workspaceHome .auto-roi-workflow{padding:28px;border-radius:26px;background:#fff}
+#researchView #workspaceHome .auto-roi-heading{margin-bottom:24px}
+#researchView #workspaceHome .auto-roi-heading h3{max-width:40ch;margin-bottom:0;font-size:clamp(1.7rem,3.2vw,2.45rem);line-height:1.2;word-break:keep-all;text-wrap:balance}
+#researchView #workspaceHome .auto-roi-steps>li{border-radius:22px;padding:23px;background:#fafafa}
+#researchView #workspaceHome .auto-roi-actions button,#researchView #workspaceHome .auto-roi-download{border-radius:22px;min-height:44px}
+#researchView #workspaceHome .auto-roi-readiness{border:0;border-radius:16px;background:#f5f5f5;margin:20px 0 12px;padding:13px 16px}
+#researchView #workspaceHome .auto-roi-details{border:0;padding-top:6px}
+#researchView #workspaceHome .auto-roi-responsibility{padding-top:0}
+#researchView #workspaceHome .workspace-local{font-size:11px;color:#777;margin-top:0}
+@media(max-width:800px){#researchView #workspaceHome .workspace-choices{grid-template-columns:1fr}#researchView #workspaceHome .workspace-choice{min-height:0;padding:21px}#researchView #workspaceHome .workspace-preparation-cards{grid-template-columns:1fr}#researchView #workspaceHome .auto-roi-workflow{padding:22px}}
+@media(max-width:420px){#researchView #workspaceHome .auto-roi-workflow{padding:18px}#researchView #workspaceHome .auto-roi-heading h3{font-size:1.65rem}#researchView #workspaceHome .auto-roi-steps>li{padding:19px}}
+
+/* Give each task its own surface, with open space between the groups. */
+#researchView #workspaceHome{gap:32px;padding:8px 0 56px}
+#researchView #workspaceHome .auto-roi-workflow{border:0;border-radius:0;padding:0;background:transparent}
+#researchView #workspaceHome .auto-roi-heading{margin:8px 0 36px;max-width:900px}
+#researchView #workspaceHome .auto-roi-eyebrow{margin-bottom:20px}
+#researchView #workspaceHome .auto-roi-heading h3{font-size:clamp(1.8rem,3.4vw,2.7rem);line-height:1.25;max-width:32ch}
+#researchView #workspaceHome .auto-roi-steps{gap:24px}
+#researchView #workspaceHome .auto-roi-steps>li{padding:30px;border:1px solid #ececec;background:#f8f8f8;border-radius:28px;gap:20px;min-height:270px}
+#researchView #workspaceHome .auto-roi-steps h4{font-size:1.18rem;line-height:1.5;margin:0 0 4px}
+#researchView #workspaceHome .auto-roi-step-number{font-size:.75rem;color:#666}
+#researchView #workspaceHome .auto-roi-actions{gap:12px}
+#researchView #workspaceHome .auto-roi-actions button,#researchView #workspaceHome .auto-roi-download{padding:12px 17px;line-height:1.6;min-height:46px}
+#researchView #workspaceHome .auto-roi-readiness{padding:16px 20px;margin:24px 0 16px;border-radius:18px;background:#fafafa}
+#researchView #workspaceHome .auto-roi-responsibility{max-width:800px}
+#researchView #workspaceHome .workspace-welcome{padding-top:24px}
+#researchView #workspaceHome .workspace-welcome h3{font-size:28px;letter-spacing:-.035em;line-height:1.3}
+#researchView #workspaceHome .workspace-choices{gap:24px}
+#researchView #workspaceHome .workspace-choice{padding:30px;min-height:212px;border-radius:28px;background:#fff;border-color:#e5e5e5}
+#researchView #workspaceHome .workspace-choice strong{font-size:21px;max-width:22ch}
+#researchView #workspaceHome .workspace-choice small{font-size:13px;line-height:1.8;margin-top:18px;max-width:34ch}
+#researchView #workspaceHome .workspace-preparation-cards{gap:24px}
+#researchView #workspaceHome .auto-roi-advanced-title{margin:24px 0 -8px;font-size:13px}
+#researchView #workspaceHome .workspace-local{font-size:12px;line-height:1.8}
+@media(hover:hover) and (pointer:fine){#researchView #workspaceHome .workspace-choice:hover{border-color:#c5c5c5;background:#fafafa;transform:translateY(-2px);box-shadow:0 8px 24px -16px #0002}}
+@media(max-width:1000px){#researchView #workspaceHome .auto-roi-steps>li{padding:24px}#researchView #workspaceHome .workspace-choice{padding:24px}}
+@media(max-width:900px){#researchView #workspaceHome .auto-roi-steps{gap:20px}#researchView #workspaceHome .auto-roi-steps>li{min-height:0}#researchView #workspaceHome .auto-roi-heading{margin-bottom:28px}}
+@media(max-width:800px){#researchView #workspaceHome .workspace-choices{gap:20px}#researchView #workspaceHome .workspace-choice{min-height:0;padding:28px}#researchView #workspaceHome .workspace-choice strong,#researchView #workspaceHome .workspace-choice small{max-width:60ch}}
+@media(max-width:520px){#researchView #workspaceHome{gap:28px;padding-bottom:40px}#researchView #workspaceHome .auto-roi-heading{margin-top:0}#researchView #workspaceHome .auto-roi-heading h3{font-size:1.85rem}#researchView #workspaceHome .auto-roi-steps>li{padding:24px;border-radius:24px}#researchView #workspaceHome .workspace-welcome{padding-top:12px}#researchView #workspaceHome .workspace-welcome h3{font-size:25px}#researchView #workspaceHome .workspace-choice{padding:24px;border-radius:24px}#researchView #workspaceHome .workspace-preparation-cards{gap:16px}}
+@media(prefers-reduced-motion:reduce){#researchView #workspaceHome .workspace-choice:hover{transform:none}}
+
+/* v31: independent, single-tone task cards and preparation entry points. */
+#researchView #workspaceHome .auto-roi-steps>li,#researchView #workspaceHome .workspace-choice{background:#f3f3f3;border-color:#f3f3f3;box-shadow:none}
+#researchView #workspaceHome .workspace-choice:hover{background:#e9e9e9;border-color:#e9e9e9;box-shadow:0 14px 32px -20px #00000030;transform:translateY(-2px)}
+#researchView #workspaceHome .auto-roi-actions button,#researchView #workspaceHome .auto-roi-download{background:#e6e6e6;border-color:#e6e6e6;border-radius:18px;transition:background-color 280ms ease,border-color 280ms ease,box-shadow 320ms ease}
+#researchView #workspaceHome .auto-roi-actions button:not(:disabled):hover,#researchView #workspaceHome .auto-roi-download:hover{background:#dedede;border-color:#dedede}
+#researchView #workspaceHome .auto-roi-actions #autoROIOpenImage{background:#171717;border-color:#171717;color:#fff}
+#researchView #workspaceHome .auto-roi-actions #autoROIOpenImage:not(:disabled):hover{background:#363636;border-color:#363636}
+#researchView #workspaceHome .auto-roi-details>summary{min-height:72px;border-radius:20px;background:#e9e9e9;border-color:#e9e9e9;padding:18px}
+#researchView #workspaceHome .auto-roi-details>summary:hover{background:#e1e1e1;border-color:#e1e1e1}
+#researchView #workspaceHome .auto-roi-responsibility{width:min(100%,360px)}
+#researchView #workspaceHome .auto-roi-responsibility>summary{min-height:100px}
+#researchView #workspaceHome .workspace-preparation-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+#researchView #workspaceHome .workspace-preparation-cards>details{grid-column:auto}
+#researchView #workspaceHome .workspace-preparation-cards>details[open]{grid-column:auto}
+#researchView #workspaceHome .workspace-preparation-cards>details>summary{min-height:160px;padding:28px;border-radius:26px;background:#f3f3f3;border-color:#f3f3f3;font-size:15px;line-height:1.65}
+#researchView #workspaceHome .workspace-preparation-cards>details>summary:hover{background:#e9e9e9;border-color:#e9e9e9}
+@media(max-width:700px){#researchView #workspaceHome .workspace-preparation-cards{grid-template-columns:1fr;gap:18px}#researchView #workspaceHome .workspace-preparation-cards>details>summary{min-height:112px;padding:24px}}
+@media(prefers-reduced-motion:reduce){#researchView #workspaceHome .workspace-choice:hover{transform:none}}
+
+/* UI 33: distinguish task groups through type and space, not repeated slabs. */
+#researchView #workspaceHome .auto-roi-steps>li{min-height:0;padding:24px 0;background:transparent;border-color:transparent;border-radius:0;gap:16px}
+#researchView #workspaceHome .auto-roi-steps h4{font-size:20px}
+#researchView #workspaceHome .auto-roi-actions button,#researchView #workspaceHome .auto-roi-download{min-height:44px;padding:10px 18px;border-radius:999px;font-size:15px;line-height:1.5}
+#researchView #workspaceHome .auto-roi-details>summary{width:fit-content;min-height:44px;padding:10px 18px;border-radius:999px;font-size:15px;background:#f3f3f3;border-color:#f3f3f3}
+#researchView #workspaceHome .auto-roi-responsibility>summary{min-height:44px;padding:10px 18px;border-radius:999px;font-size:15px}
+#researchView #workspaceHome .workspace-choice{min-height:0;padding:22px;background:#fafafa;border-color:#fafafa;border-radius:22px}
+#researchView #workspaceHome .workspace-choice strong{font-size:20px}
+#researchView #workspaceHome .workspace-choice small{font-size:15px;margin-top:12px;line-height:1.65}
+#researchView #workspaceHome .workspace-preparation-cards>details>summary{min-height:64px;padding:16px 20px;border-radius:22px;font-size:16px;line-height:1.5}
+@media(max-width:700px){#researchView #workspaceHome .workspace-preparation-cards>details>summary{min-height:60px;padding:14px 18px;font-size:15px}}

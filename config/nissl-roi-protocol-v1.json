@@ -1,0 +1,88 @@
+{
+  "schema": "cerebellum-roi-protocol/1",
+  "protocol_id": "nissl-layer-roi",
+  "version": "1.0.0-draft.2",
+  "status": "draft",
+  "approval": {
+    "approved": false,
+    "approved_by": null,
+    "approved_utc": null,
+    "note": "Draft compiled from the recorded final ROI sets and decision log. It becomes the analysis criterion only after the researcher approves it and resolves the open decisions listed below."
+  },
+  "scope": "Naming, geometry, measurement and consistency rules for cerebellar tissue and layer ROIs drawn on Nissl section montages. It does not define section thickness, section spacing, anatomical position or any statistical endpoint.",
+  "calibration": {
+    "pixels_per_micron": 1.4,
+    "status": "observed",
+    "basis": "Areas and lengths recomputed from ROI coordinates at this scale agree with the recorded measurement tables of the reference sections. The acquisition record itself has not been checked."
+  },
+  "roi_names": {
+    "totals": {
+      "Cb": {"tissue": "Cb", "geometry": ["area"]},
+      "PL_TOTAL": {"tissue": "PL", "geometry": ["line", "area"]},
+      "ML_TOTAL": {"tissue": "ML", "geometry": ["area"]},
+      "GL_TOTAL": {"tissue": "GL", "geometry": ["area"]},
+      "WM": {"tissue": "WM", "geometry": ["area"]},
+      "GL+WM": {"tissue": "GL+WM", "geometry": ["area"]}
+    },
+    "local": {
+      "pattern": "<tissue>_<lobule>_part<N>",
+      "tissues": {"PL": ["line", "area"], "ML": ["area"], "GL": ["area"]},
+      "first_part": 1
+    },
+    "lobules": ["2Cb", "3Cb", "4-5Cb", "6Cb", "7Cb", "8Cb", "9Cb", "10Cb", "Sim", "Crus1", "Crus2", "PM", "Cop", "PFl", "Fl"],
+    "lobule_aliases": {"FI": "Fl", "PFI": "PFl", "4/5Cb": "4-5Cb"},
+    "fissure_prefix": "FISSURE_",
+    "fissures": ["prf", "psf", "ppf", "sf", "icf", "apmf", "pcuf", "plf", "pcn", "Cop"],
+    "fissures_seen_once": ["pms", "sec"]
+  },
+  "definitions": [
+    {"id": "DEF-CB", "status": "observed", "text": "Cb is the outline of all cerebellar tissue in the section. Discontinuous tissue is kept as separate parts of one ROI and true tissue gaps are not bridged (decision log DEC-001, DEC-007)."},
+    {"id": "DEF-ML", "status": "proposed", "text": "ML_TOTAL is the tissue on the pial side of the Purkinje cell layer, as drawn in the final ROI sets. Earlier files used two other definitions, so the choice needs the researcher's confirmation."},
+    {"id": "DEF-GL", "status": "observed", "text": "GL_TOTAL is the granular layer between the Purkinje cell layer and white matter. GL+WM is drawn as one outline and must agree with GL_TOTAL plus WM."},
+    {"id": "DEF-PL", "status": "proposed", "text": "PL_TOTAL is a line along the Purkinje cell layer and its measurement is length. Lateral sections where it was drawn as an area band have no length and are listed for review; whether to redraw them as lines is open."},
+    {"id": "DEF-LOCAL", "status": "observed", "text": "Local ROIs split a layer by lobule. Disconnected pieces of one lobule are numbered part1, part2 and so on (DEC-002)."},
+    {"id": "DEF-FISSURE", "status": "observed", "text": "FISSURE_ lines mark lobule borders. They are landmarks and are not measured. FISSURE_Cop is an accepted label (DEC-005)."},
+    {"id": "DEF-UNASSIGNED", "status": "proposed", "text": "Cb area not covered by ML_TOTAL, GL_TOTAL or WM is left unassigned, which includes the Purkinje cell layer band and outline gaps. It is reported as the closure ratio and is not redistributed."}
+  ],
+  "measurement": {
+    "profile": "roi-geometry/1",
+    "area": "Polygon area from ROI vertex coordinates in original image pixels, converted with the calibration. Parts and holes of a composite ROI are combined by signed area.",
+    "length": "Vertex path length of line ROIs, converted with the calibration.",
+    "perimeter": "ImageJ-compatible for polygon, traced, line and composite ROIs. Freehand outlines use ImageJ smoothing that is not reproduced; the value is left empty.",
+    "not_derived_from_coordinates": ["Mean", "Integrated_Density", "Feret", "Review"],
+    "line_roi_area": "Not reported. The recorded area of a line ROI depends on its display stroke width and is not a tissue measurement.",
+    "comparison_tolerance_relative": 0.001
+  },
+  "qc": {
+    "status": "proposed",
+    "note": "Thresholds order sections for human review. They are not pass or fail criteria and were chosen from the spread observed in the reference sections.",
+    "closure_ratio": {"definition": "(ML_TOTAL + GL_TOTAL + WM) / Cb", "review_below": 0.93, "review_above": 1.0},
+    "gl_wm_consistency": {"definition": "(GL_TOTAL + WM) / GL+WM", "review_if_deviation_above": 0.005},
+    "local_to_total": {
+      "definition": "sum of local ROIs / total ROI of the same layer",
+      "ML": {"review_below": 0.95},
+      "GL": {"review_below": 0.98},
+      "PL": {"review_below": 0.97},
+      "review_above": 1.001
+    },
+    "layer_outline": {
+      "definition": "Construction of the main outline of each listed layer total: pixel-edge (integer vertices joined by axis-parallel steps, as written from a mask) or free-polygon (any other vertices, as placed by hand). The section value is the shared construction, or mixed.",
+      "layers": ["ML_TOTAL", "GL_TOTAL"],
+      "review_if": ["free-polygon", "mixed"]
+    },
+    "unassigned_per_pl_length_um": {
+      "definition": "(Cb - ML_TOTAL - GL_TOTAL - WM) / PL_TOTAL length, in micrometres, where PL_TOTAL is a line. Overlapping outlines lower the value.",
+      "review_above": 16.0
+    }
+  },
+  "open_decisions": [
+    {"id": "OPEN-ML", "question": "Is the pial-side definition of ML_TOTAL the criterion for every animal, including files drawn before it was adopted?"},
+    {"id": "OPEN-PL-LATERAL", "question": "Should PL_TOTAL in lateral sections be redrawn as a line, or kept as an area band and excluded from PL length?"},
+    {"id": "OPEN-ALIASES", "question": "Are Fl, PFl and 4-5Cb the official labels, with FI, PFI and 4/5Cb treated as spelling variants?"},
+    {"id": "OPEN-FISSURES", "question": "Are the single-use fissure labels pms and sec official names or one-off labels to be renamed?"},
+    {"id": "OPEN-QC", "question": "Are the proposed review thresholds acceptable as the order in which sections are shown for review?"},
+    {"id": "OPEN-CALIBRATION", "question": "Does the acquisition record confirm 1.4 pixels per micron for every animal?"},
+    {"id": "OPEN-ML-INNER", "question": "Where does ML end on the Purkinje side: is the band holding the Purkinje cell bodies part of ML, a separate PL area, or left unassigned? The 66 reference sections mix three constructions."},
+    {"id": "OPEN-HARMONISE", "question": "Should existing sections be redrawn to one rule, or kept as drawn with comparisons limited to values that do not depend on the ML inner boundary (Cb - GL - WM, GL, WM, PL length)?"}
+  ]
+}

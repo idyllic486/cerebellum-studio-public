@@ -1,0 +1,115 @@
+<section id="researchView" class="hidden" aria-labelledby="workspaceTitle">
+  __WORKSPACE_PANEL__
+  <div id="workspaceImage" class="workspace-pane" data-workspace-pane="image" hidden>__ANALYSIS_PANEL__</div>
+  <div id="workspaceStudy" class="workspace-pane" data-workspace-pane="study" hidden>__STUDY_PANEL____SCIENCE_TOOLS_PANEL____PRIVATE_COLLABORATION_PANEL__</div>
+  <div id="workspaceObservations" class="workspace-pane workspace-observations" data-workspace-pane="observations" hidden>
+  <div class="annotation-intro">
+    <div><h2 id="researchTitle">From files to a spatial view.</h2><p>See your sections together, with every source image and measurement close at hand.</p></div>
+    <div class="research-actions">
+      <a class="filebutton" href="#analysisPanel">Image to measurements</a>
+      <a class="filebutton" href="#studyPanel">Study pipeline</a>
+      <a class="filebutton" href="#methodsPanel">Reconstruction experiments</a>
+      <a class="filebutton" href="#labPanel">Sensitivity and strategy validation</a>
+      <a class="filebutton" href="#spatialPanel">3D simulation</a>
+      <label class="filebutton research-file-button">Open project<input id="researchImport" type="file" accept=".zip,.json,application/zip,application/json" aria-label="Open observation project or input draft"></label>
+      <button id="researchSaveInputs" type="button">Save inputs</button>
+      <button id="researchExport" type="button" disabled>Save project</button>
+    </div>
+  </div>
+
+  <p class="research-local-note">Files are processed in this browser. Input recovery keeps a local working copy when browser storage is available. <strong>Download a project or input draft for a portable copy.</strong></p>
+
+
+  <div class="research-recovery" aria-label="Observation input recovery">
+    <p id="researchRecoveryStatus" role="status" aria-live="polite">Checking browser input recovery…</p>
+    <div class="research-actions"><button id="researchRestoreInputs" type="button" hidden>Restore previous inputs</button><button id="researchDiscardRecovery" type="button" hidden>Discard recovery copy</button></div>
+  </div>
+
+  <section class="panel research-input-panel" aria-labelledby="researchInputTitle">
+    <div class="panelhead"><div><p class="research-kicker">YOUR OBSERVATIONS</p><h2 id="researchInputTitle">Bring your sections together.</h2></div><span class="mini">Original files stay intact</span></div>
+    <div class="panelbody">
+      <p class="research-flow-intro">Add an image or existing ROI for each section. Inspect their arrangement in 3D, then save the sources and your review in one project.</p>
+      <div class="research-project-name"><label class="research-field research-name-field">Project name<input id="researchName" type="text" value="My cerebellum study" maxlength="120" autocomplete="off"></label></div>
+      <section class="research-flow-step" aria-labelledby="researchSourcesTitle">
+        <div class="research-step-heading"><span class="research-step-number" aria-hidden="true">1</span><div><h3 id="researchSourcesTitle">Add your sources</h3><p>One section per row. Start with what you have.</p></div></div>
+        <div id="researchRows" class="research-rows" aria-label="Observed section list"></div>
+        <button id="researchAddSection" type="button" class="research-add-section">Add another section</button>
+        <details class="research-small-help"><summary>Starting from a new TIFF?</summary><p>Use <a href="#analysisPanel">Image analysis</a> to generate and review draft ROIs with a compatible trained model. This view displays the images and ROIs you supply; it does not generate missing contours.</p></details>
+      </section>
+      <section class="research-flow-step research-coordinate-step" aria-labelledby="researchCoordinatesTitle">
+        <div class="research-step-heading"><span class="research-step-number" aria-hidden="true">2</span><div><h3 id="researchCoordinatesTitle">Check the coordinates</h3><p>Keep pixels and section order for a first look. Use measured units when your calibration is known.</p></div></div>
+        <div class="research-project-fields">
+          <label class="research-field">Coordinate unit<select id="researchUnit"><option value="pixel">Pixels · uncalibrated</option><option value="um">Micrometres · µm</option></select></label>
+          <label class="research-field">Image scale · µm/px<input id="researchScale" type="number" min="0.000001" step="any" value="1" disabled aria-describedby="researchScaleHelp"></label>
+          <label class="research-field">Depth coordinate<select id="researchDepthMode"><option value="index">Section order · for display</option><option value="measured">Measured depth · µm</option></select></label>
+        </div>
+        <details class="research-small-help"><summary>About scale and depth</summary><p id="researchScaleHelp">When selecting µm, enter micrometres per source pixel. For an old calibration expressed as px/µm, use its reciprocal: 2 px/µm equals 0.5 µm/px. ROIs and images must share the same pixel origin, size and orientation. The scale assumes isotropic pixels with equal X and Y. Section order sets display spacing only; it cannot establish anatomical depth or volume.</p></details>
+      </section>
+      <section class="research-flow-step research-build-step" aria-labelledby="researchInspectTitle">
+        <div class="research-step-heading"><span class="research-step-number" aria-hidden="true">3</span><div><h3 id="researchInspectTitle">Inspect the evidence</h3><p>Rotate the observed planes and check each contour against its source.</p></div></div>
+        <p id="researchCapacity" class="mini" role="status">0.0 MiB selected · 512 MiB source limit · 256 MiB per file</p>
+        <button id="researchBuild" type="button" class="primary">View in 3D </button>
+      </section>
+      <details class="help-detail research-help">
+        <summary>Supported files and missing sections</summary>
+        <p>Link a TIFF, PNG or JPG image and an ImageJ .roi file or ROI ZIP to each section. A measurement CSV is optional. Register different sections as separate rows, and do not treat montage tiles of a single section as multiple sections.</p>
+        <p>Retain a genuinely missing section as excluded, with its reason. Use Delete row for an unused empty row. Measured depth requires an XY scale and the actual z coordinate of every section, including excluded sections. Origin, orientation and alignment must also be verified manually.</p>
+        <p>This view stacks the entered observed planes. It performs no automatic segmentation or anatomical registration, and missing ROIs or measurements are not filled with 0 or estimates. Unsupported data are reported as errors. Project limits are 256 MiB per file, 512 MiB of source data per binary project, 100 sections and 4,998 original files. Single-page uncompressed 8-bit gray or RGB strip TIFFs support up to 80 million pixels. Other supported TIFFs are limited to 128 MiB per file, 40 million pixels and 128 MiB of decoded channels. PNG and JPEG images remain limited to 40 million pixels. Use UTF-8 CSV.</p>
+      </details>
+    </div>
+  </section>
+
+  <div id="researchStatus" class="status" role="status" aria-live="polite">Your original files stay in this browser. Add your first section to begin.</div>
+  <div id="researchWarnings" class="research-warnings" aria-live="polite"></div>
+
+  <div class="research-workspace research-result-content">
+    <section class="panel research-viewer" aria-labelledby="researchViewerTitle">
+      <div class="panelhead"><h2 id="researchViewerTitle">Observed planes in 3D</h2><button id="researchFit" type="button">View all</button></div>
+      <div class="research-viewer-tools">
+        <label class="research-layer-field">Tissue to display<select id="researchLayerFilter"><option value="all">All ROIs</option><option value="CB">Whole cerebellum · CB</option><option value="ML">Molecular layer · ML</option><option value="GL">Granular layer · GL</option><option value="WM">White matter · WM</option><option value="PL">Purkinje layer · PL</option><option value="other">Other ROIs</option></select></label>
+        <label class="research-check"><input id="researchShowImages" type="checkbox" checked>Image preview</label>
+        <label class="research-check"><input id="researchRotate" type="checkbox">Auto-rotate</label>
+      </div>
+      <div id="researchStage" class="research-stage" role="img" aria-label="3D arrangement of registered observed sections"></div>
+      <p class="research-stage-caption">Drag to rotate · scroll to zoom. Spacing in section-order mode is for display and is not anatomical depth.</p>
+    </section>
+    <section class="panel research-evidence" aria-labelledby="researchSummaryTitle">
+      <div class="panelhead"><h2 id="researchSummaryTitle">Data and coordinates</h2></div>
+      <div class="panelbody"><div id="researchSummary"><p class="mini">Once the 3D view is assembled, the number of observed planes, the coordinate unit and the status of the loaded data appear here.</p></div></div>
+    </section>
+  </div>
+
+  <section class="panel research-review-panel research-result-content" aria-labelledby="researchReviewTitle">
+    <div class="panelhead"><h2 id="researchReviewTitle">Collaborative review</h2><span class="mini">Research records exchanged as files</span></div>
+    <div class="panelbody">
+      <div class="research-review-grid">
+        <div class="research-review-form">
+          <label class="research-field">Reviewer name<input id="researchReviewer" type="text" maxlength="100" autocomplete="name" placeholder="Name to record"></label>
+          <label class="research-field">Review content<textarea id="researchReviewText" rows="4" maxlength="10000" placeholder="Record the section number, the evidence checked and any proposed corrections."></textarea></label>
+          <button id="researchReviewSave" type="button" disabled>Add review record</button>
+        </div>
+        <div class="research-review-history">
+          <h3>Review records</h3>
+          <div id="researchReviews" class="research-reviews" aria-live="polite"><p class="mini">No records yet.</p></div>
+          <div class="research-actions">
+            <button id="researchReviewExport" type="button" disabled>Save review file</button>
+            <label class="filebutton research-file-button">Merge review files<input id="researchReviewImport" type="file" accept=".json,application/json" aria-label="Import a colleague’s review JSON"></label>
+          </div>
+        </div>
+      </div>
+      <details class="help-detail research-help">
+        <summary>How to continue research with colleagues</summary>
+        <ol><li>Use ‘Save project’ after applying the inputs. The ZIP includes the original observation files and a manifest; legacy JSON projects remain readable. Send the downloaded file to a colleague.</li><li>The colleague inspects the data with ‘Open project’ and adds review records.</li><li>Import the colleague’s saved review file with ‘Merge review files’. Records whose project ID and data fingerprint match are merged.</li></ol>
+        <p>Save inputs downloads an editable input draft, including pending file and calibration changes. It does not include the last assembled 3D project, image-analysis work or study-pipeline work. Exchange is currently file-based. Accounts, server storage and real-time co-editing are not provided. Reviewer names are display names entered by the author. Keep source images and ROIs separately, and share a new project file after changing the data.</p>
+      </details>
+    </div>
+  </section>
+  <details class="help-detail research-help">
+    <summary>Next studies to pursue in this workspace</summary>
+    <p><strong>Comparative audit</strong> · Traces measurement differences between laboratories back to source ROIs, units and exclusion criteria.</p>
+    <p><strong>Independent re-review</strong> · Records disagreements and the consensus process after separate reviews of the same data. File exchange of reviews bound to the same data version is currently provided.</p>
+    <p><strong>Next-observation selection</strong> · Proposes candidate sections requiring further verification using hold-out evaluation and inter-method disagreement. Automatic interpolation and hold-out evaluation for new data, and the analytical functions of these three studies, remain subject to future validation.</p>
+  </details>
+  </div>
+  <div id="workspaceTools" class="workspace-pane" data-workspace-pane="tools" hidden>__METHODS_PANEL__</div>
+</section>

@@ -1,0 +1,4 @@
+-r requirements-nissl.txt
+# Optional supervised CPU training and image previews; no trained weights bundled.
+scikit-learn==1.6.1
+Pillow==11.1.0

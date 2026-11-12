@@ -1,0 +1,30 @@
+name: Checks
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      - run: python -m pip install numpy scipy
+      - run: python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
+      - name: Install the browser and host libraries
+        run: |
+          for attempt in 1 2 3; do sudo apt-get update && npx playwright install --with-deps chromium && break; if [ "$attempt" = 3 ]; then exit 1; fi; sleep 30; done
+      - name: Select the installed browser
+        run: node -e 'console.log("CHROMIUM_PATH="+require("playwright").chromium.executablePath())' >> "$GITHUB_ENV"
+      - run: python qa/run_public_checks.py

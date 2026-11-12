@@ -1,0 +1,19 @@
+{
+  "schema": "cerebellum-onnx-model/1",
+  "model": {
+    "id": "REPLACE_WITH_TRAINED_MODEL_ID",
+    "version": "REPLACE_WITH_TRAINED_MODEL_VERSION",
+    "weights_sha256": "REPLACE_WITH_64_CHARACTER_SHA256"
+  },
+  "single_section": false,
+  "input_layout": "NCHW",
+  "output_layout": "NCHW",
+  "input_channels": "RGB",
+  "input_dtype": "uint8",
+  "normalization": {"offset": [0, 0, 0], "scale": [255, 255, 255]},
+  "tile_size": [512, 512],
+  "tile_overlap": [64, 64],
+  "classes": ["background", "ML", "GL", "WM"],
+  "output_kind": "logits",
+  "padding": "edge"
+}

@@ -1,0 +1,76 @@
+<section id="projectView" class="hidden project-page" aria-labelledby="projectTitle">
+  <div class="project-hero">
+    <div class="eyebrow">CEREBELLUM STUDIO</div>
+    <h1 id="projectTitle">From tissue images<br>to reviewable evidence.</h1>
+    <p>A research workspace for Nissl-stained mouse cerebellum sections.<br>Keep images, boundaries, measurements and review connected.</p>
+    <div class="intro-actions"><button class="primary" data-workspace-open="image">Start with an image</button><button data-guide-open>See the workflow</button></div>
+  </div>
+
+  <section class="project-section" aria-labelledby="projectPurposeTitle">
+    <div class="section-heading"><h2 id="projectPurposeTitle">Built around the research.</h2><p>Know what the tool does, what you keep, and what still needs your judgement.</p></div>
+    <dl id="projectQuestions" class="glossary project-answers">
+      <dt>Why was it built?</dt><dd>Images, ROI files, measurement tables and review notes often sit apart. Studio connects them so a result can be examined alongside the observation and decisions behind it.</dd>
+      <dt>Who is it for?</dt><dd>Researchers analysing Nissl-stained mouse cerebellum sections, including those bringing existing ImageJ ROIs and CSV measurements.</dd>
+      <dt>Why use it?</dt><dd>Trace a measurement to its source, inspect a boundary on the image, and retain calibration, exclusions and review history when sharing work.</dd>
+      <dt>What does it help with today?</dt><dd>Inspect sections together, import or draw ROIs, edit and approve measurements, and compare recorded observations in one browser workspace. Model-generated drafts are optional; original files are processed locally.</dd>
+      <dt>What are the limits?</dt><dd>Automatic ROI drafts come from a trained model: the built-in tissue-layer model or one you supply. Anatomical accuracy, performance on independent animals and review-time savings remain unvalidated. Researchers must check and approve results.</dd>
+      <dt>What can I take away?</dt><dd>Reviewed ImageJ ROIs, measurement CSVs and source-linked provenance; a saved project with its source files and review records; and, with verified calibration and section depths, physical Study 3D and animal-level volume estimates over the included sampled intervals.</dd>
+    </dl>
+    <details class="project-detail"><summary>Before starting a new TIFF analysis</summary><p>Open a TIFF of one physical section, including a montage of camera tiles from that section. Import existing ImageJ ROIs or start manual review and draw boundaries. Check the geometry, tissue labels and verified calibration, then approve and download your results. No model is required for this workflow. Editing an approved result requires review again.</p><p>Local Lab supports training and batch processing on your computer. A compatible model or image-linked predictions are optional advanced inputs. No validated Nissl model is included. Model output does not establish anatomical correctness or automatically identify every lobule.</p><p><a href="./downloads/browser-model-guide.md" download>Browser model guide <span class="mini" translate="no" lang="en">(English)</span></a> · <a href="./downloads/analysis-pipeline-guide.md" download>Image-analysis guide <span class="mini" translate="no" lang="en">(English)</span></a></p></details>
+  </section>
+
+  <section class="project-section" aria-labelledby="project3DTitle">
+    <div class="section-heading"><h2 id="project3DTitle">Read the 3D with its evidence.</h2><p>The example, your study and the atlas answer different questions.</p></div>
+    <details class="project-detail"><summary>Example: observed contours and virtual depth</summary><p>The example viewer connects 12 existing observations, with seven shown in the default range. Its depth is virtual. It is useful for exploring contours, inferred surfaces and virtual sections; it does not establish a physical specimen volume.</p><button data-project-go="explore">Inspect the observations</button></details>
+    <details class="project-detail"><summary>Your study: calibrated observations and conditional volume estimates</summary><p>The Observations view places the images and ROIs you supply on section planes. The separate Study workflow uses verified X/Y calibration and actual section depths for physical reconstruction. Reviewed measurements and the selected protocol support volume estimates between included sections; complete organ coverage must be established separately.</p><p>Missing layers and unresolved exclusions are not replaced with zero. Interpolated surfaces remain previews. Native contour measurements and the display mesh are kept separate, and WT / KO comparisons use animals as the comparison units.</p><button id="projectStudyStart" data-workspace-open="study">Open a study</button> <a href="./downloads/study-pipeline-guide.md" download>Study workflow guide <span class="mini" translate="no" lang="en">(English)</span></a></details>
+    <details class="project-detail"><summary>Atlas reference: sagittal planes of an open annotation, unreviewed</summary><p>The atlas explorer shows sagittal planes cut every 100 µm from an openly licensed annotation of an average mouse brain, with outlines of the cerebellum, its granular layer and its white matter. They are not an approved tissue segmentation or additional specimen observations.</p><p>These references have not been registered to the example specimen and do not establish automatic lobule recognition. An atlas cannot supply the missing native measurements of an individual animal.</p></details>
+  </section>
+
+  <section class="project-section" aria-labelledby="projectOriginTitle">
+    <div class="section-heading"><h2 id="projectOriginTitle">It started with one cerebellum.</h2><p>Studio began by connecting the images, contours and measurements of a single mouse cerebellum. That work became a broader question: how can a researcher keep the evidence intact while moving from a tissue image to a result someone else can review?</p></div>
+    <ol id="projectMilestones" class="roadmap-list">
+      <li><h3>Connected observations</h3><p>The example preserves 12 observed planes, original measurements and recorded exclusions while separating observation from interpolation.</p></li>
+      <li><h3>A workspace for your own sources</h3><p>TIFF images, ImageJ ROIs and CSV measurements can be linked by section and saved with source fingerprints, missing values and review records.</p></li>
+      <li><h3>Draft, inspect, approve</h3><p>Compatible user-trained models can generate ROI candidates. Researchers can edit them and export reviewed contours and measurements with provenance.</p></li>
+      <li><h3>From sections to a study</h3><p>The Study workflow connects review, paired validation, calibrated 3D, animal-level comparison and a local batch queue. Software implementation is distinct from biological validation.</p></li>
+      <li><h3>Reference material in context</h3><p>32 sagittal atlas drawing planes can be explored in published coordinates, with source-derived geometry kept separate from specimen measurements.</p></li>
+    </ol>
+  </section>
+
+  <section class="project-section" aria-labelledby="projectCreatorTitle">
+    <div class="section-heading"><h2 id="projectCreatorTitle">Created by Minseong Kim.</h2><p>Project creator</p></div>
+    <p class="mission-copy">Undergraduate in Life Science and Technology, Yonsei University. Quantitative phenotyping tools for neuroanatomy.</p>
+    <p><a href="https://github.com/idyllic486" target="_blank" rel="noopener">GitHub profile</a></p>
+  </section>
+
+  <section class="project-section" aria-labelledby="projectFutureTitle">
+    <div class="section-heading"><h2 id="projectFutureTitle">A focused beginning. A wider ambition.</h2><p>Cerebellum Studio remains the product being built today. Extending the same source-to-review workflow to other tissues and biological questions is a future direction.</p></div>
+    <details class="project-detail"><summary>What needs to happen next</summary><p><strong>Independent validation.</strong> Evaluate real Nissl images from held-out animals and document the acquisition conditions, annotation protocol and model history.</p><p><strong>Measured benefit.</strong> Measure review effort, correction frequency and reproducibility in actual use before claiming that the workflow saves time.</p><p><strong>Broader applications.</strong> Adapt and validate each new tissue or staining workflow on its own evidence, rather than assuming performance transfers.</p><p><strong>Shared research.</strong> Develop collaboration beyond the current file-based exchange. Accounts, server storage and real-time co-editing are not provided today.</p></details>
+  </section>
+
+  <section class="project-section" aria-labelledby="projectEvidenceTitle">
+    <div class="section-heading"><h2 id="projectEvidenceTitle">The records behind the project.</h2><p>How to read the figures, the terms used, and the records kept so far.</p></div>
+    <details class="project-detail"><summary>Three principles for reading the figures</summary><div class="evidence-keys"><p><b>Observed</b> Source images and manual ROIs (regions of interest). Existing labels may also contain errors.</p><p><b>Inferred</b> Surfaces and sections connecting observed planes. They do not represent the entire imaged space.</p><p><b>Review</b> Judgements recorded with annotation status and evidence. ‘Observation-confirmed’ is a reviewer’s record and does not replace independent validation.</p></div></details>
+    <details class="project-detail"><summary>Key terms</summary><dl class="glossary"><dt>CB · whole cerebellar contour</dt><dd>Outer extent of the cerebellar region drawn in this dataset.</dd><dt>ML / GL / WM</dt><dd>Molecular layer / granular layer / white matter. Distinct tissue compartments.</dd><dt>PL · Purkinje cell layer path</dt><dd>Length of the recorded line. Not equivalent to cell count or true layer thickness.</dd><dt>ROI · region of interest</dt><dd>Boundary or path specified on an image for measurement or review.</dd><dt>Lobule / fissure</dt><dd>A lobule is a small anatomical subdivision; a fissure is the groove between folds.</dd><dt>WT / KO</dt><dd>Wild type / gene knockout. The exact gene and strain of this dataset require separate confirmation.</dd><dt>Registration</dt><dd>The process of aligning corresponding positions across different images and atlases. Actual atlas registration of the current 3D view has not been performed.</dd></dl><p>Original source names and identifiers are preserved. Interface language does not change the terminology recorded in source files.</p></details>
+    <details class="project-detail"><summary>Earlier implementation milestones</summary><div class="history-line"><p><b>v1</b> 3D exploration connecting observed contours</p><p><b>v2</b> Virtual sectioning, hold-out validation and atlas comparison</p><p><b>v3</b> Annotations recording evidence and revision history</p><p><b>v4</b> Lobule and fissure ROIs and source-data analysis</p><p><b>v5</b> Getting-started guide and multi-animal comparison workspace</p></div><p>The existing comparison covers five animals: three recorded as WT and two as KO. It reports 66 final sections, areas for 64 common sections and PL comparison for 49 sections. These are source-coverage counts, not a validated measure of product growth or independent-animal performance.</p><button data-project-go="cohort">Open specimen comparison</button></details>
+  </section>
+  <div class="feedback-callout"><h2>What would make your work clearer?</h2><p>Record where you got stuck or what you need to investigate next.</p><button class="primary" data-feedback-open>Write feedback</button><small>Saved on this device and exported as JSON. Nothing is sent automatically.</small></div>
+</section>
+
+<dialog id="guideDialog" class="studio-dialog focus-card" aria-labelledby="guideTitle">
+  <div class="dialog-top"><span class="eyebrow">QUICK START</span><button data-close-dialog aria-label="Close guide">Close</button></div>
+  <div class="focus-card-content" tabindex="0"><p id="guideProgress" class="focus-card-progress" aria-live="polite"></p><h2 id="guideTitle"></h2><p id="guideBody"></p>
+  <div id="guideExample" class="guide-example"></div></div>
+  <div class="dialog-actions"><button id="guidePrevious">Previous</button><button id="guideTry">Open directly</button><button id="guideNext" class="primary">Next</button></div>
+</dialog>
+<dialog id="feedbackDialog" class="studio-dialog" aria-labelledby="feedbackTitle">
+  <div class="dialog-top"><span class="eyebrow">YOUR FEEDBACK</span><button data-close-dialog aria-label="Close feedback">Close</button></div>
+  <h2 id="feedbackTitle">What did you need?</h2><p class="mini">Stored only in this device’s browser. May be written without a name or email address.</p>
+  <form id="feedbackForm">
+    <label class="feedback-field">Type<select id="feedbackCategory"><option value="usability">Difficult to use</option><option value="science">Question on interpretation or evidence</option><option value="data">Data or error report</option><option value="idea">Feature suggestion</option></select></label>
+    <label class="feedback-field">Feedback<textarea id="feedbackText" required maxlength="4000" rows="4" placeholder="What were you trying to do, and in which view?"></textarea></label>
+    <p id="feedbackContext" class="mini"></p><div class="dialog-actions"><button type="submit" class="primary">Save on this device</button><button type="button" id="feedbackExport">Export JSON</button></div>
+  </form>
+  <p id="feedbackStatus" class="mini" role="status" aria-live="polite"></p>
+  <details class="project-detail"><summary>Saved feedback</summary><div id="feedbackList"></div><button id="feedbackClear" type="button">Clear saved feedback</button></details>
+</dialog>

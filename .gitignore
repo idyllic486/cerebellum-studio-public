@@ -1,0 +1,8 @@
+node_modules/
+__pycache__/
+*.pyc
+dist/
+dist-*/
+qa/*.png
+qa/*-browser*.json
+.DS_Store

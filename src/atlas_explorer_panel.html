@@ -1,0 +1,45 @@
+<article id="atlasExplorer" class="atlas-explorer" aria-labelledby="atlasRefTitle">
+  <header class="atlas-ref-heading">
+    <div><div class="eyebrow">REFERENCE COLLECTION</div><h2 id="atlasRefTitle">Atlas reference</h2><p>Follow the atlas planes through physical space.</p></div>
+    <span class="atlas-ref-badge">Annotation volume · unreviewed</span>
+  </header>
+  <div class="atlas-ref-frame">
+    <div class="atlas-ref-topline"><span id="atlasRefCount">Preparing reference planes</span><span id="atlasRefCoordinate">Sagittal series</span></div>
+    <div id="atlasRefStage" class="atlas-ref-stage" role="img" aria-label="Three-dimensional arrangement of atlas planes" aria-describedby="atlasRefGesture">
+      <div id="atlasRefPlaceholder" class="atlas-ref-placeholder"><p id="atlasRefLoadMessage">The reference will load when this view is opened.</p><button type="button" id="atlasRefRetry" hidden>Try again</button></div>
+      <svg id="atlasRefAxis" class="atlas-ref-axis" aria-hidden="true" viewBox="0 0 116 84"><circle cx="48" cy="43" r="2" fill="#8a939b"/><line id="atlasRefAxisAP" x1="48" y1="43"/><line id="atlasRefAxisDV" x1="48" y1="43"/><line id="atlasRefAxisML" x1="48" y1="43"/><text id="atlasRefAxisAPLabel">AP</text><text id="atlasRefAxisDVLabel">DV</text><text id="atlasRefAxisMLLabel">Lateral</text></svg>
+    </div>
+    <div class="atlas-ref-viewbar">
+      <div class="atlas-ref-views" aria-label="Atlas viewpoint"><button type="button" id="atlasRefPerspective">3D view</button><button type="button" id="atlasRefSagittal">Section view</button><button type="button" id="atlasRefReset">Reset</button></div>
+      <div class="atlas-ref-zoom" aria-label="Atlas zoom"><button type="button" id="atlasRefZoomOut" aria-label="Zoom out of atlas">Zoom out</button><button type="button" id="atlasRefZoomIn" aria-label="Zoom in on atlas">Zoom in</button></div>
+    </div>
+  </div>
+  <div class="atlas-ref-selection">
+    <label for="atlasRefPlate">Atlas plane<select id="atlasRefPlate" disabled aria-label="Atlas plane to show"></select></label>
+    <div class="atlas-ref-scrubber"><label for="atlasRefPosition">Browse planes <output id="atlasRefPositionLabel">—</output></label><input id="atlasRefPosition" type="range" min="0" max="0" value="0" step="1" disabled aria-label="Browse atlas planes"></div>
+  </div>
+  <div class="atlas-ref-options">
+    <label><input type="checkbox" id="atlasRefStack" checked> Show all planes</label>
+    <label><input type="checkbox" id="atlasRefInner" checked> Show layer outlines</label>
+    <label id="atlasRefSurfaceControl" hidden><input type="checkbox" id="atlasRefSurface"> Show inferred surface</label>
+  </div>
+  <p id="atlasRefStatus" class="atlas-ref-status" aria-live="polite">Reference anatomy is separate from specimen observations.</p>
+  <div class="atlas-ref-placed">
+    <label for="atlasRefPlacedFile">Sections placed on the atlas (file on this computer)<input type="file" id="atlasRefPlacedFile" accept=".json,application/json" disabled></label>
+    <label for="atlasRefPlacedAnimal">Placed animal<select id="atlasRefPlacedAnimal" disabled></select></label>
+    <label for="atlasRefPlacedCompare">Compare with<select id="atlasRefPlacedCompare" disabled></select></label>
+    <button type="button" id="atlasRefPlacedClear" disabled>Remove placed sections</button>
+    <button type="button" id="atlasRefRecord" disabled>Record rotation video</button>
+  </div>
+  <p id="atlasRefPlacedStatus" class="atlas-ref-status" aria-live="polite">No placed sections are loaded. The file is read on this computer and is not uploaded.</p>
+  <p id="atlasRefGesture" class="atlas-ref-gesture">Drag to rotate · Shift-drag to pan · scroll or pinch to zoom. Keyboard: arrows rotate, + / − zoom, Home resets.</p>
+  <details class="atlas-ref-details"><summary>Source and interpretation</summary><div class="atlas-ref-detail-body">
+    <p id="atlasRefSource">The atlas source is shown when the reference has loaded.</p>
+    <p id="atlasRefEvidence">Outlines are placed in the coordinates of the annotation volume. The same scale applies to all three axes. Lines have no anatomical thickness.</p>
+    <p id="atlasRefCoverage">The series runs from the midplane toward one side. The annotation is symmetric, so the other side is its mirror image.</p>
+    <p>The selected plane is amber. Other planes are grey-blue. These are outlines of an average-brain annotation: the whole cerebellum, the granular layer with white matter, and the white matter with the deep nuclei. The Purkinje layer is not drawn. They are not observed tissue or approved segmentations.</p>
+    <p>Placed sections are human-drawn ROI outlines put at the position of the most similar atlas plane. The match is an estimate, left and right are not distinguished, and nothing here is a measured reconstruction or approved anatomy.</p>
+    <p id="atlasRefSurfaceNote" hidden>The optional surface is interpolated between published filled-compartment contours. It is a review model, not the complete cerebellum, a tissue measurement or a specimen reconstruction.</p>
+    <p id="atlasRefHash" class="atlas-ref-hash"></p>
+  </div></details>
+</article>

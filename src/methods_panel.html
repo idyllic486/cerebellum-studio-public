@@ -1,0 +1,75 @@
+<section id="methodsPanel" class="methods-panel" aria-labelledby="methodsTitle">
+  <div class="methods-intro">
+    <div><h2 id="methodsTitle">Comparing methods and choosing the next observation</h2><p>Examines where two methods for inferring between sections diverge and how well they agree on held-out observed planes.</p></div>
+    <button id="methodsExport" type="button" disabled>Save experiment results</button>
+  </div>
+  <p class="methods-prototype">A prototype for reviewing research methods. It does not imply that the new method is superior or that the efficiency of the next observation has been demonstrated.</p>
+
+  <section class="panel" aria-labelledby="methodsSetupTitle">
+    <div class="panelhead"><h2 id="methodsSetupTitle">Data and conditions to compare</h2><span class="mini">Experiment separate from source data</span></div>
+    <div class="panelbody">
+      <div class="methods-fields">
+        <label class="methods-field">Observation data<select id="methodsSource"><option value="builtin7">Example · 7 observed planes</option><option value="builtin12">Example · 12 observed planes</option><option value="mine">My assembled project</option></select></label>
+        <label class="methods-field">Tissue to compare<select id="methodsLayer"><option value="CB" selected>Whole cerebellum · CB</option><option value="ML">Molecular layer · ML</option><option value="GL">Granular layer · GL</option><option value="WM">White matter · WM</option><option value="all">All tissues</option></select></label>
+        <label class="methods-field">Computation grid<select id="methodsGrid"><option value="64">64 × 64</option><option value="96" selected>96 × 96</option></select></label>
+        <label class="methods-field methods-exclude-field">Section IDs to exclude in this experiment<input id="methodsExclude" type="text" autocomplete="off" placeholder="e.g. A-13, A-25" aria-describedby="methodsExcludeHelp"></label>
+        <label class="methods-field">Depths to check · optional<input id="methodsTarget" type="number" step="any" placeholder="Leave blank for automatic candidates" aria-describedby="methodsTargetHelp"></label>
+      </div>
+      <div class="methods-input-notes"><p id="methodsExcludeHelp" class="mini">Separate multiple IDs with commas. Exclusions are recorded for this experiment; source data are not deleted.</p><p id="methodsTargetHelp" class="mini">Depths use the coordinates of the selected data. For data assembled by section order, depths cannot be interpreted as anatomical distances.</p></div>
+      <div class="methods-run-actions"><button id="methodsRun" type="button" class="primary">Run method comparison</button><button id="methodsCancel" type="button" disabled>Stop</button></div>
+    </div>
+  </section>
+
+  <div id="methodsStatus" class="status" role="status" aria-live="polite">Select the data and conditions, then run the comparison. Existing example measurements and the 20 hold-out validation scores are kept separate from this experiment.</div>
+  <div id="methodsSummary" class="methods-summary"><p class="mini">After running, the observed planes used, the exclusion conditions and validation results for both methods appear here.</p></div>
+
+  <div class="methods-result-grid">
+    <section class="panel" aria-labelledby="methodsCandidateTitle">
+      <div class="panelhead"><h2 id="methodsCandidateTitle">Next observation candidates</h2></div>
+      <div class="panelbody">
+        <label class="methods-field">Candidate to compare<select id="methodsCandidate" disabled><option value="">Run the experiment first</option></select></label>
+        <div id="methodsCandidateTable" class="methods-table-wrap"><p class="mini">Candidates are shown based on the spacing between observed planes and the disagreement between methods.</p></div>
+        <p class="methods-result-note">Candidate ranking is a rule to assist further review. It is not a ranking validated for information gain or actual research efficiency.</p>
+      </div>
+    </section>
+    <section class="panel" aria-labelledby="methodsFoldTitle">
+      <div class="panelhead"><h2 id="methodsFoldTitle">Holding out one plane at a time</h2></div>
+      <div class="panelbody">
+        <label class="methods-field">Held-out observed plane<select id="methodsFold" disabled><option value="">Run the experiment first</option></select></label>
+        <div id="methodsFoldTable" class="methods-table-wrap"><p class="mini">Each observed plane is excluded from the training data in turn, and predictions from the remaining data are compared with the actual observation.</p></div>
+        <p class="methods-result-note">Scores depend on the grid and exclusion conditions of this experiment. Do not treat them as the same experiment as the existing hold-out validation scores.</p>
+      </div>
+    </section>
+  </div>
+
+  <section class="panel methods-comparison" aria-labelledby="methodsCompareTitle">
+    <div class="panelhead"><h2 id="methodsCompareTitle">Comparison at the same position</h2><label class="methods-view-field">Result to view<select id="methodsView"><option value="candidate">Next observation candidates</option><option value="fold">Hold-out validation</option></select></label></div>
+    <div class="panelbody">
+      <p id="methodsSelectionNote" class="status" role="status"></p>
+      <div class="methods-canvases">
+        <figure><figcaption><strong>Reference interpolation</strong><span>Connected by distance to the boundary</span></figcaption><canvas id="methodsRawCanvas" width="96" height="96" role="img" aria-label="Reference SDF interpolation computed without alignment"></canvas></figure>
+        <figure><figcaption><strong>Interpolation after centroid and scale alignment</strong><span>Connected after matching centroids and axis-wise scale</span></figcaption><canvas id="methodsAffineCanvas" width="96" height="96" role="img" aria-label="SDF interpolation after matching centroids and axis-wise scale"></canvas></figure>
+        <figure><figcaption><strong>Difference between the two methods</strong><span>Positions where predictions disagree</span></figcaption><canvas id="methodsDiffCanvas" width="96" height="96" role="img" aria-label="Disagreement region between the two interpolation methods"></canvas></figure>
+        <figure class="methods-truth-figure"><figcaption><strong>Held-out actual observed plane</strong><span>Reference for comparison in hold-out validation</span></figcaption><canvas id="methodsTruthCanvas" width="96" height="96" role="img" aria-label="Actual observed plane not used for prediction"></canvas></figure>
+      </div>
+      <p class="methods-result-note">Shown at the size of one grid cell. Inter-method disagreement depends on the selected methods and input data and does not represent the probability of being correct.</p>
+    </div>
+    <div class="methods-3d-heading"><h3>Positions of observed and inferred planes</h3><p class="mini">Distinguishes observed planes from computed planes. A 3D view for positional comparison that preserves the ratio of Z spacing but scales XY and Z separately.</p></div>
+    <div id="methods3Dstage" class="methods-3d-stage" role="img" aria-label="3D arrangement distinguishing actual observed planes from computed inferred planes"></div>
+    <div class="methods-legend" aria-label="3D data legend"><span><i class="methods-legend-observed" aria-hidden="true"></i>Actual observed plane</span><span><i class="methods-legend-predicted" aria-hidden="true"></i>Computed inferred plane</span><span>Inferred planes are not new observational data.</span></div>
+  </section>
+
+  __LAB_PANEL__
+
+  __SPATIAL_PANEL__
+
+  <details id="methodsDetails" class="help-detail methods-details">
+    <summary>Comparison methods and scope of interpretation of results</summary>
+    <div class="methods-detail-grid">
+      <div><h3>What is being compared?</h3><p>The reference method interpolates, between sections, an SDF representing distances inside and outside tissue boundaries. The comparison method interpolates the SDF after matching centroids and axis-wise scale. Neither method restores nonlinear deformation or tissue damage.</p></div>
+      <div><h3>How does hold-out validation work?</h3><p>The shape of the observed plane under evaluation is not used for prediction or for defining the computation grid. Predictions are made from the remaining observed planes and compared with the held-out plane. Scores may change if the data range or grid resolution changes.</p></div>
+      <div><h3>What are disagreement and sensitivity?</h3><p>Inter-method disagreement is conditional on these two methods. The ±1 pixel test, which expands or shrinks boundaries by one grid cell, measures sensitivity to boundary changes and is not a statistical confidence interval.</p></div>
+      <div><h3>How far can the candidate ranking be trusted?</h3><p>An exploratory ranking based on the spacing between observed planes and the disagreement between the two methods. The benefit of actually observing the next section requires separate prospective validation. The 20 hold-out validation scores for the example and the results of this experiment are stored separately.</p></div>
+    </div>
+  </details>
+</section>

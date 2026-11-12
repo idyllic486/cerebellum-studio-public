@@ -1,0 +1,82 @@
+<section id="scienceTools" class="panel science-tools" aria-labelledby="scienceToolsTitle">
+  <div class="panelhead"><h2 id="scienceToolsTitle">Evidence and assumptions</h2></div>
+  <div class="panelbody">
+    <p>Inspect alignment, reference candidates and measurement assumptions before interpreting a result.</p>
+    <div class="science-fields">
+      <label>Animal<select id="scienceAnimal" aria-label="Science tools animal"></select></label>
+      <label>Section<select id="scienceSection" aria-label="Science tools section"></select></label>
+      <label>Layer<select id="scienceLayer"><option value="CB">Whole cerebellum · CB</option><option value="ML">Molecular layer · ML</option><option value="GL">Granular layer · GL</option><option value="WM">White matter · WM</option></select></label>
+    </div>
+    <p id="scienceStatus" role="status" aria-live="polite">Open a study to inspect its evidence.</p>
+    <details id="scienceDesignDetails"><summary>Comparison design</summary>
+      <p>Record what makes the animals comparable. Unknown information stays blank. Changing these fields requires a fresh review.</p>
+      <div class="science-fields">
+        <label>Preparation protocol<input id="sciencePreparation" type="text" maxlength="1000"></label>
+        <label>Section orientation<input id="scienceOrientation" type="text" maxlength="1000"></label>
+        <label>Shared coordinate frame<input id="scienceFrame" type="text" maxlength="256"></label>
+        <label>Randomisation method<input id="scienceRandomisation" type="text" maxlength="1000"></label>
+        <label>Blinding method<input id="scienceBlinding" type="text" maxlength="1000"></label>
+      </div>
+      <button id="scienceDesignSave" type="button">Save design record</button>
+      <div id="scienceDesignResult" class="science-result"></div>
+    </details>
+    <details><summary>Section alignment</summary>
+      <p>Match at least two distinct landmarks. Source positions use original image pixels; target positions use the shared specimen frame in µm. Rigid alignment preserves area and cannot correct tissue distortion.</p>
+      <div class="science-table"><table><thead><tr><th>Source X · px</th><th>Source Y · px</th><th>Target X · µm</th><th>Target Y · µm</th><th>Action</th></tr></thead><tbody id="scienceLandmarks"></tbody></table></div>
+      <label>Alignment reference frame<input id="scienceRegistrationFrame" type="text" maxlength="256" placeholder="Name the shared specimen frame"></label>
+      <div class="science-actions"><button id="scienceLandmarkAdd" type="button">Add landmark</button><button id="scienceAlignmentPreview" type="button">Check alignment</button><button id="scienceAlignmentApply" type="button" disabled>Apply alignment</button><button id="scienceAlignmentRemove" type="button">Remove alignment</button></div>
+      <div id="scienceAlignmentResult" class="science-result"></div>
+    </details>
+    <details><summary>Atlas reference candidates</summary>
+      <p>Compare supplied calibrated atlas contours or a licensed mesh with this observed section. Shape similarity proposes candidates; it does not identify lobules automatically.</p>
+      <label>Calibrated atlas reference · JSON<input id="scienceAtlasFile" type="file" accept=".json,application/json"></label>
+      <div class="science-actions"><button id="scienceAtlasRemove" type="button">Remove reference</button></div>
+      <p id="scienceAtlasName">No calibrated reference loaded</p>
+      <div class="science-fields"><label>Supplied atlas region<select id="scienceAtlasRegion"></select></label><label>Comparison grid<select id="scienceAtlasGrid"><option value="128">128</option><option value="256" selected>256</option><option value="512">512</option></select></label></div>
+      <label class="science-check"><input id="scienceAtlasSameFrame" type="checkbox">I confirm the reference already uses this specimen's physical coordinate frame.</label>
+      <p>A matching recorded atlas-to-specimen alignment is used when available. Otherwise, the same-frame declaration is required. Missing labels and unavailable cuts remain unscored.</p>
+      <fieldset id="scienceMeshCandidates"><legend>Mesh candidate depths</legend><div class="science-fields"><label>First Z · µm<input id="scienceCandidateStart" type="number" step="any"></label><label>Last Z · µm<input id="scienceCandidateEnd" type="number" step="any"></label><label>Candidate count<input id="scienceCandidateCount" type="number" min="2" max="64" value="12"></label></div></fieldset>
+      <button id="scienceAtlasRank" type="button">Compare candidate sections</button>
+      <div id="scienceAtlasResult" class="science-result"></div>
+    </details>
+    <details><summary>Measurement sensitivity</summary>
+      <p>Explore declared parameter changes around the reviewed volume. These scenario bounds are not confidence intervals or estimates of biological variation.</p>
+      <div class="science-fields"><label>XY scale change · percent<input id="scienceSensitivityXY" type="number" min="0" max="99" step="any" value="0"></label><label>Z spacing change · percent<input id="scienceSensitivityZ" type="number" min="0" max="99" step="any" value="0"></label><label>Area change · percent<input id="scienceSensitivityArea" type="number" min="0" max="99" step="any" value="0"></label></div>
+      <label class="science-check"><input id="scienceSensitivityGaps" type="checkbox">Allow interpolation across documented excluded or oversized gaps for this calculation.</label>
+      <button id="scienceSensitivityRun" type="button">Compute scenario bounds</button>
+      <div id="scienceSensitivityResult" class="science-result"></div>
+    </details>
+    <details><summary>Prepare paired validation data</summary>
+      <p>Open the prediction study in the Study pipeline, then choose its export and a separately reviewed reference study below. The program matches source images and checks identities, calibration and protocol. Missing or ambiguous rows need a stated exclusion reason.</p>
+      <div class="science-fields"><label>Prediction study · JSON<input id="sciencePredictionStudy" type="file" accept=".json,application/json"></label><label>Reviewed reference study · JSON<input id="scienceReferenceStudy" type="file" accept=".json,application/json"></label></div>
+      <div class="science-actions"><button id="sciencePredictionRemove" type="button">Remove prediction study</button><button id="scienceReferenceRemove" type="button">Remove reference study</button></div>
+      <p id="sciencePairFiles">No paired study files loaded</p>
+      <div class="science-actions"><button id="sciencePairBuild" type="button">Match and check studies</button><button id="sciencePairUse" type="button" disabled>Use paired data in validation</button></div>
+      <div id="sciencePairSummary" class="science-result"></div>
+      <div id="sciencePairRows" class="science-result"></div>
+      <p>The program identifies raw model drafts only when preserved prediction evidence matches the source and current contours. Unknown or corrected results cannot be promoted to raw model accuracy by a checkbox.</p>
+    </details>
+    <details><summary>Validation acceptance plan</summary>
+      <p>Record the criteria before evaluating the paired data. The plan is bound to the evaluation input. A declaration is not authenticated preregistration.</p>
+      <div class="science-fields"><label>Plan ID<input id="sciencePlanID" type="text" maxlength="256"></label><label>Minimum independent animals<input id="scienceMinimumAnimals" type="number" min="2" max="10000" step="1"></label><label>Minimum animal-mean Dice<input id="scienceMinimumDice" type="number" min="0" max="1" step="any"></label></div>
+      <p>The selected analysis layer is the target for this plan.</p>
+      <label class="science-check"><input id="scienceCriteriaProspective" type="checkbox">I specified these criteria before evaluating these data.</label>
+      <button id="scienceCriteriaSave" type="button">Record validation plan</button>
+    </details>
+    <details><summary>Validation resolution check</summary>
+      <p>Use the paired validation data for the selected animal and section. Compare coarse grids with a finer grid and native pixel-centre areas.</p>
+      <label>Fine comparison grid<select id="scienceResolutionFine"><option value="512">512</option><option value="1024">1024</option></select></label>
+      <button id="scienceResolutionRun" type="button">Check grid sensitivity</button>
+      <div id="scienceResolutionResult" class="science-result"></div>
+    </details>
+    <details><summary>Plan another observation</summary>
+      <p>List sections that can actually be measured and their estimated cost. The coverage-per-cost ranking is a planning heuristic, not a measured improvement in accuracy.</p>
+      <label>Cost unit<input id="scienceCostUnit" type="text" maxlength="128" value="minutes"></label>
+      <div class="science-table"><table><thead><tr><th>Section ID</th><th>Z · µm</th><th>Cost</th><th>Feasible</th><th>Reason if unavailable</th><th>Action</th></tr></thead><tbody id="scienceObservations"></tbody></table></div>
+      <div class="science-actions"><button id="scienceObservationAdd" type="button">Add candidate</button><button id="sciencePlan" type="button">Rank feasible observations</button></div>
+      <div id="sciencePlanResult" class="science-result"></div>
+    </details>
+    <div class="science-actions"><button id="scienceCancel" type="button" disabled>Stop calculation</button><button id="scienceReportSave" type="button" disabled>Download evidence report</button></div>
+    <p class="study-note">Reports retain source identities, settings and limitations. Native image pixels, ROI coordinates and source measurements are preserved.</p>
+  </div>
+</section>

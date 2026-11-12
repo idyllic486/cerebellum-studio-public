@@ -1,0 +1,15 @@
+/* A quiet, text-only language control. Native names remain recognizable in every locale. */
+.studio-language{position:relative;flex:0 0 auto;margin-left:auto;color:#111}
+.studio-language-label{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.site-header #studioLocale{appearance:none;-webkit-appearance:none;background:#f4f4f4;background-image:none!important;color:#111;border:1px solid transparent;border-radius:22px;box-shadow:none;width:142px;min-width:0;max-width:100%;min-height:42px;height:42px;padding:10px 14px;font-family:inherit;font-size:13px;font-weight:650;line-height:20px;text-align:center;cursor:pointer;letter-spacing:0}
+.site-header #studioLocale:hover{background:#ececec}
+.site-header #studioLocale:focus-visible{outline:2px solid #111;outline-offset:3px}
+.site-header #studioLocale[aria-busy=true]{color:#666}
+#studioLocaleStatus{position:absolute;right:0;top:calc(100% + 8px);z-index:8;width:240px;max-width:calc(100vw - 32px);padding:14px 16px;margin:0;border:1px solid #e5e5e5;border-radius:16px;background:#fff;box-shadow:0 8px 25px #0000000c;color:#333;font-size:13px;font-weight:500;line-height:1.5;text-align:left}
+#studioLocaleStatus[hidden]{display:none}
+@media(min-width:1051px){.site-header{gap:14px}.site-header>nav{min-width:0}.site-header>nav .studio-nav-item>[data-tab]{padding-left:10px;padding-right:10px}}
+@media(max-width:1200px) and (min-width:1051px){.site-header>.brand{font-size:22px}.site-header{padding-left:24px;padding-right:24px;gap:10px}.site-header>nav .studio-nav-item>[data-tab]{font-size:14px;padding-left:8px;padding-right:8px}.site-header #studioLocale{width:132px;font-size:12px}}
+@media(max-width:1050px){.studio-language{order:1}.site-header #studioLocale{height:40px;min-height:40px;padding-top:9px;padding-bottom:9px}}
+@media(max-width:620px){.site-header #studioLocale{width:132px;font-size:12px;padding-left:10px;padding-right:10px}.studio-language{max-width:calc(100% - 146px)}.site-header>nav .studio-nav-item>[data-tab]{white-space:normal;overflow-wrap:anywhere;line-height:18px;min-height:44px;padding:4px 3px}.opacity-settings input[type=range],.atlas-ref-scrubber input[type=range]{max-width:100%;box-sizing:border-box;margin-left:0;margin-right:0}}
+/* Keep Japanese words together in the narrowest headline layout. */
+@media(max-width:360px){html[lang="ja"] .explore-heading h1{font-size:32px;text-wrap:balance}}

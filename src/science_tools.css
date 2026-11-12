@@ -1,0 +1,22 @@
+.science-tools .panelbody { display: grid; grid-template-columns: minmax(0,1fr); gap: 20px; }
+.science-tools p { margin: 0; color: #555; line-height: 1.65; }
+.science-tools details { border-top: 1px solid #e8e8e8; padding: 20px 0; }
+.science-tools summary { font-size: 18px; font-weight: 700; cursor: pointer; }
+.science-tools details[open] > :not(summary) { margin-top: 18px; }
+.science-fields { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
+.science-tools label { display: flex; flex-direction: column; gap: 8px; color: #555; font-size: 14px; }
+.science-tools input:not([type=checkbox]), .science-tools select { box-sizing: border-box; min-height: 46px; width: 100%; padding: 10px 12px; border: 1px solid #d9d9d9; border-radius: 12px; background: white; font: inherit; color: #171717; }
+.science-tools label.science-check { flex-direction: row; align-items: flex-start; line-height: 1.6; }
+.science-check input { margin-top: 5px; accent-color: #111; }
+.science-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.science-tools button { min-height: 44px; padding: 10px 18px; font-size: 15px; font-weight: 650; }
+.science-tools fieldset { border: 1px solid #e8e8e8; border-radius: 18px; padding: 18px; }
+.science-table { overflow: auto; }
+.science-table table { border-collapse: collapse; width: 100%; min-width: 520px; }
+.science-table th, .science-table td { text-align: left; padding: 10px 8px; border-bottom: 1px solid #eee; font-size: 14px; }
+.science-table input[type=number] { min-width: 100px; }
+.science-result { display: grid; grid-template-columns: minmax(0,1fr); gap: 12px; min-width: 0; }
+.science-result:empty { display: none; }
+.science-result canvas { max-width: 100%; height: auto; border: 1px solid #eee; border-radius: 16px; }
+.science-result strong { color: #111; }
+@media(max-width:700px) { .science-fields { grid-template-columns: 1fr; } }

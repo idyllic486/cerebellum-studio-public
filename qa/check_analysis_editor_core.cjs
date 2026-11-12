@@ -1,0 +1,38 @@
+/* Synthetic editing and provenance mechanics only; not biological accuracy. */
+'use strict';
+const assert=require('node:assert/strict'),{webcrypto}=require('node:crypto');globalThis.crypto||=webcrypto;
+const C=require('../src/analysis_core.js');
+const source={name:'fixture.tif',sha256:'a'.repeat(64),width:100,height:100};
+const rect=(id,label,x=10,y=10,w=20)=>({id,label,paths:[[[x,y],[x+w,y],[x+w,y+w],[x,y+w]]]});
+const prediction={schema:C.PREDICTION_SCHEMA,source,model:{id:'synthetic',version:'1',weights_sha256:'b'.repeat(64)},rois:[rect('cb','CB',0,0,90),rect('layer','ML')]};
+const metadata={animal_id:'a',section_id:'s',single_section_confirmed:true};
+const approve=s=>C.approve(s,{reviewer:'Fixture',protocol:'Synthetic review only',checked:true,coordinatesChecked:true});
+(async()=>{
+ let state=C.create(prediction,source);const original=JSON.stringify(state.original_prediction);
+ state=C.setMetadata(state,metadata);state=await approve(state);assert(state.approval);
+ state=C.setLabel(state,'layer','GL');assert.equal(state.approval,null);assert.equal(state.rois[1].label,'GL');
+ state=C.undo(state);assert.equal(state.rois[1].label,'ML');assert.equal(state.approval,null);assert.equal(state.history.at(-1).type,'undo');
+ state=C.redo(state);assert.equal(state.rois[1].label,'GL');assert.equal(state.history.at(-1).type,'redo');
+ state=C.insertVertex(state,'layer',0,0,[20,10]);assert.equal(state.rois[1].paths[0].length,5);
+ state=C.deleteVertex(state,'layer',0,1);assert.equal(state.rois[1].paths[0].length,4);
+ const before=state;assert.throws(()=>C.insertVertex(state,'layer',0,0,[90,90]),/cross|back|area/);assert.deepEqual(state,before);
+ state=C.addROI(state,rect('new','WM',40,40,10));assert.equal(state.rois.length,3);assert.deepEqual(C.qualityFlags(state),[]);
+ assert.throws(()=>C.deleteROI(state,'new',''),/reason/);state=C.deleteROI(state,'new','Not tissue in source');assert.equal(state.rois.length,2);assert.equal(state.history.at(-1).detail.roi.id,'new');
+ state=C.undo(state);assert.equal(state.rois.length,3);state=C.replacePaths(state,'new',[[[45,45],[50,45],[50,50],[45,50]]]);assert.equal(state.editor.future.length,0);
+ assert.equal(JSON.stringify(state.original_prediction),original);assert(Object.isFrozen(state.original_prediction));
+ state=C.addROI(state,rect('overlap','WM'));const flags=C.qualityFlags(state);assert(flags.some(f=>f.code==='layer_overlap'));
+ await assert.rejects(approve(state),/acknowledgement/);state=C.acknowledgeQC(state,'Synthetic intentional overlapping fixture; do not sum.');state=await approve(state);assert(state.approval);assert.equal((await C.exportApproved(state)).report.quality_flags.length,1);
+ state=C.undo(state);assert.equal(state.approval,null);assert.equal(state.qc_acknowledgement,null);
+ const outside=C.addROI(C.create(prediction,source),rect('outside','GL',85,85,10));assert(C.qualityFlags(outside).some(f=>f.code==='outside_cb'));
+ const touching=C.addROI(C.create(prediction,source),rect('touching','GL',30,10,20));assert(!C.qualityFlags(touching).some(f=>f.code==='layer_overlap'));
+ let manual=C.createFromROIs([],source);assert.equal(manual.model,null);assert.equal(manual.rois.length,0);
+ manual=C.addROI(manual,rect('manual','UNASSIGNED'));manual=C.setMetadata(manual,metadata);await assert.rejects(approve(manual),/labels/);
+ manual=C.setLabel(manual,'manual','CB');manual=await approve(manual);let exported=await C.exportApproved(manual);assert.equal(exported.report.measurements[0].model_weights_sha256,null);
+ manual=C.deleteROI(manual,'manual','Restart boundary');assert.equal(manual.rois.length,0);await assert.rejects(approve(manual),/included/);manual=C.undo(manual);assert.equal(manual.rois.length,1);
+ let imported=C.createFromROIs([rect('r','CB')],source,{kind:'imagej',files:[{name:'original.roi',size:128,sha256:'c'.repeat(64)}],names:[{id:'r',name:'Exact original ROI name'}]});imported=C.setMetadata(imported,metadata);
+ await assert.rejects(C.approve(imported,{reviewer:'r',protocol:'p',checked:true}),/alignment/);imported=await approve(imported);assert.equal(imported.history.at(-1).detail.coordinates_checked,true);assert.equal(imported.model,null);assert.equal(imported.original_prediction.names[0].name,'Exact original ROI name');
+ const reopened=C.importDraft(imported,source);assert.equal(reopened.approval,null);assert.equal(reopened.history.at(-1).detail.previous_approval.fingerprint,imported.approval.fingerprint);
+ const legacy=JSON.parse(JSON.stringify(C.create(prediction,source)));legacy.schema=C.LEGACY_SCHEMA;delete legacy.editor;delete legacy.qc_acknowledgement;const upgraded=C.importDraft(legacy,source);assert.equal(upgraded.schema,C.SCHEMA);assert.deepEqual(upgraded.original_prediction,prediction);
+ let bounded=C.create(prediction,source);for(let i=0;i<25;i++)bounded=C.setLabel(bounded,'layer',i%2?'ML':'GL');assert.equal(bounded.editor.past.length,20);
+ console.log('PASS: derived ROI edits, vertex editing, undo/redo, approval invalidation, original evidence, manual/ImageJ provenance, label/alignment gates, overlap/containment screening, legacy migration and bounded undo (synthetic only).');
+})().catch(e=>{console.error(e);process.exitCode=1;});

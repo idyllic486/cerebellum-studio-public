@@ -1,0 +1,70 @@
+{
+  "schema": "cerebellum-build-inputs/1",
+  "description": "Pinned build inputs of the public edition.",
+  "files": [
+    {
+      "source": "assets/baseline/assets/three.min.js",
+      "output": "assets/three.min.js",
+      "sha256": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa",
+      "bytes": 669884,
+      "role": "licensed-library",
+      "profiles": [
+        "private",
+        "public-safe"
+      ],
+      "original_source_status": "vendored-source"
+    },
+    {
+      "source": "assets/baseline/assets/THREE-LICENSE.txt",
+      "output": "assets/THREE-LICENSE.txt",
+      "sha256": "852e0e8699169bf9f6fdc6bda3e682d078dcbc738b5d33e74df594721bff271d",
+      "bytes": 1081,
+      "role": "licensed-library",
+      "profiles": [
+        "private",
+        "public-safe"
+      ],
+      "original_source_status": "vendored-source"
+    },
+    {
+      "source": "assets/models/layer-unet-20261106/auto-roi-unet.json",
+      "output": "models/layer-unet-20261106.json",
+      "sha256": "7fa8ae009cf5f3b09c301b5d33ac5dcfc16a89ac7d10a6352f81ee6c554ea722",
+      "bytes": 10496980,
+      "role": "trained-model",
+      "profiles": [
+        "private",
+        "public-safe"
+      ],
+      "original_source_status": "trained-weights-with-declared-provenance",
+      "model_id": "layer-unet-9e3c3a68822e",
+      "note": "Included by the researcher's decision of 2026-11-12. Its provenance names the training and evaluation animals; a public-safe build lists this file as a deliberate exception to its name check."
+    },
+    {
+      "source": "assets/atlas-open/ccfv3-bbp-25/sagittal-planes.json",
+      "output": "assets/atlas-open/sagittal-planes.json",
+      "sha256": "f44b7e71ebb1b022cbfd3a1e6d8a0795038b25af82f9137211bc53e730f36794",
+      "bytes": 1142878,
+      "role": "open-atlas",
+      "profiles": [
+        "private",
+        "public-safe"
+      ],
+      "original_source_status": "derived-from-open-licence-annotation-volume",
+      "note": "Not covered by the MIT licence of the code; see the notice beside the file."
+    },
+    {
+      "source": "assets/atlas-open/ccfv3-bbp-25/NOTICE.md",
+      "output": "assets/atlas-open/NOTICE.md",
+      "sha256": "fcb04a612e097ba341a12accbd493fcf7475b3e679b5ca2709befc4f8f36a1e6",
+      "bytes": 1643,
+      "role": "open-atlas-notice",
+      "profiles": [
+        "private",
+        "public-safe"
+      ],
+      "original_source_status": "derived-from-open-licence-annotation-volume",
+      "note": "Not covered by the MIT licence of the code; see the notice beside the file."
+    }
+  ]
+}

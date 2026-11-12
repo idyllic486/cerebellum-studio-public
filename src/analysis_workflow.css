@@ -1,0 +1,5 @@
+.analysis-workflow{margin:1rem 0;padding:1rem;border:1px solid var(--line,#d9e2e5);border-radius:10px;background:var(--panel,#fff)}
+.analysis-workflow>h3{margin:0 0 .4rem}.analysis-workflow-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:.65rem}
+.analysis-workflow-card{padding:.75rem;border:1px solid var(--line,#d9e2e5);border-radius:7px;display:flex;flex-direction:column;align-items:flex-start;gap:.35rem}
+.analysis-workflow-card h4,.analysis-workflow-card p{margin:0}.analysis-workflow-card button{margin-top:auto}.analysis-workflow-timing{margin-top:.75rem}
+#analysisWorkElapsed{display:inline-block;font-variant-numeric:tabular-nums;font-size:1.2rem;margin:.3rem 1rem .6rem 0}.analysis-workflow-timing .analysis-actions{margin:.4rem 0}

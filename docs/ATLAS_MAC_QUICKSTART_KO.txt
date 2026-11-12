@@ -1,0 +1,24 @@
+Cerebellum Studio — Mac에서 큰 atlas PDF 준비하기
+
+사용자 할 일은 원본 PDF를 선택한 뒤 생성된 작은 파일을 전달하는 것입니다.
+소뇌 페이지 선택, 좌표 해석, 절편 정렬은 이 단계에서 직접 하지 않습니다.
+
+1. ZIP 압축을 풀면 cerebellum-atlas-tools 폴더가 생깁니다.
+2. Terminal을 열고 `bash `를 입력합니다(뒤에 공백 포함).
+   폴더 안의 Start-Atlas-Index.command를 Terminal 창으로 끌어다 놓고 Enter를 누릅니다.
+3. 파일 선택 창에서 원본 atlas PDF를 선택합니다. 1GB가 넘어도 원본 전체를 업로드하지 않습니다.
+4. 완료되면 Finder가 결과 폴더를 엽니다. preparation-report.json과 packs 폴더의 ZIP 파일들을 대화에 첨부합니다.
+
+처음에는 Python 3.10 이상이 필요합니다. 없다는 메시지가 나오면 python.org의 Python 설치가 먼저 필요합니다.
+도구는 자신의 폴더에 .venv-atlas를 만들고 PyMuPDF 1.26.6을 설치합니다.
+패키지 설치 때만 인터넷이 필요하며 PDF를 외부로 전송하지 않습니다.
+결과는 바탕화면의 cerebellum-atlas-index-날짜시간 폴더에 저장됩니다.
+
+원본은 변경하지 않습니다. 이 단계에서는 이미지 축소나 3D 해부학적 복원을 하지 않습니다.
+색인과 ZIP에는 도감의 텍스트·주석 메타데이터가 들어갈 수 있으므로 기존 비공개 범위로 다루세요.
+한 ZIP의 상한은 24 MiB입니다. 파일이 여러 개면 모두 전달해야 전체 색인이 보존됩니다.
+
+실제 Mac 실행은 이 개발 환경에서 검증하지 못했습니다. Python 도구는 합성 PDF로 검증했습니다.
+실행 오류가 나오면 오류 문구를 그대로 전달하세요. 원본을 수정해 해결하지 마세요.
+
+자세한 원리·페이지 추출 옵션·라이선스: ATLAS_PDF_PREPARATION.md

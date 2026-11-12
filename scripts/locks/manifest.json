@@ -1,0 +1,313 @@
+{
+  "direct_requirements": {
+    "requirements-atlas-pdf.txt": "d0e91b5c99bc8e2070dc8153781c4485fae52c41f5f2f791b94b646a07fc7d69",
+    "requirements-atlas.txt": "cadd73cdaa55be198b84e7a97d7142ebd245a009d7c064fd97ebe1e0d053ca09",
+    "requirements-lab.txt": "f3d9e2ed8918a304f82d7d0579e2edd5b3b6d659bed357f5574b3e8722231932",
+    "requirements-nissl.txt": "96a7109606272b546375acf9e1641eb4635215bc7b6a7eea3538098c8f6e02c8"
+  },
+  "native_safari_validation": "not-performed",
+  "schema": "cerebellum-python-locks/1",
+  "scope": "Optional local scientific tools; no model weights, TIFFs or atlas media included.",
+  "targets": {
+    "linux-x86_64-cp312": {
+      "lock": "linux-x86_64-cp312.txt",
+      "packages": [
+        {
+          "direct_requirement": false,
+          "name": "cloudpickle",
+          "sha256": "9acb47f6afd73f60dc1df93bb801b472f05ff42fa6c84167d25cb206be1fbf4a",
+          "version": "3.1.2",
+          "wheel": "cloudpickle-3.1.2-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "coloredlogs",
+          "sha256": "612ee75c546f53e92e70049c9dbfcc18c935a2b9a53b66085ce9ef6a6e5c0934",
+          "version": "15.0.1",
+          "wheel": "coloredlogs-15.0.1-py2.py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "flatbuffers",
+          "sha256": "7634f50c427838bb021c2d66a3d1168e9d199b0607e6329399f04846d42e20b4",
+          "version": "25.12.19",
+          "wheel": "flatbuffers-25.12.19-py2.py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "humanfriendly",
+          "sha256": "1697e1a8a8f550fd43c2865cd84542fc175a61dcb779b6fee18cf6b6ccba1477",
+          "version": "10.0",
+          "wheel": "humanfriendly-10.0-py2.py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "joblib",
+          "sha256": "3dbbf9f6e4b592a2357b854608e980fe6390d131d7a82f011a377ef2ebef7aba",
+          "version": "1.6.0",
+          "wheel": "joblib-1.6.0-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "mpmath",
+          "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+          "version": "1.3.0",
+          "wheel": "mpmath-1.3.0-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "nibabel",
+          "sha256": "52970a5a8a53b1b55249cba4d9bcfaa8cc57e3e5af35a29d7352237e8680a6f8",
+          "version": "5.3.2",
+          "wheel": "nibabel-5.3.2-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "numpy",
+          "sha256": "2312b2aa89e1f43ecea6da6ea9a810d06aae08321609d8dc0d0eda6d946a541b",
+          "version": "2.1.3",
+          "wheel": "numpy-2.1.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "onnx",
+          "sha256": "4f3fb5cc4e2898ac5312a7dc03a65133dd2abf9a5e520e69afb880a7251ec97a",
+          "version": "1.17.0",
+          "wheel": "onnx-1.17.0-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "onnxruntime",
+          "sha256": "bb71a814f66517a65628c9e4a2bb530a6edd2cd5d87ffa0af0f6f773a027d99e",
+          "version": "1.20.1",
+          "wheel": "onnxruntime-1.20.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "packaging",
+          "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+          "version": "26.3",
+          "wheel": "packaging-26.3-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "pillow",
+          "sha256": "9aa9aeddeed452b2f616ff5507459e7bab436916ccb10961c4a382cd3e03f47f",
+          "version": "11.1.0",
+          "wheel": "pillow-11.1.0-cp312-cp312-manylinux_2_28_x86_64.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "protobuf",
+          "sha256": "89f23aa53c24553a2416fd4fd1ec06f74fa42b14b546d8883128813f775bbfd2",
+          "version": "7.36.2",
+          "wheel": "protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "PyMuPDF",
+          "sha256": "7777d0b7124c2ebc94849536b6a1fb85d158df3b9d873935e63036559391534c",
+          "version": "1.26.6",
+          "wheel": "pymupdf-1.26.6-cp310-abi3-manylinux_2_28_x86_64.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "scikit-learn",
+          "sha256": "2e69fab4ebfc9c9b580a7a80111b43d214ab06250f8a7ef590a4edf72464dd86",
+          "version": "1.6.1",
+          "wheel": "scikit_learn-1.6.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "scipy",
+          "sha256": "8f9ea80f2e65bdaa0b7627fb00cbeb2daf163caa015e59b7516395fe3bd1e066",
+          "version": "1.14.1",
+          "wheel": "scipy-1.14.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "sympy",
+          "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+          "version": "1.14.0",
+          "wheel": "sympy-1.14.0-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "threadpoolctl",
+          "sha256": "cd8b60b5641b45c67bbf73c64c843235fc2d8a480c87389f52f5dbee893b86be",
+          "version": "3.7.0",
+          "wheel": "threadpoolctl-3.7.0-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "tifffile",
+          "sha256": "c54dc85bc1065d972cb8a6ffb3181389d597876aa80177933459733e4ed243dd",
+          "version": "2024.9.20",
+          "wheel": "tifffile-2024.9.20-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "typing_extensions",
+          "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+          "version": "4.16.0",
+          "wheel": "typing_extensions-4.16.0-py3-none-any.whl"
+        }
+      ],
+      "platform": "Linux x86_64, glibc >= 2.28",
+      "python": "CPython 3.12",
+      "resolver_pip": "26.2.1",
+      "sha256": "41016237649031772ca93e30a2644c1d966a6007aa7ae1c1ae091dfe4bf7e5ac",
+      "validation": "resolved-only; execution results must be recorded separately"
+    },
+    "macos-arm64-cp312": {
+      "lock": "macos-arm64-cp312.txt",
+      "packages": [
+        {
+          "direct_requirement": false,
+          "name": "cloudpickle",
+          "sha256": "9acb47f6afd73f60dc1df93bb801b472f05ff42fa6c84167d25cb206be1fbf4a",
+          "version": "3.1.2",
+          "wheel": "cloudpickle-3.1.2-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "coloredlogs",
+          "sha256": "612ee75c546f53e92e70049c9dbfcc18c935a2b9a53b66085ce9ef6a6e5c0934",
+          "version": "15.0.1",
+          "wheel": "coloredlogs-15.0.1-py2.py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "flatbuffers",
+          "sha256": "7634f50c427838bb021c2d66a3d1168e9d199b0607e6329399f04846d42e20b4",
+          "version": "25.12.19",
+          "wheel": "flatbuffers-25.12.19-py2.py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "humanfriendly",
+          "sha256": "1697e1a8a8f550fd43c2865cd84542fc175a61dcb779b6fee18cf6b6ccba1477",
+          "version": "10.0",
+          "wheel": "humanfriendly-10.0-py2.py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "joblib",
+          "sha256": "3dbbf9f6e4b592a2357b854608e980fe6390d131d7a82f011a377ef2ebef7aba",
+          "version": "1.6.0",
+          "wheel": "joblib-1.6.0-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "mpmath",
+          "sha256": "a0b2b9fe80bbcd81a6647ff13108738cfb482d481d826cc0e02f5b35e5c88d2c",
+          "version": "1.3.0",
+          "wheel": "mpmath-1.3.0-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "nibabel",
+          "sha256": "52970a5a8a53b1b55249cba4d9bcfaa8cc57e3e5af35a29d7352237e8680a6f8",
+          "version": "5.3.2",
+          "wheel": "nibabel-5.3.2-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "numpy",
+          "sha256": "13138eadd4f4da03074851a698ffa7e405f41a0845a6b1ad135b81596e4e9958",
+          "version": "2.1.3",
+          "wheel": "numpy-2.1.3-cp312-cp312-macosx_11_0_arm64.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "onnx",
+          "sha256": "0e906e6a83437de05f8139ea7eaf366bf287f44ae5cc44b2850a30e296421f2f",
+          "version": "1.17.0",
+          "wheel": "onnx-1.17.0-cp312-cp312-macosx_12_0_universal2.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "onnxruntime",
+          "sha256": "22b0655e2bf4f2161d52706e31f517a0e54939dc393e92577df51808a7edc8c9",
+          "version": "1.20.1",
+          "wheel": "onnxruntime-1.20.1-cp312-cp312-macosx_13_0_universal2.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "packaging",
+          "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+          "version": "26.3",
+          "wheel": "packaging-26.3-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "pillow",
+          "sha256": "a85b653980faad27e88b141348707ceeef8a1186f75ecc600c395dcac19f385b",
+          "version": "11.1.0",
+          "wheel": "pillow-11.1.0-cp312-cp312-macosx_11_0_arm64.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "protobuf",
+          "sha256": "cbc70b17ee27e28894c7fee8bb04be1abead49e936bc70eb60052531eee2079e",
+          "version": "7.36.2",
+          "wheel": "protobuf-7.36.2-cp310-abi3-macosx_10_9_universal2.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "PyMuPDF",
+          "sha256": "6844cd2396553c0fa06de4869d5d5ecb1260e6fc3b9d85abe8fa35f14dd9d688",
+          "version": "1.26.6",
+          "wheel": "pymupdf-1.26.6-cp310-abi3-macosx_11_0_arm64.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "scikit-learn",
+          "sha256": "2c2cae262064e6a9b77eee1c8e768fc46aa0b8338c6a8297b9b6759720ec0ff2",
+          "version": "1.6.1",
+          "wheel": "scikit_learn-1.6.1-cp312-cp312-macosx_12_0_arm64.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "scipy",
+          "sha256": "af29a935803cc707ab2ed7791c44288a682f9c8107bc00f0eccc4f92c08d6e07",
+          "version": "1.14.1",
+          "wheel": "scipy-1.14.1-cp312-cp312-macosx_12_0_arm64.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "sympy",
+          "sha256": "e091cc3e99d2141a0ba2847328f5479b05d94a6635cb96148ccb3f34671bd8f5",
+          "version": "1.14.0",
+          "wheel": "sympy-1.14.0-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "threadpoolctl",
+          "sha256": "cd8b60b5641b45c67bbf73c64c843235fc2d8a480c87389f52f5dbee893b86be",
+          "version": "3.7.0",
+          "wheel": "threadpoolctl-3.7.0-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": true,
+          "name": "tifffile",
+          "sha256": "c54dc85bc1065d972cb8a6ffb3181389d597876aa80177933459733e4ed243dd",
+          "version": "2024.9.20",
+          "wheel": "tifffile-2024.9.20-py3-none-any.whl"
+        },
+        {
+          "direct_requirement": false,
+          "name": "typing_extensions",
+          "sha256": "481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8",
+          "version": "4.16.0",
+          "wheel": "typing_extensions-4.16.0-py3-none-any.whl"
+        }
+      ],
+      "platform": "macOS >= 13, Apple Silicon arm64",
+      "python": "CPython 3.12",
+      "resolver_pip": "26.2.1",
+      "sha256": "011d1d56848f1511d70c8fbb9ecfff6f375a1fe87164ea54d3e17693c3bf2b78",
+      "validation": "resolved-only; execution results must be recorded separately"
+    }
+  }
+}

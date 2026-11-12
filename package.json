@@ -1,0 +1,15 @@
+{
+  "name": "cerebellum-studio-validation",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Development-only dependencies for reproducible scientific and browser checks",
+  "scripts": {
+    "build": "python3 build_site.py",
+    "test": "python3 qa/run_validation.py"
+  },
+  "devDependencies": {
+    "jszip": "3.10.1",
+    "playwright": "1.62.1",
+    "pngjs": "7.0.0"
+  }
+}

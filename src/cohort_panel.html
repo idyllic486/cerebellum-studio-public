@@ -1,0 +1,22 @@
+<section id="cohortView" class="hidden" aria-labelledby="cohortTitle">
+  <div class="annotation-intro"><div><h2 id="cohortTitle">Differences, viewed together</h2><p>Comparisons that start from the same section.</p></div><a class="download-link" href="./data/cohort-comparison.csv" download>Comparison CSV</a></div>
+  <p class="cohort-intro">Compares existing manual measurements with AI output on identical sections in five animals. Distinguish numerical agreement from boundary accuracy.</p>
+  <div class="cohort-overview" id="cohortOverview" aria-label="Data status by specimen"></div>
+  <div class="cohort-toolbar">
+    <label>Tissue<select id="cohortMetric" aria-label="Tissue for comparison"><option value="CB">Whole cerebellum · CB</option><option value="ML">Molecular layer · ML</option><option value="GL">Granular layer · GL</option><option value="WM">White matter · WM</option><option value="PL">Purkinje layer path · PL</option></select></label>
+    <label>Specimen<select id="cohortAnimal" aria-label="Specimen for comparison"><option value="all">All five animals</option></select></label>
+    <label>Sections shown<select id="cohortFilter" aria-label="Sections shown"><option value="all">All statuses</option><option value="paired">AI linked</option><option value="missing">AI missing</option></select></label>
+  </div>
+  <div id="cohortStatus" class="status" role="status" aria-live="polite"></div>
+  <div id="cohortPlot" class="cohort-plot" role="img" aria-label="Difference between AI and manual measurements by section"></div>
+  <div class="table-scroll cohort-table-wrap"><table class="table"><thead><tr><th>Section</th><th>Recorded group</th><th>Manual</th><th>AI</th><th>Difference</th><th>Data status</th></tr></thead><tbody id="cohortRows"></tbody></table></div>
+  <p class="mini">Difference = 100 × (AI − manual) / manual. Regional areas are in mm² and PL path lengths in mm. Missing values are not imputed as zero.</p>
+  <details class="project-detail"><summary>Group comparison at the animal level · exploratory</summary>
+    <p>Three WT and two KO animals are weighted equally. Sections are not treated as independent animals. The totals below are summed areas of the selected 2D sections, not true volumes.</p>
+    <div class="cohort-toolbar"><label>Within-animal aggregation<select id="cohortAggregation" aria-label="Within-animal aggregation"><option value="sum">Sum of section areas</option><option value="mean">Mean section area</option></select></label><label>Tissue<select id="cohortGroupMetric" aria-label="Tissue for group comparison"><option value="CB">Whole cerebellum · CB</option><option value="ML">Molecular layer · ML</option><option value="GL">Granular layer · GL</option></select></label></div>
+    <div class="table-scroll"><table class="table"><thead><tr><th>Inputs and measurements</th><th>WT animal mean</th><th>KO animal mean</th><th>KO vs WT</th></tr></thead><tbody id="cohortContrasts"></tbody></table></div>
+    <details class="project-detail"><summary>Show per-animal values</summary><div class="table-scroll"><table class="table"><thead><tr><th>Inputs and measurements</th><th>Specimen</th><th>Group</th><th>Value · mm²</th></tr></thead><tbody id="cohortAnimals"></tbody></table></div></details>
+    <p>Sums and means answer different questions. If section positions or ranges differ, neither represents anatomically equivalent samples. Determine the analysis after confirming genotype, time unit and experimental conditions. No significance testing or confirmatory conclusions are currently provided.</p>
+  </details>
+  <p id="cohortError" class="error hidden" role="alert"></p>
+</section>

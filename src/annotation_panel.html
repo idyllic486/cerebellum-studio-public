@@ -1,0 +1,30 @@
+<section id="annotateView" class="hidden">
+ <div class="annotation-intro"><div><div class="eyebrow">ANNOTATION</div><h2>Reviewable names at observed locations</h2><p class="muted">Mark actual sections with points, lines and regions, and compare them with the atlas. The initial yellow points are candidate contour indentations and do not yet carry anatomical names.</p></div><div class="row"><button id="annExport">Export annotation JSON</button><label class="filebutton">Import annotations<input id="annImport" type="file" accept=".json,application/json" hidden></label></div></div>
+ <div class="annotation-grid">
+  <article class="panel"><div class="panelhead"><h2>Source image + ROI</h2><select id="annSection" aria-label="Annotated section" style="width:150px"></select></div>
+   <div class="annToolbar"><label><input id="annROI" type="checkbox" checked> ROI contours</label><label><input id="annImage" type="checkbox" checked> Source image</label><button id="annZoomIn">Zoom in</button><button id="annZoomOut">Zoom out</button><button id="annFit">Fit</button></div>
+   <div class="annSvgWrap"><svg id="annSvg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Annotation workspace for actual sections"></svg></div>
+   <div class="legend"><span style="color:#edb879">● Unverified</span><span style="color:#8bbff1">● Atlas candidate</span><span style="color:#8ce5ce">● Observation-confirmed</span></div>
+   <div class="panelbody mini"><span id="annCoordinates">Source-image pixel coordinates · click to add a point</span><br>Contours are simplified display versions of the source ROIs. The image is downsampled, whereas coordinates retain the source resolution. After zooming, pan with Alt+drag. No registration to atlas coordinates has been performed.</div>
+  </article>
+  <article class="panel"><div class="panelhead"><h2 id="annEditorTitle">New annotation</h2><button id="annNew">Start new</button></div><form id="annForm" class="panelbody"><p id="annSourceName" class="mini annEditInfo">No source-data link</p>
+   <label class="annField">Geometry<select id="annGeometry"><option value="point">Point · location marker</option><option value="polyline">Line · fissure/boundary</option><option value="polygon">Region · lobule/deep nucleus candidate</option></select></label>
+   <label class="annField">Anatomical term<select id="annTerm"></select></label><p id="annTermHelp" class="mini muted"></p>
+   <label class="annField">Verification status<select id="annStatus"><option value="unverified">Unverified</option><option value="candidate">Atlas-based candidate</option><option value="confirmed">Observation-confirmed</option></select></label>
+   <label class="annField">Comparison plate<select id="annFigure"><option value="">Not specified</option><option value="101">Fig. 101 · Lateral −0.04 mm</option><option value="113">Fig. 113 · Lateral 1.44 mm</option><option value="123">Fig. 123 · Lateral 2.64 mm</option></select></label>
+   <label class="annField">Supporting evidence<textarea id="annEvidence" rows="3" maxlength="4000" placeholder="Which fissures, branches or neighbouring structures support this judgement?"></textarea></label>
+   <label class="annField">Reviewer<input id="annReviewer" maxlength="200" placeholder="Name or initials"></label>
+   <label class="annField">Note<textarea id="annNote" rows="2" maxlength="4000" placeholder="Ambiguous boundaries and items requiring further verification"></textarea></label>
+   <div class="row"><button type="button" id="annUndo">Undo last point</button><button type="button" id="annClear">Redraw points</button></div><p id="annPointCount" class="mini muted">0 points</p>
+   <button id="annSave" type="submit" class="active" style="width:100%">Save annotation</button><p class="mini muted">‘Observation-confirmed’ records the reviewer’s judgement. It does not mean that the model certifies an anatomical ground truth.</p>
+  </form></article>
+ </div>
+ <div id="annImportReview" class="status hidden"><p id="annImportPreview"></p><div class="row"><button id="annImportMerge">Merge import</button><button id="annImportReplace">Replace all</button><button id="annImportCancel">Cancel</button></div></div>
+ <details class="panel panelbody" style="margin-top:16px"><summary>Import from JSON text</summary><p class="mini muted">If the file picker is unavailable, paste the contents of the exported JSON.</p><textarea id="annImportText" aria-label="Annotation JSON to import" rows="5" style="width:100%;background:#0b1821;color:#eff7f8"></textarea><button id="annImportTextReview">Validate text / prepare import</button></details>
+ <div class="row" style="flex-wrap:wrap"><button id="annLoadLatest" type="button">Load latest annotations</button><button id="annSaveCopy" type="button">Save edit as a new annotation</button><button id="annExportHistory" type="button">Download annotation history</button></div>
+<div id="annMessage" class="status" role="status" aria-live="polite"></div>
+ <div class="annotation-grid annBottom">
+  <article class="panel"><div class="panelhead"><h2>Annotations on the current section</h2><label class="mini"><input id="annTrash" type="checkbox"> Include trash</label></div><div id="annList" class="panelbody"></div><div class="panelbody"><button id="annShow3D">View annotations for this section in 3D</button><p class="mini muted">Points, lines and regions are displayed on the corresponding observed plane. Annotations are not joined to infer anatomical structures.</p></div></article>
+  <article class="panel"><div class="panelhead"><h2>Atlas comparison</h2><select id="annAtlas" aria-label="Annotation comparison plate" style="width:140px"><option value="0">Fig. 101</option><option value="1">Fig. 113</option><option value="2">Fig. 123</option></select></div><img id="annAtlasImage" class="atlasImage" alt="Atlas plate compared with annotations"><div class="panelbody mini" id="annAtlasCredit"></div></article>
+ </div>
+</section>

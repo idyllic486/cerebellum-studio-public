@@ -1,0 +1,19 @@
+<section id="labPanel" class="panel lab-panel" aria-labelledby="labTitle">
+  <div class="panelhead"><h2 id="labTitle">Testing the stability of results</h2><span class="mini">Reproducible research experiments</span></div>
+  <div class="panelbody">
+    <p class="lab-intro">How much does a result change if one observation differs? Which choice is more useful at equal observation cost?</p>
+    <div class="methods-fields lab-fields">
+      <label class="methods-field">Select experiment<select id="labMode"><option value="sensitivity">Measurement sensitivity</option><option value="strategies">Observation-strategy comparison</option><option value="synthetic">Synthetic perturbation and missing-data validation</option></select></label>
+      <label class="methods-field" data-lab-mode="sensitivity">Change threshold for review · %<input id="labThreshold" type="number" min="0.1" max="100" step="0.1" value="5"></label>
+      <label class="methods-field hidden" data-lab-mode="strategies">Number of additional observations<input id="labBudget" type="number" min="1" max="6" step="1" value="3"></label>
+      <label class="methods-field hidden" data-lab-mode="strategies">Random-strategy repetitions<input id="labRepeats" type="number" min="2" max="16" step="1" value="8"></label>
+      <label class="methods-field hidden" data-lab-mode="synthetic">Synthetic perturbation strength<select id="labSeverity"><option value="0.5">Weak · 0.5</option><option value="1" selected>Reference · 1</option><option value="1.5">Strong · 1.5</option></select></label>
+      <label class="methods-field hidden" data-lab-mode="strategies synthetic">Random seed for reproducibility<input id="labSeed" type="number" min="0" max="4294967295" step="1" value="168"></label>
+    </div>
+    <p id="labScope" class="methods-result-note"></p>
+    <details class="help-detail lab-help"><summary>Computation target and scope of interpretation</summary><div id="labHelp"></div></details>
+    <div class="methods-run-actions"><button id="labRun" class="primary" type="button">Run experiment</button><button id="labCancel" type="button" disabled>Stop</button><button id="labExport" type="button" disabled>Save validation report</button></div>
+    <div id="labStatus" class="status" role="status" aria-live="polite">Select an experiment to display its description and computation conditions.</div>
+    <div id="labResult" class="lab-result" aria-live="polite"></div>
+  </div>
+</section>

@@ -1,0 +1,113 @@
+/* A focused review tool within the existing research workspace. */
+.analysis-panel{scroll-margin-top:100px}.analysis-panel .panelhead{gap:12px;flex-wrap:wrap}.analysis-intro{font-size:14px;color:var(--muted);margin:0 0 18px}.analysis-inputs,.analysis-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.analysis-inputs input[type=file]{width:100%;font-size:12px;padding:10px;overflow:hidden}.analysis-inputs input::file-selector-button{font:inherit;border:0;background:#f0f0f0;border-radius:6px;padding:5px 8px;margin-right:8px;cursor:pointer}.analysis-badge{font-size:11px;padding:5px 10px;border-radius:8px;background:#f5f5f5;color:#737373}.analysis-badge[data-state=approved]{background:#ededed;color:#333333}.analysis-workspace{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(240px,1fr);gap:24px;align-items:start}.analysis-visual{min-width:0;border:1px solid var(--line);border-radius:14px;overflow:hidden}.analysis-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 12px;border-bottom:1px solid var(--line);font-size:12px}.analysis-toolbar button{padding:6px 10px;font-size:12px}.analysis-toolbar label{margin-left:auto;display:flex;gap:6px;align-items:center}.analysis-stage{height:460px;background:#f8f8f8;overflow:hidden}.analysis-stage svg{display:block;width:100%;height:100%;touch-action:none;cursor:grab}.analysis-stage svg:active{cursor:grabbing}.analysis-caption{padding:10px 14px;margin:0;border-top:1px solid var(--line)}.analysis-editor h3,.analysis-approval h3{font-size:15px;margin:0 0 16px;font-weight:600}.analysis-editor .research-field{margin-bottom:12px}.analysis-editor button{font-size:12px;padding:8px 12px}.analysis-check{display:flex;gap:8px;align-items:flex-start;font-size:12px;color:var(--muted);margin:14px 0;line-height:1.7}.analysis-check input{flex:none;margin-top:2px}.analysis-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:18px 0}.analysis-panel button{font-size:12px}.analysis-panel .research-field input{max-width:100%}.analysis-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.analysis-approval{border-top:1px solid var(--line);padding-top:20px;margin-top:20px}.analysis-save{border-top:1px solid var(--line);margin-top:20px;padding-top:12px}.analysis-save .analysis-actions{margin:12px 0}.analysis-guide p{max-width:940px}.analysis-panel #analysisEvidence{overflow-wrap:anywhere;white-space:pre-wrap;margin-top:14px}.analysis-panel #analysisStatus[data-state=error]{background:#f2f2f2;color:#333333}.analysis-panel #analysisMeasurement{min-height:42px}.analysis-panel .research-file-button{white-space:normal;text-align:center}.analysis-panel .analysis-editor{min-width:0}.analysis-panel .research-field{font-size:12px}.analysis-panel #analysisExclusionReason{font-size:12px}
+@media(max-width:1000px){.analysis-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.analysis-workspace{grid-template-columns:minmax(0,1.5fr) minmax(220px,1fr)}.analysis-stage{height:400px}}
+@media(max-width:720px){.analysis-workspace{grid-template-columns:1fr}.analysis-inputs{grid-template-columns:1fr}.analysis-stage{height:360px}.analysis-editor{padding-top:4px}.analysis-editor .analysis-pair{grid-template-columns:repeat(2,minmax(0,1fr))}.analysis-panel .panelbody{padding:18px}.analysis-panel{scroll-margin-top:140px}.analysis-fields{gap:12px}.analysis-actions button,.analysis-actions .filebutton{white-space:normal}}
+@media(max-width:400px){.analysis-approval .analysis-pair,.analysis-fields{grid-template-columns:1fr}.analysis-stage{height:280px}.analysis-toolbar label{margin-left:0}.analysis-badge{font-size:10px}.analysis-panel .panelhead h2{font-size:16px}.analysis-editor .analysis-pair{gap:8px}}
+
+.analysis-recovery{margin-bottom:20px}.analysis-recovery .research-field{max-width:720px}.analysis-recovery .analysis-actions{margin-top:12px}.analysis-replacement{padding:20px;margin:18px 0;border:1px solid var(--line);border-radius:18px;background:#f5f5f5}.analysis-replacement[hidden]{display:none}.analysis-replacement h3{margin:0 0 10px}.analysis-replacement p{font-size:14px;line-height:1.6}.analysis-recovery select{width:100%;min-width:0}.analysis-recovery [data-state=error]{color:#333333}
+
+.analysis-qc{margin:24px 0;padding:20px;background:#f5f5f5;border-radius:18px}.analysis-qc li{font-size:14px;line-height:1.6;margin:8px 0}.analysis-qc ul:empty{display:none}.analysis-editor .analysis-actions{margin:10px 0}.analysis-inputs .research-field button{align-self:start;margin-top:8px}.analysis-editor select,.analysis-qc input{width:100%;min-width:0}.analysis-inputs .research-field{min-width:0}.analysis-inputs [type=file]{min-width:0}.analysis-qc .analysis-check[hidden]{display:none}
+
+.analysis-csv-preview{max-height:340px;overflow:auto;max-width:100%;margin-top:14px}.analysis-csv-preview table{border-collapse:collapse;font-size:12px;white-space:nowrap}.analysis-csv-preview th,.analysis-csv-preview td{padding:8px 12px;border-bottom:1px solid var(--line);text-align:left}.analysis-csv-preview th{background:#f5f5f5;position:sticky;top:0}
+.analysis-attachments{list-style:none;margin:10px 0;padding:0;display:grid;gap:8px}.analysis-attachments:empty{display:none}.analysis-attachments li{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px;border:1px solid var(--line);border-radius:8px;min-width:0}.analysis-attachments span{overflow-wrap:anywhere;min-width:0}.analysis-attachments button{flex:none}.analysis-panel #analysisResultModelInfo,.analysis-panel #analysisDraftSelection,.analysis-panel #analysisPredictionSelection{overflow-wrap:anywhere}.analysis-panel [data-geometry=polyline]{stroke-linecap:round;stroke-linejoin:round}.analysis-panel [data-geometry=point]{pointer-events:all}
+
+.analysis-panel #analysisMeasurement{white-space:pre-line}
+.analysis-toolbar select{font:inherit;max-width:100%;min-width:0;padding:5px 7px;border:1px solid var(--line);border-radius:6px;background:#fff}.analysis-toolbar input[hidden]{display:none}.analysis-toolbar label{min-width:0;white-space:nowrap}.analysis-stage svg[data-view-mode=roi]{background:#fff}
+
+.analysis-separated-exports{border:1px solid #dedede;border-radius:12px;background:#fafafa;padding:16px 18px;margin:20px 0;min-width:0}
+.analysis-separated-exports h3,.analysis-separated-exports h4{font-size:14px;margin:0 0 12px}
+.analysis-separated-exports .analysis-actions{gap:8px}
+.analysis-separated-exports button{font-size:12px;min-height:40px;background:#fff;color:#222;border:1px solid #d7d7d7;border-radius:8px}
+.analysis-separated-exports button:not(:disabled):hover{background:#eee;border-color:#aaa}
+.analysis-separated-exports p{font-size:12px;line-height:1.7;color:#666;margin:10px 0 0}
+#analysisROIScope{max-width:100%;min-width:0}
+/* Keep file actions and help on separate lines, especially in Korean/mobile layouts. */
+.analysis-inputs>.research-field,#analysisAdvanced>.research-field{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.analysis-inputs>.research-field>input,#analysisAdvanced>.research-field>input{width:100%}
+.analysis-inputs>.research-field>.mini,#analysisAdvanced>.research-field>.mini{display:block;line-height:1.75}
+.analysis-inputs>.research-field>button,#analysisAdvanced>.research-field>button{margin:0}
+
+/* Input cards lead; secondary setup stays in compact, optional frames. */
+#researchView #analysisPanel .analysis-inputs{gap:16px;margin:4px 0 18px;align-items:stretch}
+#researchView #analysisPanel .analysis-inputs>.research-field{padding:22px;border:1px solid #e5e5e5;border-radius:22px;background:#fafafa;gap:14px;min-width:0}
+#researchView #analysisPanel .analysis-inputs>.research-field>label{font-size:15px;font-weight:600;letter-spacing:-.015em;color:#222;line-height:1.5}
+#researchView #analysisPanel .analysis-inputs input[type=file]{background:#fff;border-radius:13px;padding:12px}
+#researchView #analysisPanel .analysis-inputs .auto-roi-analysis-entry{padding:0;margin:0;border:0;background:none;width:100%}
+#researchView #analysisPanel .analysis-inputs .auto-roi-analysis-entry button{border-radius:22px;padding:11px 17px;min-height:44px}
+#researchView #analysisPanel .analysis-inputs>.research-field>button{border-radius:20px;min-height:38px;padding:9px 14px}
+#researchView #analysisPanel .analysis-support-grid{display:grid;grid-template-columns:1.25fr .8fr 1fr;align-items:start;gap:10px;margin:18px 0}
+#researchView #analysisPanel .analysis-support-grid>details{min-width:0;margin:0;border-radius:20px;background:#fff}
+#researchView #analysisPanel .analysis-support-grid>details[open]{grid-column:1/-1}
+#researchView #analysisPanel .analysis-support-grid>details>summary{font-size:12px;min-height:44px;align-content:center}
+#researchView #analysisPanel .analysis-support-grid>details[open]>summary{font-size:14px}
+#researchView #analysisPanel .analysis-support-grid .analysis-intro{margin:16px 0;max-width:88ch}
+#researchView #analysisPanel #analysisRecoveryStatus{font-size:12px;margin:0 0 16px}
+#researchView #analysisPanel #analysisWorkflowDetails{margin:14px 0 22px}
+#researchView #analysisPanel #analysisWorkflowDetails:not([open]){width:fit-content;max-width:100%}
+#researchView #analysisPanel .analysis-visual,#researchView #analysisPanel .analysis-editor,#researchView #analysisPanel .analysis-approval,#researchView #analysisPanel .analysis-separated-exports{border-radius:22px}
+#researchView #analysisPanel .analysis-editor{padding:20px;border:1px solid #e7e7e7;background:#fff}
+#researchView #analysisPanel .analysis-approval{border:1px solid #e5e5e5;padding:22px;background:#fff}
+@media(max-width:760px){#researchView #analysisPanel .analysis-support-grid{grid-template-columns:1fr 1fr}#researchView #analysisPanel .analysis-support-grid>#analysisAdvanced{grid-column:1/-1}#researchView #analysisPanel .analysis-inputs>.research-field{padding:18px}#researchView #analysisPanel .analysis-editor{padding:17px}}
+@media(max-width:420px){#researchView #analysisPanel .analysis-support-grid{grid-template-columns:1fr}#researchView #analysisPanel .analysis-support-grid>details{grid-column:1/-1}}
+
+/* Separate selecting sources, reviewing boundaries and accepting measurements. */
+#researchView #analysisPanel .analysis-inputs{gap:24px;margin:0 0 32px}
+#researchView #analysisPanel .analysis-inputs>.research-field{padding:28px;gap:20px;border-radius:26px;background:#fafafa}
+#researchView #analysisPanel .analysis-inputs>.research-field>label{font-size:16px;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}
+#researchView #analysisPanel .analysis-inputs input[type=file]{padding:14px;min-height:50px}
+#researchView #analysisPanel .analysis-inputs>.research-field>button{min-height:44px;padding:12px 16px}
+#researchView #analysisPanel .analysis-support-grid{gap:16px;margin:28px 0 36px}
+#researchView #analysisPanel .analysis-support-grid>details>summary{font-size:13px;min-height:52px}
+#researchView #analysisPanel .analysis-support-grid .analysis-intro{max-width:74ch;line-height:1.85}
+#researchView #analysisPanel #analysisWorkflowDetails{margin:28px 0 32px}
+#researchView #analysisPanel .analysis-workspace{gap:32px;margin-top:32px}
+#researchView #analysisPanel .analysis-editor{padding:26px;border-radius:26px}
+#researchView #analysisPanel .analysis-editor .research-field{margin-bottom:20px}
+#researchView #analysisPanel .analysis-toolbar{padding:16px;gap:12px}
+#researchView #analysisPanel .analysis-toolbar button{min-height:44px;padding:10px 14px}
+#researchView #analysisPanel .analysis-fields{gap:24px;margin:32px 0}
+#researchView #analysisPanel .analysis-actions{gap:12px}
+#researchView #analysisPanel .analysis-approval{padding:28px;margin-top:40px;border-radius:26px}
+#researchView #analysisPanel .analysis-approval h3,#researchView #analysisPanel .analysis-editor h3{font-size:17px;line-height:1.5;margin-bottom:22px}
+#researchView #analysisPanel .analysis-approval .analysis-pair{gap:24px}
+#researchView #analysisPanel .analysis-check{margin:20px 0;gap:12px;line-height:1.8}
+#researchView #analysisPanel .analysis-separated-exports{padding:26px;margin:32px 0;border-radius:26px}
+#researchView #analysisPanel .analysis-separated-exports .analysis-actions{gap:12px}
+#researchView #analysisPanel .analysis-save{margin-top:32px;padding-top:24px}
+#researchView #analysisPanel .analysis-qc{margin:32px 0;padding:24px;border-radius:24px}
+@media(max-width:1000px){#researchView #analysisPanel .analysis-workspace{gap:24px}#researchView #analysisPanel .analysis-editor{padding:20px}}
+@media(max-width:760px){#researchView #analysisPanel .analysis-inputs>.research-field{padding:24px}#researchView #analysisPanel .analysis-support-grid{gap:16px}#researchView #analysisPanel .analysis-fields{gap:20px}#researchView #analysisPanel .analysis-approval{padding:24px}}
+@media(max-width:520px){#researchView #analysisPanel .analysis-inputs{gap:20px}#researchView #analysisPanel .analysis-inputs>.research-field{padding:20px}#researchView #analysisPanel .analysis-editor,#researchView #analysisPanel .analysis-approval,#researchView #analysisPanel .analysis-separated-exports{padding:20px}#researchView #analysisPanel .analysis-toolbar{padding:12px;gap:10px}#researchView #analysisPanel .analysis-approval .analysis-pair{gap:20px}}
+
+/* v31: no extra edge around the same filled review surface. */
+#researchView #analysisPanel .analysis-inputs>.research-field,#researchView #analysisPanel .analysis-editor,#researchView #analysisPanel .analysis-approval,#researchView #analysisPanel .analysis-separated-exports{background:#f7f7f7;border-color:#f7f7f7}
+#researchView #analysisPanel .analysis-support-grid{align-items:stretch}
+#researchView #analysisPanel .analysis-support-grid>details>summary{min-height:104px;padding:24px;border-radius:24px;height:auto}
+#researchView #analysisPanel .analysis-visual{background:#f8f8f8;border-color:#f8f8f8;border-radius:26px}
+#researchView #analysisPanel .analysis-caption{border-color:#f8f8f8;background:#f8f8f8;padding:16px 20px}
+#researchView #analysisPanel .analysis-toolbar{background:#f3f3f3;border-color:#f3f3f3;border-radius:24px;margin:12px}
+#researchView #analysisPanel #analysisWorkflowDetails>summary{min-height:104px}
+
+/* UI 33: source selection is a workspace, secondary controls are compact. */
+#researchView #analysisPanel .analysis-inputs>.research-field{padding:22px;gap:16px;border-radius:22px;background:#fafafa;border-color:#fafafa}
+#researchView #analysisPanel .analysis-inputs>.research-field>label{font-size:16px;line-height:1.5}
+#researchView #analysisPanel .analysis-inputs>.research-field>button{width:fit-content;min-height:44px;padding:10px 18px;border-radius:999px;font-size:15px}
+#researchView #analysisPanel .analysis-support-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;align-items:start;margin:24px 0 32px}
+#researchView #analysisPanel .analysis-support-grid>details>summary{min-height:56px;height:auto;padding:14px 18px;font-size:15px;line-height:1.5;border-radius:22px}
+#researchView #analysisPanel #analysisWorkflowDetails>summary{min-height:44px;padding:10px 18px;font-size:15px;border-radius:999px}
+#researchView #analysisPanel .analysis-toolbar{padding:10px 12px;margin:8px;border-radius:20px}
+#researchView #analysisPanel .analysis-toolbar button{padding:10px 16px;border-radius:999px;font-size:15px}
+#researchView #analysisPanel .analysis-editor,#researchView #analysisPanel .analysis-approval,#researchView #analysisPanel .analysis-separated-exports{padding:22px;border-radius:22px}
+@media(max-width:760px){#researchView #analysisPanel .analysis-support-grid{grid-template-columns:1fr 1fr}#researchView #analysisPanel .analysis-support-grid>#analysisAdvanced{grid-column:1/-1}}
+@media(max-width:420px){#researchView #analysisPanel .analysis-support-grid{grid-template-columns:1fr}#researchView #analysisPanel .analysis-inputs>.research-field{padding:18px}#researchView #analysisPanel .analysis-support-grid>details>summary{min-height:52px;padding:12px 18px}}
+/* Structure view (review 1): one chip per tissue label above the toolbar, and a name tag under the cursor. */
+.analysis-stage{position:relative}
+.analysis-hover-label{position:absolute;z-index:5;max-width:280px;min-height:28px;padding:4px 12px;border-radius:14px;background:#111;color:#fff;font-size:14px;font-weight:600;line-height:1.4;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.analysis-hover-label[hidden]{display:none}
+.analysis-structures{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin:0 0 10px}
+.analysis-structures[hidden]{display:none}
+.analysis-label-chips{display:inline-flex;flex-wrap:wrap;gap:6px}
+.analysis-label-chips>button{display:inline-flex;align-items:center;gap:6px}
+.analysis-label-chips>button[aria-pressed=true]{background:#111;color:#fff}
+.analysis-label-dot{display:inline-block;width:10px;height:10px;border-radius:50%}
+.analysis-label-count{opacity:.7;font-size:13px}

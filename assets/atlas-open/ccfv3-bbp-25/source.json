@@ -1,0 +1,7 @@
+{
+  "name": "Extended CCFv3 annotation of the mouse brain (annotv3a_bbp_25)",
+  "citation": "Piluso S, Veraszto C, Carey H, Delattre E, L'Yvonnet T, Colnot E, Romani A, Bjaalie JG, Keller D. An extended and improved CCFv3 annotation and Nissl atlas of the entire mouse brain. Imaging Neuroscience 2025. doi:10.1162/imag_a_00565. Built on the Allen Mouse Brain Common Coordinate Framework: Wang Q et al. Cell 2020;181:936-953.",
+  "license": "CC BY 4.0 as stated on the Zenodo record. The annotation derives from the Allen CCFv3, whose terms of use allow non-commercial use and ask for written permission before commercial redistribution.",
+  "obtained_from": "https://doi.org/10.5281/zenodo.15176439",
+  "files": {"annotv3a_bbp_25.nrrd": "md5:ff1a5b8e1ab95c9a3d469c9d1548fe82", "hierarchy_bbp_atlas_pipeline.json": "md5:fd42848996bb533d3e06c54122051501"}
+}

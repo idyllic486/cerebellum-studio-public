@@ -1,0 +1,170 @@
+<section id="studyPanel" class="panel study-panel" aria-labelledby="studyTitle">
+  <div class="panelhead"><h2 id="studyTitle">Study pipeline</h2><span id="studyBadge" class="study-badge">No study loaded</span></div>
+  <div class="panelbody">
+    <p class="study-intro">Carry reviewed sections through physical reconstruction and animal-level comparison, with each decision attached to its evidence.</p>
+    <div class="study-actions study-start">
+      <label class="filebutton">Open study<input id="studyImport" type="file" accept=".json,application/json" aria-label="Open study JSON"></label>
+      <button id="studyFromAnalysis" type="button">Use image review</button>
+      <button id="studyAddAnalysis" type="button" disabled>Add image review to selected animal</button>
+      <button id="studySave" type="button" disabled>Save study</button>
+      <button id="studyExample" type="button">Load synthetic example</button>
+      <a class="filebutton" href="./downloads/study-pipeline-guide.md" download>Download workflow guide <span class="mini" translate="no" lang="en">(English)</span></a>
+    </div>
+    <div class="study-actions study-bridge">
+      <label class="research-field">Registered animal ID<input id="studyResearchAnimalID" type="text" maxlength="128" placeholder="Enter the specimen’s lab ID" aria-describedby="studyAnimalIdentityHelp" required></label>
+      <button id="studyFromResearch" type="button" disabled>Start new study from registered animal</button>
+      <button id="studyAddResearch" type="button" disabled>Add registered animal</button>
+    </div>
+    <p id="studyAnimalIdentityHelp" class="study-note">Each registration supplies one animal. Enter its lab ID; source section names and identifiers are retained.</p>
+    <p id="studyScope" class="study-note">Imported data stay in this browser. Keep a downloaded study copy and retain the original image, ROI and CSV files separately.</p>
+    <section class="study-recovery" aria-labelledby="studyRecoveryTitle">
+      <h3 id="studyRecoveryTitle">Study recovery</h3>
+      <p id="studyRecoveryStatus" role="status" aria-live="polite">Checking browser recovery storage…</p>
+      <details class="study-details"><summary>Recovery options</summary>
+      <p class="study-note">Recovery keeps this study, pending fields and attached result data in this browser. Original TIFF, ROI and CSV files are not embedded. Browser storage can be cleared; keep a downloaded copy and the original files.</p>
+      <div class="study-actions">
+        <button id="studyRecoveryRetry" type="button">Save recovery now</button>
+        <button id="studyRecoveryCheckpoint" type="button">Keep current version</button>
+        <button id="studyRecoveryDownload" type="button">Download workspace recovery</button>
+        <label class="filebutton">Open workspace recovery<input id="studyRecoveryImport" type="file" accept=".json,application/json" aria-label="Open study workspace recovery JSON"></label>
+      </div>
+      <h4>Saved study versions</h4>
+        <label class="research-field">Recovery version<select id="studyRecoveryList"><option value="">No saved study versions</option></select></label>
+        <div class="study-actions">
+          <button id="studyRecoveryRefresh" type="button">Refresh versions</button>
+          <button id="studyRecoveryRestore" type="button">Restore selected version</button>
+          <button id="studyRecoveryExport" type="button">Download selected version</button>
+          <button id="studyRecoveryRemove" type="button">Remove selected version</button>
+        </div>
+      </details>
+    </section>
+    <dialog id="studyReplaceDialog" class="study-replace" aria-labelledby="studyReplaceTitle" aria-describedby="studyReplaceDescription">
+      <h3 id="studyReplaceTitle">Keep your current study?</h3>
+      <p id="studyReplaceDescription">Switching workspaces keeps a recovery version of the current study, including unapplied fields and approval history. The new workspace opens only after both copies are stored successfully.</p>
+      <p id="studyReplaceNames" translate="no"></p>
+      <div class="study-actions">
+        <button id="studyReplaceCancel" type="button">Stay here</button>
+        <button id="studyReplaceConfirm" type="button">Keep recovery and switch</button>
+      </div>
+    </dialog>
+    <nav id="studySteps" class="study-steps" role="tablist" aria-label="Study workflow stages">
+      <button id="studyTab1" type="button" role="tab" aria-selected="true" aria-controls="studyPage1" data-step="1"><span>01</span>Data <small>Not assessed</small></button>
+      <button id="studyTab2" type="button" role="tab" aria-selected="false" aria-controls="studyPage2" data-step="2"><span>02</span>Review <small>Not assessed</small></button>
+      <button id="studyTab3" type="button" role="tab" aria-selected="false" aria-controls="studyPage3" data-step="3"><span>03</span>Validation <small>Not assessed</small></button>
+      <button id="studyTab4" type="button" role="tab" aria-selected="false" aria-controls="studyPage4" data-step="4"><span>04</span>Physical 3D <small>Not assessed</small></button>
+      <button id="studyTab5" type="button" role="tab" aria-selected="false" aria-controls="studyPage5" data-step="5"><span>05</span>WT / KO <small>Not assessed</small></button>
+      <button id="studyTab6" type="button" role="tab" aria-selected="false" aria-controls="studyPage6" data-step="6"><span>06</span>Batch work <small>Not assessed</small></button>
+    </nav>
+    <div id="studyWorkflowState" class="study-workflow-state" aria-live="polite"></div>
+    <div id="studyStatus" class="status" role="status" aria-live="polite" data-state="empty">Open a study or bring in observations from the workspace above.</div>
+    <div class="study-selection">
+      <label class="research-field">Animal<select id="studyAnimal" disabled></select></label>
+      <label class="research-field">Section<select id="studySection" disabled></select></label>
+      <label class="research-field">Analysis layer<select id="studyLayer"><option value="CB">Whole cerebellum · CB</option><option value="ML">Molecular layer · ML</option><option value="GL">Granular layer · GL</option><option value="WM">White matter · WM</option></select></label>
+      <button id="studyDiscard" type="button" disabled>Discard unapplied fields</button>
+    </div>
+    <section id="studyPage1" class="study-step-page" role="tabpanel" aria-labelledby="studyTab1">
+      <h3>Identity, scale and sampling</h3>
+      <p class="study-note">Unknown values stay blank. Pixel size and actual section depth are required for physical measurements.</p>
+      <div class="study-fields">
+        <label class="research-field">Group<select id="studyGroup"><option value="other">Unassigned / other</option><option value="WT">WT</option><option value="KO">KO</option></select></label>
+        <label class="research-field">Animal-level split<select id="studySplit"><option value="unassigned">Unassigned</option><option value="train">Training</option><option value="validation">Validation</option><option value="test">Held-out test</option></select></label>
+        <label class="research-field">Sex<input id="studySex" type="text" maxlength="80" placeholder="Unknown"></label>
+        <label class="research-field">Age · days<input id="studyAge" type="number" min="0" step="any" placeholder="Unknown"></label>
+        <label class="research-field">Acquisition / staining batch<input id="studyBatch" type="text" maxlength="120" placeholder="Unknown"></label>
+        <label class="research-field">Section order<input id="studyOrder" type="number" min="0" step="1"></label>
+        <label class="research-field">X scale · µm / pixel<input id="studyScaleX" type="number" min="0" step="any" placeholder="Unknown"></label>
+        <label class="research-field">Y scale · µm / pixel<input id="studyScaleY" type="number" min="0" step="any" placeholder="Unknown"></label>
+        <label class="research-field">Actual Z · µm<input id="studyZ" type="number" step="any" placeholder="Unknown"></label>
+        <label class="research-field">Section thickness · µm<input id="studyThickness" type="number" min="0" step="any" placeholder="Unknown"></label>
+      </div>
+      <div class="study-inclusion"><label class="study-check"><input id="studyIncluded" type="checkbox" checked>Include this section</label><label class="research-field">Reason if excluded<input id="studyExclusion" type="text" maxlength="2000"></label></div>
+      <details class="help-detail study-details"><summary>Coverage and explicit ROI selection</summary>
+        <p>Observed-span integration is partial volume. Whole-organ coverage adds explicitly confirmed zero-area endpoints; these remain reconstruction assumptions.</p>
+        <div class="study-fields">
+          <label class="research-field">Coverage<select id="studyCoverage"><option value="observed_span">Observed span · partial volume</option><option value="whole_organ">Whole-organ coverage declared</option></select></label>
+          <label class="research-field">Zero-area start · µm<input id="studyStartZ" type="number" step="any" placeholder="Unknown"></label>
+          <label class="research-field">Zero-area end · µm<input id="studyEndZ" type="number" step="any" placeholder="Unknown"></label>
+        </div>
+        <label class="study-check"><input id="studyCoverageConfirmed" type="checkbox">I verified the coverage and explicitly accept the endpoint assumptions.</label>
+        <label class="study-check"><input id="studyExplicitROI" type="checkbox">Choose the exact ROI set for the selected analysis layer</label>
+        <label class="research-field">ROI names · multiple selection allowed<select id="studyROISelection" multiple size="5" aria-describedby="studyROIHelp"></select></label>
+        <p id="studyROIHelp" class="study-note">A unique TOTAL ROI is preferred. Local fragments are never silently treated as a complete layer.</p>
+      </details>
+      <div class="study-actions"><button id="studyApplyMetadata" type="button" disabled>Apply metadata</button></div>
+      <details class="help-detail study-details"><summary>Measurement protocol</summary>
+        <div class="study-fields">
+          <label class="research-field">Protocol ID<input id="studyProtocolID" type="text" maxlength="120" value="unassigned"></label>
+          <label class="research-field">Version<input id="studyProtocolVersion" type="text" maxlength="80" value="1"></label>
+          <label class="research-field">Derived area definition<select id="studyProfile"><option value="pixel-mask/1">Native pixel-centre mask union</option><option value="polygon-native/1">Continuous polygon area</option></select></label>
+          <label class="research-field">Flag gaps over · µm<input id="studyMaximumGap" type="number" min="0" step="any" placeholder="Unspecified"></label>
+        </div>
+        <label class="research-field">Boundary and inclusion definition<textarea id="studyBoundary" rows="3" maxlength="8000" placeholder="Record what each region includes, including detached tissue and artefacts."></textarea></label>
+        <p class="study-note">Derived area is separate from the source CSV and ImageJ measurements. Changing the protocol invalidates approvals.</p>
+        <button id="studyApplyProtocol" type="button" disabled>Apply protocol</button>
+      </details>
+      <div id="studyInventory" class="study-table-wrap"></div>
+    </section>
+    <section id="studyPage2" class="study-step-page hidden" role="tabpanel" aria-labelledby="studyTab2">
+      <h3>Review a specific data version</h3>
+      <p class="study-note">Approval is a self-entered review record, not a guarantee of anatomical accuracy. Inspect boundaries in image review first.</p>
+      <div id="studyReviewEvidence" class="study-evidence"></div>
+      <label class="research-field">Review scope<select id="studyReviewScope"><option value="source_linked">Source-linked review</option><option value="geometry_only">Geometry-only review · source image missing</option></select></label>
+      <p class="study-note">Geometry-only review preserves a decision about imported contours. It does not establish image agreement and cannot support research group comparisons.</p>
+      <div class="study-fields study-two">
+        <label class="research-field">Reviewer name<input id="studyReviewer" type="text" maxlength="200" autocomplete="name"></label>
+        <label class="research-field">Review protocol / note<input id="studyReviewProtocol" type="text" maxlength="4000" placeholder="Boundary review, calibration and exclusions checked"></label>
+      </div>
+      <label class="study-check"><input id="studyReviewChecked" type="checkbox">I checked this section’s source evidence, boundaries, metadata and exclusions.</label>
+      <div class="study-actions"><button id="studyApprove" type="button" class="primary" disabled>Approve selected section</button><a class="filebutton" href="#analysisPanel">Open image review</a><a class="filebutton" href="#researchInputTitle">Inspect registered observations</a></div>
+      <div id="studyReviewQueue" class="study-table-wrap"></div>
+    </section>
+    <section id="studyPage3" class="study-step-page hidden" role="tabpanel" aria-labelledby="studyTab3">
+      <h3>Evaluate against independent annotations</h3>
+      <p class="study-note">A reference annotation is a comparison, not error-free truth. The same animal must not cross training and test splits.</p>
+      <div id="studySplitFindings" class="study-findings"></div>
+      <div class="study-actions"><label class="filebutton">Open paired validation JSON<input id="studyValidationImport" type="file" accept=".json,application/json" aria-label="Open paired validation JSON"></label><label class="research-field">Evaluation grid<select id="studyValidationGrid"><option value="128">128 cells · faster</option><option value="256">256 cells · finer</option></select></label><button id="studyValidationRun" type="button" disabled>Evaluate pairs</button><button id="studyValidationSave" type="button" disabled>Save validation report</button></div>
+      <p class="study-note">Scores use the declared evaluation grid. They do not establish full-resolution accuracy or generalisation by themselves.</p>
+      <div id="studyValidationResults" class="study-table-wrap"></div>
+      <details class="help-detail study-details"><summary>Preparing a paired comparison</summary><p>Each pair needs the same original-image hash, prediction and reference ROI sets, explicit layer coverage, calibration and model training provenance. Unknown or unassessed layers remain missing. Reports aggregate by animal. A synthetic example includes comparison fixtures solely to exercise the workflow.</p></details>
+    </section>
+    <section id="studyPage4" class="study-step-page hidden" role="tabpanel" aria-labelledby="studyTab4">
+      <h3>Reconstruct in physical coordinates</h3>
+      <label class="research-field">3D structure<select id="studyStructure"><option value="">Selected analysis layer</option></select></label>
+      <p class="study-note">Select a layer or an exact ROI name across sections. PL traces remain open lines; named lobules require matching annotations.</p>
+      <p class="study-note">Annotated cortical regions combine their labeled ML+GL components across sections. They do not include unannotated white matter or establish a complete lobule.</p>
+      <div class="study-actions"><label class="research-field">Reconstruction grid<select id="studyMeshGrid"><option value="64">64 cells</option><option value="96">96 cells</option></select></label><label class="study-check"><input id="studyAllowGaps" type="checkbox">Allow flagged gap interpolation</label><button id="studyReconstruct" type="button" disabled>Build physical preview</button><button id="studyVolume" type="button" disabled>Compute reviewed volume</button><button id="studyMeshSave" type="button" disabled>Save reconstruction</button><button id="studyContoursCSV" type="button" disabled>Save observed contours CSV</button><button id="studySurfaceOBJ" type="button" disabled>Save inferred surface OBJ</button></div>
+      <p class="study-note">The surface is inferred between observed planes. Its appearance is not proof of missing anatomy. Physical proportions are retained.</p>
+      <div class="study-toolbar"><button id="studyFit" type="button">Fit</button><button id="studyFront" type="button">Front</button><button id="studyPerspective" type="button">Perspective</button><button id="studyZoomIn" type="button" aria-label="Zoom in physical reconstruction">Zoom in</button><button id="studyZoomOut" type="button" aria-label="Zoom out physical reconstruction">Zoom out</button><label class="study-check"><input id="studyShowObserved" type="checkbox" checked>Observed contours</label><label class="study-check"><input id="studyShowSurface" type="checkbox" checked>Inferred surface</label><label class="study-check"><input id="studyShowAtlas" type="checkbox">Atlas reference</label></div>
+      <div id="studyStage" class="study-stage" aria-label="Physical three-dimensional reconstruction"><p id="studyStageEmpty">Enter actual XY scale and Z coordinates, then build the preview.</p></div>
+      <div class="study-cut"><label class="study-check"><input id="studyCutEnabled" type="checkbox">Cut at physical Z</label><input id="studyCut" type="range" min="0" max="1" value="1" step="any" aria-label="Physical Z cut"><output id="studyCutValue">—</output></div>
+      <p class="study-note">Drag to rotate · Shift-drag to pan · wheel to zoom · click an observed contour to select its section.</p>
+      <details class="study-details"><summary>Structure evidence and applications</summary><p>Use observed contours for section matching and spatial plots. Export the inferred surface to a 3D viewer with µm units; it is not a measured tissue volume. Keep the reconstruction JSON for source hashes and assumptions.</p><div id="studyMeshEvidence" class="study-evidence"></div></details><div id="studyVolumeResults" class="study-evidence"></div>
+      <details class="help-detail study-details"><summary>Atlas reference and rigid landmark alignment</summary>
+        <p>Supply a licensed atlas mesh in µm. An atlas is a separate reference; registration never replaces native specimen coordinates or measured volume. A PDF alone does not establish a complete individual anatomy.</p>
+        <div class="study-actions"><label class="filebutton">Open atlas JSON<input id="studyAtlasImport" type="file" accept=".json,application/json" aria-label="Open atlas reference JSON"></label><label class="filebutton">Open landmark pairs<input id="studyAtlasPairs" type="file" accept=".json,application/json" aria-label="Open atlas landmark pairs JSON"></label><button id="studyAtlasTemplate" type="button">Save landmark template</button><button id="studyAtlasFit" type="button" disabled>Fit rigid alignment</button><button id="studyAtlasSave" type="button" disabled>Save alignment</button></div>
+        <div id="studyAtlasEvidence" class="study-evidence"></div>
+      </details>
+    </section>
+    <section id="studyPage5" class="study-step-page hidden" role="tabpanel" aria-labelledby="studyTab5">
+      <h3>Compare animals, not section counts</h3>
+      <p class="study-note">Only compatible, reviewed native-coordinate measurements are compared. Small cohorts support descriptive results.</p>
+      <div class="study-actions"><button id="studyCompare" type="button" disabled>Compare WT and KO</button><button id="studyComparisonSave" type="button" disabled>Save comparison JSON</button><button id="studyComparisonCSV" type="button" disabled>Save animal measurements CSV</button></div>
+      <div id="studyComparisonSummary" class="study-evidence"></div><div id="studyComparisonChart" class="study-chart"></div><div id="studyComparisonTable" class="study-table-wrap"></div>
+    </section>
+    <section id="studyPage6" class="study-step-page hidden" role="tabpanel" aria-labelledby="studyTab6">
+      <h3>Run batches and review exceptions</h3>
+      <p class="study-note">The local runner performs computation on your computer. Import its queue and draft study here; approval stays manual.</p>
+      <div class="study-actions"><a class="filebutton" href="./downloads/nissl-lab-tools.zip" download>Download local lab tools</a><a class="filebutton" href="./downloads/cerebellum-atlas-tools.zip" download>Prepare a large atlas PDF</a><label class="filebutton">Open queue report<input id="studyQueueImport" type="file" accept=".json,application/json" aria-label="Open local job queue report"></label><button id="studyQueueSave" type="button" disabled>Save queue report</button></div>
+      <div id="studyQueueSummary" class="study-evidence"></div><div id="studyQueueTable" class="study-table-wrap"></div>
+      <details class="help-detail study-details"><summary>Create a local processing manifest</summary>
+        <p>Enter the image folder used on your own computer. Paths are declarations for the downloaded runner; this website does not read arbitrary local folders or launch Python. Supply a trained model separately for inference. Preparation without a model creates observations for review.</p>
+        <div class="study-fields study-two"><label class="research-field">Image folder on your computer<input id="studyLocalFolder" type="text" placeholder="/path/to/source-sections" maxlength="2000"></label><label class="research-field">Model kind<select id="studyLocalModelKind"><option value="none">Preparation only · no model</option><option value="onnx">External ONNX model</option><option value="pixel-forest-json">Experimental pixel forest</option></select></label><label class="research-field">Model path<input id="studyLocalModelPath" type="text" maxlength="2000" placeholder="Unknown / not supplied"></label><label class="research-field">Model SHA-256<input id="studyLocalModelHash" type="text" maxlength="64"></label><label class="research-field">ONNX manifest path<input id="studyLocalModelManifest" type="text" maxlength="2000"></label><label class="research-field">Original pixels<select id="studyLocalPixels"><option value="RGB:uint8">RGB · uint8</option><option value="gray:uint8">Gray · uint8</option><option value="RGB:uint16">RGB · uint16</option><option value="gray:uint16">Gray · uint16</option></select></label></div>
+        <p class="study-note">Inspect generated paths, pixel scaling and class order against your files and model before running the manifest.</p>
+        <label class="study-check"><input id="studySingleSection" type="checkbox">I confirm every listed TIFF is one stitched section, not a multi-section montage.</label>
+        <button id="studyManifest" type="button" disabled>Download processing manifest</button>
+      </details>
+    </section>
+    <div class="study-footer"><span id="studyReadinessNote">Readiness describes available evidence, not completion of a biological validation.</span><button id="studyCancel" type="button" disabled>Stop computation</button></div>
+  </div>
+</section>

@@ -1,0 +1,44 @@
+{
+ "schema": "cerebellum-synthetic-example/1",
+ "statement": "A drawing, not tissue. Nothing measured on it means anything.",
+ "parameters": {
+  "plane_index": 10,
+  "um_per_pixel": 5.0,
+  "margin_px": 60,
+  "texture_block_px": 6,
+  "texture_seed": 20261112,
+  "colours": {
+   "background": [
+    245,
+    243,
+    246
+   ],
+   "ML": [
+    214,
+    196,
+    222
+   ],
+   "GL": [
+    122,
+    86,
+    160
+   ],
+   "WM": [
+    232,
+    222,
+    236
+   ]
+  }
+ },
+ "atlas_plate": "sagittal-plane-268",
+ "atlas_source_sha256": "45654cc0c70c90fc1d4da5c54b1c861fe9bb2fa3c45047dc1736dea984510ca0",
+ "width": 750,
+ "height": 915,
+ "area_px": {
+  "Cb": 306385,
+  "ML_TOTAL": 116758,
+  "GL_TOTAL": 129692,
+  "GL+WM": 189627,
+  "WM": 59935
+ }
+}

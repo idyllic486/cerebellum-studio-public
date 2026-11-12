@@ -1,0 +1,45 @@
+<section id="privateCollaboration" class="panel private-collaboration" aria-labelledby="privateCollaborationTitle">
+  <div class="panelhead"><h2 id="privateCollaborationTitle">Private research collaboration</h2><span id="privateConnectionBadge" class="tag">Not connected</span></div>
+  <div class="panelbody">
+    <p>Share a preserved study revision with invited researchers. Each review stays linked to its source revision. Files are uploaded only when you choose to share them.</p>
+    <button type="button" id="privateConnect" hidden>Connect private workspace</button>
+    <a id="privateSignIn" href="/signin-with-chatgpt?return_to=/%23privateCollaboration" target="_top" hidden>Sign in with ChatGPT</a>
+    <p id="privateStatus" role="status" aria-live="polite">Private collaboration requires a connected server. Your local research remains available.</p>
+    <div id="privateInvitationAccept" hidden><p>An invitation link is ready. Accept only if you recognise the project owner.</p><button type="button" id="privateAccept">Accept invitation for this account</button></div>
+    <div id="privateWorkspace" hidden>
+      <p id="privateAccount" translate="no"></p>
+      <div class="private-fields"><label>Shared project<select id="privateProject"></select></label><button type="button" id="privateRefresh">Refresh projects</button></div>
+      <details><summary>Create a private project</summary><div class="private-fields"><label>Project title<input id="privateProjectTitle" maxlength="200" autocomplete="off"></label><button type="button" id="privateCreate">Create private project</button></div></details>
+      <div id="privateProjectBody" hidden>
+        <p id="privateProjectContext" translate="no"></p>
+        <details id="privateShareControls" hidden><summary>Share a new study revision</summary>
+          <p>The current local study, its ROI coordinates and review history will be uploaded. Original images are included only if you select them below. The previous shared revision is retained.</p>
+          <label>Source files to share · optional<input id="privateSourceFiles" type="file" multiple accept=".tif,.tiff,.png,.jpg,.jpeg,.csv,.json,.zip"></label>
+          <p class="mini">Up to 64 MiB per source file and 512 MiB per project. The study document is limited to 8 MiB. Atlas materials require separate sharing rights.</p>
+          <button type="button" id="privateShare">Share current study revision</button>
+        </details>
+        <label>Preserved revision<select id="privateRevision"></select></label>
+        <div id="privateRevisionBody" hidden>
+          <p id="privateRevisionSummary" translate="no"></p>
+          <button type="button" id="privateOpenLocal">Open a copy in local study</button>
+          <p>Opening a copy uses the local study import workflow. Shared reviews do not automatically approve local measurements.</p>
+          <div id="privateSourceLinks"></div>
+          <form id="privateReviewForm">
+            <h3>Review this revision</h3>
+            <div class="private-fields"><label>Animal<select id="privateReviewAnimal"></select></label><label>Section<select id="privateReviewSection"></select></label></div>
+            <div class="private-fields"><label>ROI identity · optional<input id="privateReviewROI" maxlength="256" autocomplete="off"></label><label>Review outcome<select id="privateVerdict"><option value="needs_changes">Changes requested</option><option value="reviewed">Review recorded</option></select></label></div>
+            <label>Evidence and reasoning<textarea id="privateEvidence" maxlength="8000" rows="3" required></textarea></label>
+            <button type="submit" id="privateSubmitReview">Submit review</button>
+          </form>
+          <h3>Review history</h3><div id="privateReviewHistory"></div>
+        </div>
+        <details id="privateOwnerControls" hidden><summary>Invited researchers and access</summary>
+          <form id="privateInviteForm"><div class="private-fields"><label>Researcher email<input id="privateInviteEmail" type="email" maxlength="254" required autocomplete="off"></label><label>Access role<select id="privateInviteRole"><option value="reviewer">Reviewer</option><option value="viewer">Viewer</option></select></label></div><button type="submit" id="privateInvite">Create invitation link</button></form>
+          <p>Only the intended signed-in account can accept this link. The site owner may also need to permit that researcher to open the site. No invitation email is sent.</p>
+          <label id="privateInviteLinkLabel" hidden>Invitation link<input id="privateInviteLink" readonly translate="no"></label>
+          <div id="privateMembers"></div><div id="privateInvitations"></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>

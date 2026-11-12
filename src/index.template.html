@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="A research workspace for Nissl-stained cerebellar sections: review image-linked ROIs, export traceable measurements and explore studies in 3D.">
+<title>Cerebellum Studio</title>
+<link rel="stylesheet" href="./assets/style.css">
+<link rel="stylesheet" href="./assets/research.css">
+<link rel="stylesheet" href="./assets/methods.css">
+<link rel="stylesheet" href="./assets/lab.css">
+<link rel="stylesheet" href="./assets/spatial.css">
+<link rel="stylesheet" href="./assets/analysis.css">
+<link rel="stylesheet" href="./assets/analysis_workflow.css">
+<link rel="stylesheet" href="./assets/intake.css">
+<link rel="stylesheet" href="./assets/training_preparation.css">
+<link rel="stylesheet" href="./assets/auto_roi_workflow.css">
+<link rel="stylesheet" href="./assets/study.css">
+<link rel="stylesheet" href="./assets/science_tools.css">
+<link rel="stylesheet" href="./assets/private_collaboration.css">
+<link rel="stylesheet" href="./assets/refine.css">
+<link rel="stylesheet" href="./assets/workspace.css">
+<link rel="stylesheet" href="./assets/workspace_backup.css">
+<link rel="stylesheet" href="./assets/atlas_explorer.css">
+<link rel="stylesheet" href="./assets/polish.css">
+<link rel="stylesheet" href="./assets/research_flow.css">
+<link rel="stylesheet" href="./assets/navigation.css">
+<link rel="stylesheet" href="./assets/quiet.css">
+<link rel="stylesheet" href="./assets/focus_cards.css">
+<link rel="stylesheet" href="./assets/refinement.css">
+<script src="./assets/liquid_glass.js" defer></script>
+<script src="./assets/liquid_tabs.js" defer></script>
+<link rel="stylesheet" href="./assets/i18n.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ctext x='20' y='30' text-anchor='middle' font-family='Arial,sans-serif' font-size='32' font-weight='700' fill='%23111'%3EC%3C/text%3E%3C/svg%3E">
+</head>
+<body data-view="explore">
+<svg aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden"><defs><filter id="lgRefract" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB"><feTurbulence type="fractalNoise" baseFrequency="0.010 0.014" numOctaves="2" seed="11" result="noise"/><feGaussianBlur in="noise" stdDeviation="3" result="soft"/><feDisplacementMap in="SourceGraphic" in2="soft" scale="16" xChannelSelector="R" yChannelSelector="G" result="lens"/><feGaussianBlur in="lens" stdDeviation="10"/></filter></defs></svg>
+<a class="skip-to-workspace" href="#mainWorkspace">Skip to workspace</a>
+<header class="site-header">
+<a class="brand" href="./" aria-label="Cerebellum Studio home">Cerebellum</a>
+<nav aria-label="Main features">
+<button data-tab="explore" class="active">Explore</button>
+<button data-tab="cut">Sections</button>
+<button data-tab="annotate">Annotate</button>
+<button data-tab="source">Analyse</button>
+<button data-tab="research">My research</button>
+<button data-tab="project">About</button>
+</nav>
+<div class="studio-language">
+<label class="studio-language-label" for="studioLocale">Language</label>
+<select id="studioLocale" aria-label="Language">
+<option value="en" lang="en" translate="no">English</option>
+<option value="ko" lang="ko" translate="no">한국어</option>
+<option value="ja" lang="ja" translate="no">日本語</option>
+<option value="zh-Hant-TW" lang="zh-Hant-TW" translate="no">繁體中文（台灣）</option>
+<option value="zh-Hans-CN" lang="zh-Hans-CN" translate="no">简体中文（大陆）</option>
+</select>
+<p id="studioLocaleStatus" role="status" aria-live="polite" hidden></p>
+</div>
+<span class="version-tag" translate="no">STUDIO · UI 38</span>
+</header>
+<div id="loading" class="loading">
+<div>
+<div class="spinner">
+</div>
+<h2 id="loadTitle">Opening your workspace</h2>
+<p id="loadMessage">Preparing research data.</p>
+<button id="loadRetry" class="hidden">Retry</button>
+</div>
+</div>
+<div id="error" class="error hidden" role="alert">
+</div>
+<div id="cutFamilyNav" class="family-nav hidden" aria-label="Section tools">
+<button data-tab="cut">Free cut</button>
+<button data-tab="hold">Hold-out validation</button>
+<button data-tab="atlas">Atlas</button>
+</div>
+<div id="analysisFamilyNav" class="family-nav hidden" aria-label="Analysis tools"><button data-tab="source">Example source data</button><button data-tab="cohort">Specimen comparison</button></div>
+<div class="workspace-context"><span id="activeDataContext" role="status">Example dataset</span></div>
+<div id="exampleLoadStatus" class="example-load-status" role="status"><span id="exampleStatusMessage">Load the example</span><button type="button" id="exampleLoad">Load the example</button></div>
+<main id="mainWorkspace" class="workspace fullwidth" tabindex="-1">
+<aside>
+<details id="conditions" open><summary>Cutting settings <span class="mini">Expand / collapse</span></summary><small>Distinguishes observed contours from inferred sections.</small>
+<div class="control"><label for="dataset">Sections to connect</label><select id="dataset"><option value="continuous_1_37">Default · Nos. 1–37 / 7 sections</option><option value="all_1_67">Extended · Nos. 1–67 / 12 sections</option></select></div>
+<div id="cutControls">
+<div class="control"><label for="section">Go to observed plane</label><select id="section"></select></div>
+<div class="control"><label for="position">Cut position <output id="positionOut"></output></label><input id="position" aria-label="Cut position" type="range" min="1" max="37" value="19" step="0.1"></div>
+<div class="control"><label for="tiltX">Tilt X <output id="tiltXOut">0°</output></label><input id="tiltX" aria-label="Tilt X" type="range" min="-90" max="90" value="0" step="1"></div>
+<div class="control"><label for="tiltY">Tilt Y <output id="tiltYOut">0°</output></label><input id="tiltY" aria-label="Tilt Y" type="range" min="-90" max="90" value="0" step="1"></div>
+<div class="row"><button id="resetPlane">Parallel cut</button><button id="oblique">Oblique 30°</button></div>
+<div class="control"><label><span><input type="checkbox" id="overlay" checked> Overlay observed contours</span></label><label><span><input type="checkbox" id="context" checked> Show 3D reference surface</span></label><label><span><input type="checkbox" id="showReviewAnnotations"> Show review annotations</span></label><label><span><input type="checkbox" id="sensitivity">Show interpolation-method differences</span></label></div>
+<small class="mini">Coloured sections are computed directly from ROI distance fields. The grey surface is a v0.1 shape reference only.</small>
+<div class="divider"></div><h3>3D viewpoint</h3><div class="row"><button id="front">Front</button><button id="perspective">Perspective</button><button id="zoom">Zoom</button></div>
+<div class="control"><button id="export" style="width:100%">Save section as PNG</button></div>
+</div>
+<div class="divider"></div><div class="eyebrow">Data notes</div><p class="mini">X and Y are normalised to a common scale. Depth Z is virtual. Anatomical registration to the atlas¹ and automatic lobule² assignment have not yet been performed.</p>
+<p id="sourceNote" class="mini"></p><img id="sourceThumb" alt="Downsampled source image of the selected section">
+</details></aside><section id="exploreView">
+<div class="hero-layout">
+<div class="explore-heading">
+<div class="eyebrow">CEREBELLUM STUDIO</div>
+<h1>Your sections.<br>A clearer picture.</h1>
+<p>A research workspace for Nissl-stained cerebellar sections. Review ROIs, export measurement CSVs, and explore source-linked studies in 3D.</p>
+<div class="intro-actions entry-paths"><button class="primary" data-workspace-open="image">Start with an image</button><button data-workspace-open="observations">Existing ROI / CSV</button><button data-workspace-open="study">Continue a study</button></div>
+<div class="intro-links"><button data-guide-open>Quick guide</button><button data-go="cut">Explore the example</button><a href="#atlasExplorer">Explore atlas reference </a></div>
+<p class="hero-local">Start with your TIFF and draw or import ROIs. Automated drafts are an optional experimental workflow. Your source files stay on this device.</p>
+</div>
+<div class="model-frame">
+<div class="model-frame-heading"><span>EXAMPLE DATASET</span><span class="model-kind">Interactive 3D</span></div>
+<div class="explore-stage">
+<div id="examplePlaceholder" class="example-placeholder"><div><p class="eyebrow">Example</p><h2 id="examplePlaceholderTitle">Load the example</h2><p>Explore source-linked sections and inferred surfaces when you are ready.</p><button type="button" id="examplePlaceholderLoad">Load the example</button></div></div>
+<div id="exploreStageHost">
+<div id="stage" class="stage">
+<div class="stageTop">Current cutting plane</div>
+<div class="stageNote">Drag to rotate · scroll to zoom<br>Virtual depth · anatomical axes unassigned</div>
+</div>
+</div>
+<div class="floating-tools" aria-label="3D viewpoint">
+<button id="exploreLeft" aria-label="Rotate left">Rotate left</button>
+<button id="exploreFront" aria-label="Front view">Front</button>
+<button id="exploreRight" aria-label="Rotate right">Rotate right</button>
+<button id="exploreZoomIn" aria-label="Zoom in on model">Zoom in</button>
+<button id="exploreZoomOut" aria-label="Zoom out of model">Zoom out</button>
+</div>
+</div>
+<div class="explore-controls">
+<div class="layer-chips">
+<label class="layer-chip">
+<input id="layer-ML" type="checkbox" checked>
+<span class="dot mint">
+</span>Molecular layer</label>
+<label class="layer-chip">
+<input id="layer-GL" type="checkbox" checked>
+<span class="dot peach">
+</span>Granular layer</label>
+<label class="layer-chip">
+<input id="layer-WM" type="checkbox" checked>
+<span class="dot purple">
+</span>White matter</label>
+<label class="layer-chip">
+<input id="layer-CB" type="checkbox">
+<span class="dot gray">
+</span>All</label>
+</div>
+</div>
+<div class="explore-bottom" id="exploreStatus">7 observed planes · inferred surface</div>
+
+<details class="view-settings">
+<summary>Display settings</summary>
+<div class="settings-grid">
+<label class="field">Observation range<select id="datasetExplore" aria-label="3D observation range">
+<option value="continuous_1_37">Default · 7 sections</option>
+<option value="all_1_67">All · 12 sections</option>
+</select>
+</label>
+<label class="field">Display mode<select id="exploreMode" aria-label="3D display mode">
+<option value="surface">Inferred surface</option>
+<option value="observed">Observed contours</option>
+<option value="both">Show together</option>
+</select>
+</label>
+<label class="field">Observed-plane alignment<select id="exploreAlign" aria-label="Observed-plane alignment" disabled>
+<option value="aligned">Centroid alignment</option>
+<option value="raw">Original image coordinates</option>
+</select>
+</label>
+<label class="field">Virtual depth <output id="exploreDepthOut">1.0×</output>
+<input id="exploreDepth" aria-label="Virtual depth" type="range" min="0.2" max="2" value="1" step="0.1">
+</label>
+<div class="row">
+<button id="exploreAuto">Auto-rotate</button>
+<button id="exploreReset">Reset view</button>
+</div>
+</div>
+<label class="end-section-control"><input id="exploreEndSections" type="checkbox" checked> Observed end sections</label>
+<p class="end-section-note">Flat faces show the first and last observed ROIs, not a whole-organ closure. End sections stay opaque; hide them to inspect the interior.</p>
+<div class="opacity-settings">
+<label>Molecular-layer surface opacity<input id="opacity-ML" aria-label="Molecular-layer surface opacity" type="range" min="0.05" max="1" step="0.05" value="1">
+</label>
+<label>Granular-layer surface opacity<input id="opacity-GL" aria-label="Granular-layer surface opacity" type="range" min="0.05" max="1" step="0.05" value="1">
+</label>
+<label>White-matter surface opacity<input id="opacity-WM" aria-label="White-matter surface opacity" type="range" min="0.05" max="1" step="0.05" value="1">
+</label>
+<label>Whole-contour surface opacity<input id="opacity-CB" aria-label="Whole-contour surface opacity" type="range" min="0.05" max="1" step="0.05" value="0.15">
+</label>
+</div>
+<p class="split-caption">Depth is virtual. Examine observed contours and inferred surfaces separately.</p>
+</details>
+</div></div>
+<section class="research-path" aria-labelledby="researchPathTitle">
+<div class="research-path-heading"><span class="eyebrow">FROM IMAGE TO INSIGHT</span><h2 id="researchPathTitle">One workspace.<br>Every step connected.</h2></div>
+<ol>
+<li><span class="path-number">01</span><div><h3>Bring your sections</h3><p>Start with a TIFF, existing ROIs or a saved study.</p><button data-workspace-open="home">Choose a starting point </button></div></li>
+<li><span class="path-number">02</span><div><h3>Review with context</h3><p>See boundaries on the source image. Edit and approve with a traceable record.</p><button data-guide-open>See how review works </button></div></li>
+<li><span class="path-number">03</span><div><h3>See the structure</h3><p>Explore observed planes and compare measurements, with their limits in view.</p><a href="#atlasExplorer">Open the atlas explorer </a></div></li>
+</ol>
+</section>
+__ATLAS_EXPLORER_PANEL__
+</section><section id="cutView">
+<div class="duo"><article class="panel"><div class="panelhead"><h2>Position</h2><span class="tag">3D</span></div><div id="cutStageHost"></div><div class="legend">Surface: inferred shape · beyond end planes: not computed</div></article>
+<article class="panel"><div class="panelhead"><h2>Sections</h2><span id="sliceTag" class="tag">OBSERVED PLANE</span></div><div class="canvasWrap"><canvas id="sliceCanvas" width="440" height="440" role="img" aria-label="Tissue classification on the current cutting plane"></canvas></div><div class="legend"><span><i class="dot" style="background:#b5b5b5"></i>ML molecular layer</span><span><i class="dot" style="background:#5c5c5c"></i>GL granular layer</span><span><i class="dot" style="background:#e6e6e6"></i>WM white matter</span><span><i class="dot hatch"></i>Overlap</span><span><i class="dot" style="background:#929292"></i>Unclassified CB</span></div></article></div>
+<div id="sliceStatus" class="status" aria-live="polite"></div>
+<div class="metrics"><div class="metric"><small>Observed planes used for connection</small><b id="nSections">7</b></div><div class="metric"><small>Proportion of section near observed planes³</small><b id="supportPct">—</b></div><div class="metric"><small>Tissue overlap / within CB</small><b id="overlapPct">—</b></div><div class="metric"><small>Unclassified / within CB</small><b id="unknownPct">—</b></div></div>
+<p class="mini muted">³ Proportion of tissue-containing samples whose distance to the nearest actual plane is within 5% of the section spacing. This is neither an accuracy nor a confidence probability. Empty areas on oblique cuts may lie outside the observed range.</p>
+</section><section id="holdView" class="hidden"><article class="panel"><div class="panelhead"><h2>When one section is held out</h2><span class="tag">Hold-out validation</span></div><div class="panelbody"><p>Tests the five interior sections of the default seven. The contour and centroid of the held-out section are not used for prediction. Shape and centroid position are predicted from the two neighbouring sections and compared with the actual ROI.</p><div class="row holdoutInfo"><label for="holdSection">Section to hold out</label><select id="holdSection" style="width:170px"></select><span id="holdNeighbors" class="muted"></span></div><div class="duo"><div><h3>Predicted tissue distribution</h3><div class="canvasWrap"><canvas id="predictionCanvas" width="257" height="257" role="img" aria-label="Predicted tissue of the held-out section"></canvas></div></div><div><h3>Difference from actual · <select id="diffLayer" aria-label="Tissue for difference comparison" style="width:130px;padding:4px"><option>CB</option><option>ML</option><option>GL</option><option>WM</option></select></h3><div class="canvasWrap"><canvas id="differenceCanvas" width="257" height="257" role="img" aria-label="Difference between predicted and actual ROI"></canvas></div></div></div><div class="legend"><span><i class="dot" style="background:#7a929b"></i>Agreement</span><span><i class="dot" style="background:#edb879"></i>Predicted only</span><span><i class="dot" style="background:#d986bb"></i>Actual only</span></div><div id="diceMetrics" class="metrics"></div><small>Dice: degree of regional overlap; values closer to 1 indicate agreement. This diagnostic tests only five interior sections of one animal and does not demonstrate biological validity. Fixed 257×257 grid, centroid prediction from left and right neighbours, no rotation correction. Because differences in tissue placement within the images also enter the score, it does not reflect shape accuracy alone. Comparison figures are magnified to the same extent.</small></div></article></section><section id="atlasView" class="hidden"><div class="atlas-layout"><article class="panel"><div class="panelhead"><h2>Alongside the atlas</h2><span class="tag">Reference atlas</span></div><div class="panelbody"><select id="atlasPage" class="atlasControl"><option value="0">Fig. 101 · Lateral −0.04 mm</option><option value="1">Fig. 113 · Lateral 1.44 mm</option><option value="2">Fig. 123 · Lateral 2.64 mm</option></select><p id="atlasCaption" class="mini muted"></p></div><img id="atlasImage" class="atlasImage" alt="Sagittal figure from the Franklin and Paxinos brain atlas"><div class="panelbody"><p class="mini">Franklin & Paxinos, <em>The Mouse Brain in Stereotaxic Coordinates</em>, 3rd ed., 2007. MouseBrainAtlas.pdf supplied by the user. The values above are atlas coordinates, not coordinates of the example specimen.</p></div></article><article class="panel"><div class="panelhead"><h2>Reference points provided by the atlas</h2></div><div class="panelbody"><ul class="notes"><li>Compare 1Cb–10Cb in near-midline Fig. 101 with Sim, Crus1, Crus2, PM and Cop in lateral Fig. 123 to examine changes in branching and folding.</li><li>Lobule and fissure names serve as references for comparing morphology. They have not been automatically assigned to the current ROIs.</li><li>The atlas provides sections in three orientations. This viewer cuts the model coordinates at arbitrary angles to examine orientation-dependent changes in shape.</li><li>The 40 μm section thickness and plate spacing are properties of the atlas specimen. The spacing and orientation of the example specimen must be verified separately.</li></ul><table class="table"><thead><tr><th>Atlas abbreviation</th><th>Anatomical term</th></tr></thead><tbody><tr><td>1Cb–10Cb</td><td>Lobules of the cerebellar vermis</td></tr><tr><td>Sim</td><td>simple lobule</td></tr><tr><td>Crus1 / Crus2</td><td>crus 1 / 2 of ansiform lobule</td></tr><tr><td>PM</td><td>paramedian lobule</td></tr><tr><td>Cop</td><td>copula of the pyramis</td></tr></tbody></table><p class="mini muted">Sources: PDF pp. 8–9, 15, 23–26 and plates pp. 128, 140, 150. Sagittal plane: a plane dividing the body into left and right parts.</p></div></article></div><div class="status"><strong>Starting point for the next registration experiment</strong><br>Linking to a real coordinate system requires verifying the original cutting orientation and section spacing, and manually specifying landmarks shared with the atlas.</div></section>__SOURCE_PANEL____ANNOTATION_PANEL____PROJECT_PANEL____COHORT_PANEL____RESEARCH_PANEL__</main>
+<footer class="site-footer">
+<div class="footer-links"><button data-guide-open>User guide</button><button data-project-open>About Cerebellum Studio</button><button data-feedback-open>Leave feedback</button></div>
+<details>
+<summary>Data and scope of interpretation</summary>
+<p>Uses the final 12 sections of the example specimen. The default range comprises the seven sections Nos. 1–37, retaining the exclusion of Nos. 73 and 79. Detached tissue from No. 43 onward retains its placement within the image.</p>
+<p>The example specimen’s depth and axes are virtual coordinates. The separate atlas explorer uses published drawing coordinates and has not been registered to the example specimen. Source-data terms, atlas-based candidates and reviewer observation confirmations are distinguished. Area/PL path values are diagnostic candidate values and do not represent local layer thickness or cell counts.</p>
+<p>Atlas outlines: Piluso et al., Imaging Neuroscience 2025 (CC BY 4.0), built on the Allen Mouse Brain Common Coordinate Framework v3 (Wang et al., Cell 2020).</p>
+<p>Review records are stored temporarily in the browser; export JSON and keep it separately.</p>
+<p>Registration is the process of aligning corresponding positions across datasets. A lobule is a small anatomical subdivision of the cerebellum.</p>
+</details>
+<div class="footer-bottom">
+<span translate="no">Cerebellum Studio · UI 38</span>
+<span>Observation · Evidence · Exploration</span>
+</div>
+</footer>
+<script id="model-data" type="application/json">
+</script>
+<script id="volume-data" type="application/json">
+</script>
+<script id="annotation-data" type="application/json">
+</script>
+<script id="source-data" type="application/json">
+</script>
+<script id="thumbnail-data" type="application/json">
+</script>
+<script src="./assets/boot.js" defer>
+</script>
+</body>
+</html>

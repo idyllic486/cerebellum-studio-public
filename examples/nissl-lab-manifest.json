@@ -1,0 +1,59 @@
+{
+  "schema": "cerebellum-local-lab/1",
+  "id": "replace-with-study-id",
+  "title": "Replace with the study title",
+  "protocol": {
+    "id": "replace-with-annotation-protocol-id",
+    "version": "1",
+    "boundary_definition": "Describe which tissue boundary defines CB; do not include ML/GL/WM simultaneously with CB as exclusive labels.",
+    "maximum_gap_um": null
+  },
+  "input": { "channels": "RGB", "dtype": "uint8", "scale": [255, 255, 255] },
+  "classes": ["background", "CB"],
+  "model": null,
+  "training": { "seed": 17, "samples_per_class_per_section": 1000, "trees": 32, "max_depth": 12 },
+  "jobs": [
+    {
+      "id": "training-section-1",
+      "animal": { "id": "replace-training-animal", "group": "other", "split": "train", "batch": null },
+      "section": {
+        "id": "section-1", "order": 1, "z_um": null, "thickness_um": null,
+        "calibration": { "um_per_pixel_x": null, "um_per_pixel_y": null },
+        "included": true, "exclusion_reason": ""
+      },
+      "single_section": true,
+      "image": "./private-data/training-animal/Montage.tif",
+      "labels": "./private-data/training-animal/expert-labels.tif",
+      "roi_zip": null,
+      "measurement_csv": null
+    },
+    {
+      "id": "validation-section-1",
+      "animal": { "id": "replace-validation-animal", "group": "other", "split": "validation", "batch": null },
+      "section": {
+        "id": "section-1", "order": 1, "z_um": null, "thickness_um": null,
+        "calibration": { "um_per_pixel_x": null, "um_per_pixel_y": null },
+        "included": true, "exclusion_reason": ""
+      },
+      "single_section": true,
+      "image": "./private-data/validation-animal/Montage.tif",
+      "labels": "./private-data/validation-animal/expert-labels.tif",
+      "roi_zip": null,
+      "measurement_csv": null
+    },
+    {
+      "id": "test-section-1",
+      "animal": { "id": "replace-test-animal", "group": "other", "split": "test", "batch": null },
+      "section": {
+        "id": "section-1", "order": 1, "z_um": null, "thickness_um": null,
+        "calibration": { "um_per_pixel_x": null, "um_per_pixel_y": null },
+        "included": true, "exclusion_reason": ""
+      },
+      "single_section": true,
+      "image": "./private-data/test-animal/Montage.tif",
+      "labels": "./private-data/test-animal/expert-labels.tif",
+      "roi_zip": null,
+      "measurement_csv": null
+    }
+  ]
+}

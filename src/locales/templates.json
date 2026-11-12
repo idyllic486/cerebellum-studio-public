@@ -1,0 +1,739 @@
+[
+  {
+    "source": "{0} → {1} · candidate {2}",
+    "ui": []
+  },
+  {
+    "source": "Nearest actual image: {0}",
+    "ui": []
+  },
+  {
+    "source": "Franklin & Paxinos 2007 Figure {0}, Lateral {1} mm sagittal",
+    "ui": []
+  },
+  {
+    "source": "{0} · lobules: {1} · fissures: {2} · regions without a valid PL path: {3}.",
+    "ui": []
+  },
+  {
+    "source": "{0} · {1} · {2} ROIs · maximum relative difference {3}% · {4} ms (including preparation and transfer)",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "{0} · annotations: {1} / yellow: unverified · blue: candidate · mint: observation-confirmed",
+    "ui": []
+  },
+  {
+    "source": "Information recorded with feedback · current view: {0}, version: Studio 5",
+    "ui": []
+  },
+  {
+    "source": "Saved feedback: {0} · not sent automatically.",
+    "ui": []
+  },
+  {
+    "source": "Points: {0} · source pixel coordinates",
+    "ui": []
+  },
+  {
+    "source": "Revision history: {0} entries · {1}",
+    "ui": []
+  },
+  {
+    "source": "Validated: {0} annotations · example source fingerprint matches. They can be merged with the current {1} annotations or replace them entirely. Export the current work before replacing all.",
+    "ui": []
+  },
+  {
+    "source": "12 sections · {0} selectable terms (atlas · source data) · {1} active annotations. The yellow default candidates have no assigned term; review them against the actual images and the atlas.",
+    "ui": []
+  },
+  {
+    "source": "Preparing {0} / {1}",
+    "ui": []
+  },
+  {
+    "source": "{0} observed sections / total {1} · {2} ROIs",
+    "ui": []
+  },
+  {
+    "source": "Manual {0} · AI linked {1}",
+    "ui": []
+  },
+  {
+    "source": "original pixels Source SHA-256: {0}",
+    "ui": []
+  },
+  {
+    "source": "Review events: {0}",
+    "ui": []
+  },
+  {
+    "source": "Weights SHA-256: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unsupported metadata field: {0}",
+    "ui": []
+  },
+  {
+    "source": "· annotations: {0}",
+    "ui": []
+  },
+  {
+    "source": "Not imported: {0}",
+    "ui": []
+  },
+  {
+    "source": "Revision history: {0}",
+    "ui": []
+  },
+  {
+    "source": "Source data: {0}",
+    "ui": []
+  },
+  {
+    "source": "Display grid spacing: {0}",
+    "ui": []
+  },
+  {
+    "source": "Original atlas SHA-256: {0}",
+    "ui": []
+  },
+  {
+    "source": "The file could not be read: {0}",
+    "ui": []
+  },
+  {
+    "source": "% · review threshold: {0}",
+    "ui": []
+  },
+  {
+    "source": "Change when the method is switched: {0}",
+    "ui": []
+  },
+  {
+    "source": "Check the numerical ranges of the computation conditions: {0}",
+    "ui": []
+  },
+  {
+    "source": "Computation failed: {0}",
+    "ui": []
+  },
+  {
+    "source": "Evaluation failures: {0}",
+    "ui": []
+  },
+  {
+    "source": "Evaluation only: {0}",
+    "ui": []
+  },
+  {
+    "source": "Experiment error: {0}",
+    "ui": []
+  },
+  {
+    "source": "Initial observations: {0}",
+    "ui": []
+  },
+  {
+    "source": "Input SHA-256: {0}",
+    "ui": []
+  },
+  {
+    "source": "Observation candidates: {0}",
+    "ui": []
+  },
+  {
+    "source": "Requested additional observations: {0}",
+    "ui": []
+  },
+  {
+    "source": "Result display error: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unit of area integral: {0}",
+    "ui": []
+  },
+  {
+    "source": "· fixed evaluation: {0}",
+    "ui": []
+  },
+  {
+    "source": "· selectable: {0}",
+    "ui": []
+  },
+  {
+    "source": "· selections stopped: {0}",
+    "ui": []
+  },
+  {
+    "source": "· upper limit of additional observations compared: {0}",
+    "ui": []
+  },
+  {
+    "source": "{0}: no region ROI for the selected tissue. Select another tissue or explicitly exclude this section.",
+    "ui": []
+  },
+  {
+    "source": "Computation error: {0}",
+    "ui": []
+  },
+  {
+    "source": "Exclusion ID not present in the project: {0}",
+    "ui": []
+  },
+  {
+    "source": "Exclusion ID not present in the selected data: {0}",
+    "ui": []
+  },
+  {
+    "source": "Input fingerprint SHA-256: {0}",
+    "ui": []
+  },
+  {
+    "source": "{0}: a closed contour requires at least three points.",
+    "ui": []
+  },
+  {
+    "source": "{0}: invalid XY coordinates.",
+    "ui": []
+  },
+  {
+    "source": "{0}: only area contours can be used.",
+    "ui": []
+  },
+  {
+    "source": "Information recorded with feedback · current view: {0}",
+    "ui": []
+  },
+  {
+    "source": "Saved feedback: {0}",
+    "ui": []
+  },
+  {
+    "source": "{0}: a selected area ROI is missing; absence is not zero.",
+    "ui": []
+  },
+  {
+    "source": "{0}: only closed area ROIs are reconstructed.",
+    "ui": []
+  },
+  {
+    "source": "{0}: enter the measured depth, including excluded sections.",
+    "ui": []
+  },
+  {
+    "source": "{0}: enter the section order.",
+    "ui": []
+  },
+  {
+    "source": "{0}: no image or ROI is selected. Add its files, or use Delete row if this is an unused row. For a genuinely missing section, clear Include in 3D and record the exclusion reason. No image decoding has started.",
+    "ui": []
+  },
+  {
+    "source": "{0}: no image · alignment between ROI and image could not be verified.",
+    "ui": []
+  },
+  {
+    "source": "{0}: no measurement CSV · retained as missing.",
+    "ui": []
+  },
+  {
+    "source": "{0}: no ROI · automatic segmentation was not performed.",
+    "ui": []
+  },
+  {
+    "source": "{0}: record why this real section is excluded; delete an unused empty row instead.",
+    "ui": []
+  },
+  {
+    "source": "{0}: register individual files of 128 MiB or less.",
+    "ui": []
+  },
+  {
+    "source": "{0}: ROI coordinates lie outside the image boundary. Check the Montage origin and the ROI coordinate system.",
+    "ui": []
+  },
+  {
+    "source": "{0}: sections to be included require an image or ROI. Delete empty rows or exclude them with a stated reason.",
+    "ui": []
+  },
+  {
+    "source": "{0}: source data and ROI or CSV-derived data do not match.",
+    "ui": []
+  },
+  {
+    "source": "{0}: source file SHA-256 does not match.",
+    "ui": []
+  },
+  {
+    "source": "{0}: source image dimensions do not match.",
+    "ui": []
+  },
+  {
+    "source": "Could not process: {0}",
+    "ui": []
+  },
+  {
+    "source": "Data fingerprint SHA-256: {0}",
+    "ui": []
+  },
+  {
+    "source": "Preserved files: {0}",
+    "ui": []
+  },
+  {
+    "source": "Reason for exclusion: {0}",
+    "ui": []
+  },
+  {
+    "source": "Review records: {0}",
+    "ui": []
+  },
+  {
+    "source": "The data-reading tools could not be loaded: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unsupported file: {0}",
+    "ui": []
+  },
+  {
+    "source": "Duplicate original filename in a section: {0}",
+    "ui": []
+  },
+  {
+    "source": "Duplicate section ID: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unsupported composite ROI path command: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unsupported ImageJ ROI subtype: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unsupported ImageJ ROI type: {0}",
+    "ui": []
+  },
+  {
+    "source": "Required TIFF image tags are missing or have multiple values: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unsupported TIFF compression scheme: {0}",
+    "ui": []
+  },
+  {
+    "source": "ZIP ROI size or CRC32 verification failed: {0}",
+    "ui": []
+  },
+  {
+    "source": "{0}: a valid array of boundary points is required.",
+    "ui": []
+  },
+  {
+    "source": "{0}: a valid region contour is required.",
+    "ui": []
+  },
+  {
+    "source": "CSV length: {0}",
+    "ui": []
+  },
+  {
+    "source": "· fissures: {0}",
+    "ui": []
+  },
+  {
+    "source": "· regions without a valid PL path: {0}",
+    "ui": []
+  },
+  {
+    "source": "· source paths: {0}",
+    "ui": []
+  },
+  {
+    "source": "The scenario could not be opened: {0}",
+    "ui": []
+  },
+  {
+    "source": "· translation unit: {0}",
+    "ui": []
+  },
+  {
+    "source": "{0}: a region ROI is required.",
+    "ui": []
+  },
+  {
+    "source": "{0}: only region contours are supported.",
+    "ui": []
+  },
+  {
+    "source": "Unknown section ID: {0}",
+    "ui": []
+  },
+  {
+    "source": "Current evidence SHA-256: {0}",
+    "ui": []
+  },
+  {
+    "source": "Imported queue snapshot: {0}",
+    "ui": []
+  },
+  {
+    "source": "Landmark pairs loaded: {0}",
+    "ui": []
+  },
+  {
+    "source": "Split provenance: {0}",
+    "ui": []
+  },
+  {
+    "source": "The local runner requires IDs with 1–101 letters, digits, dots, underscores or hyphens. Invalid ID: {0}",
+    "ui": []
+  },
+  {
+    "source": "{0}: current human approval required.",
+    "ui": []
+  },
+  {
+    "source": "{0}: excluded or oversized gap requires explicit interpolation permission.",
+    "ui": []
+  },
+  {
+    "source": "Study contains a stale or altered approval: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unknown animal: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unknown section: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unknown selected ROI: {0}",
+    "ui": []
+  },
+  {
+    "source": "Selected ROI is absent: {0}",
+    "ui": []
+  },
+  {
+    "source": "Runtime error: {0}",
+    "ui": []
+  },
+  {
+    "source": "Sensitivity overlay: {0}",
+    "ui": []
+  },
+  {
+    "source": "Unknown workspace mode: {0}",
+    "ui": []
+  },
+  {
+    "source": "Dimensions: {0}",
+    "ui": []
+  },
+  {
+    "source": "Source SHA-256: {0}",
+    "ui": []
+  },
+  {
+    "source": "{0} observed planes · {1}",
+    "ui": [
+      1
+    ]
+  },
+  {
+    "source": "Contour {0} · {1} vertices",
+    "ui": []
+  },
+  {
+    "source": "{0} observed sections · {1} ROIs assembled. {2} {3}",
+    "ui": [
+      2,
+      3
+    ]
+  },
+  {
+    "source": "{0} animals · {1} sections",
+    "ui": []
+  },
+  {
+    "source": "Synthetic · {0} animals · {1} sections",
+    "ui": []
+  },
+  {
+    "source": "{0} / {1} included sections approved. Readiness is not biological validation.",
+    "ui": []
+  },
+  {
+    "source": "{0} source planes · physical coordinates",
+    "ui": []
+  },
+  {
+    "source": "Could not process: {0} The existing project is retained.",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "Could not process: {0} Your selected files are retained.",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "{0} Previous review retained.",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "{0} Previous image and review retained.",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "{0} · actual observed-plane position",
+    "ui": []
+  },
+  {
+    "source": "{0} · inferred position",
+    "ui": []
+  },
+  {
+    "source": "{0} ROIs · maximum relative difference {1}% · {2} ms (including preparation and transfer)",
+    "ui": []
+  },
+  {
+    "source": "{0} / {1} completed",
+    "ui": []
+  },
+  {
+    "source": "Reading {0}",
+    "ui": []
+  },
+  {
+    "source": "{0} · excluded",
+    "ui": []
+  },
+  {
+    "source": "Lateral {0} to {1} mm. The supplied series runs from near the midline toward one side; complete bilateral coverage is not established.",
+    "ui": []
+  },
+  {
+    "source": "Fig. {0} · Lateral {1} mm",
+    "ui": []
+  },
+  {
+    "source": "PDF {0} · Figure {1} · atlas lateral {2} mm",
+    "ui": []
+  },
+  {
+    "source": "{0} · {1} · source paths: {2} · {3} points. {4} CSV length: {5} μm. {6} This term is the label stored in the source data and is not an independently confirmed result.",
+    "ui": [
+      1,
+      4,
+      6
+    ]
+  },
+  {
+    "source": "Length computed from coordinates: {0} μm.",
+    "ui": []
+  },
+  {
+    "source": "Area computed from coordinates: {0} μm².",
+    "ui": []
+  },
+  {
+    "source": "PL stroke width {0} px is a tool setting.",
+    "ui": []
+  },
+  {
+    "source": "Line · {0}",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "Area · {0}",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "{0} · {1} · {2} points",
+    "ui": [
+      0,
+      1
+    ]
+  },
+  {
+    "source": "Franklin & Paxinos (2007), 3rd ed. · PDF p.{0}, Fig.{1}. Atlas lateral {2} mm is not a coordinate of the example specimen.",
+    "ui": []
+  },
+  {
+    "source": "{0} · displayed {1} sections · valid comparisons {2} sections · mean absolute percentage difference {3}%. This is not a measure of accuracy.",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "· {0} · {1} observations",
+    "ui": [
+      0,
+      1
+    ]
+  },
+  {
+    "source": "{0} ROIs · XY {1} × {2} µm/px · Z {3} µm",
+    "ui": []
+  },
+  {
+    "source": "{0} data notes to review",
+    "ui": []
+  },
+  {
+    "source": "{0} data note to review",
+    "ui": []
+  },
+  {
+    "source": "No {0} contours are present in the included sections. Missing data are not filled.",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "Observed plane · z {0}",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "CSV {0} rows · first 20 rows shown. — denotes a blank and differs from 0. The source and all rows are preserved in the project file.",
+    "ui": []
+  },
+  {
+    "source": "· {0} · paths: {1} · length {2} {3} · area {4} {5}",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "{0} downsampled image of actual section",
+    "ui": []
+  },
+  {
+    "source": "Select {0} / {1}",
+    "ui": []
+  },
+  {
+    "source": "{0} + {1} → {2} predicted",
+    "ui": []
+  },
+  {
+    "source": "Figure {0} · PDF page {1} · Lateral {2} mm. Published drawing curves; anatomical labels await review.",
+    "ui": []
+  },
+  {
+    "source": "Path {0} · {1} vertices",
+    "ui": []
+  },
+  {
+    "source": "Point set {0} · {1} vertices",
+    "ui": []
+  },
+  {
+    "source": "{0} points",
+    "ui": []
+  },
+  {
+    "source": "{0} points · excluded",
+    "ui": []
+  },
+  {
+    "source": "{0} px · Physical length unknown",
+    "ui": []
+  },
+  {
+    "source": "{0} px · Physical length unknown · excluded",
+    "ui": []
+  },
+  {
+    "source": "{0} px · {1} µm · excluded",
+    "ui": []
+  },
+  {
+    "source": "{0} Previous model evidence retained.",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "Original source coverage: {0} / {1} declared references matched by SHA-256. Missing originals: {2}. Invalid references: {3}. Sections without image identity: {4}.",
+    "ui": []
+  },
+  {
+    "source": "{0} additional unresolved references are recorded in the revision source manifest.",
+    "ui": []
+  },
+  {
+    "source": "Remove ROI source file: {0}",
+    "ui": []
+  },
+  {
+    "source": "{0} Model selection cleared.",
+    "ui": [
+      0
+    ]
+  },
+  {
+    "source": "{0}: the selected structure ROI is missing or excluded; absence is not zero.",
+    "ui": []
+  },
+  {
+    "source": "{0}: matching annotated cortical-region areas are missing; absence is not zero.",
+    "ui": []
+  },
+  {
+    "source": "{0} sections of {1} placed at their matched atlas positions. These are estimated positions in the atlas frame, not a measured reconstruction.",
+    "ui": []
+  },
+  {
+    "source": "{0} sections of {1} on the left and {2} sections of {3} on the right, each at its matched atlas positions. These are estimated positions in the atlas frame, not a measured reconstruction.",
+    "ui": []
+  },
+  {
+    "source": "Video download requested ({0}). It shows estimated positions in the atlas frame, not a measured reconstruction.",
+    "ui": []
+  },
+  {
+    "source": "Plane {0} of {1} · Lateral {2} mm. Outlines of an annotated average brain, not specimen tissue.",
+    "ui": []
+  },
+  {
+    "source": "Plane {0} · Lateral {1} mm",
+    "ui": []
+  },
+  {
+    "source": "{0} atlas planes · physical coordinates",
+    "ui": []
+  },
+  {
+    "source": "Lateral {0} to {1} mm. One hemisphere of a symmetric annotation is shown.",
+    "ui": []
+  },
+  {
+    "source": "Annotation volume SHA-256: {0}",
+    "ui": []
+  }
+]
