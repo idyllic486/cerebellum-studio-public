@@ -6,3 +6,6 @@ dist-*/
 qa/*.png
 qa/*-browser*.json
 .DS_Store
+qa/*.json
+!qa/public-checks.json
+qa/*.csv

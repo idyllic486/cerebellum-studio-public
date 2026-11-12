@@ -1,0 +1,10 @@
+{
+  "pass": true,
+  "synthetic_data": true,
+  "scope": "Binary package encode/decode and exact original hashes, not image decoding",
+  "sections": 7,
+  "source_bytes": 234881024,
+  "archive_bytes": 234888010,
+  "metadata_bytes": 3460,
+  "elapsed_seconds": 2.39
+}

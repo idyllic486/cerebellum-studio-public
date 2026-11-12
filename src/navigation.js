@@ -58,7 +58,7 @@
       const button = document.createElement('button'); button.type = 'button'; button.className = 'studio-navigation-link';
       const title = document.createElement('strong'), description = document.createElement('span');
       title.textContent = item.title; description.textContent = item.description;
-      if(window.CerebellumBoot?.profile.example_data_available===false&&/^tab:(cut|hold|atlas|annotate|source|cohort)$/.test(item.route))button.disabled=button.hidden=true;if(window.CerebellumBoot?.profile.atlas_reference_available===false&&item.route==='atlas')button.disabled=button.hidden=true;
+      if(window.CerebellumBoot?.profile.example_data_available===false&&(/^tab:(cut|hold|atlas|annotate|source|cohort)$/.test(item.route)||item.route==='tab:explore'&&item.title==='Example in 3D'))button.disabled=button.hidden=true;if(window.CerebellumBoot?.profile.atlas_reference_available===false&&item.route==='atlas')button.disabled=button.hidden=true;
       button.append(title, description); button.addEventListener('click', () => go(item.route)); links.append(button);
     });
     panel.hidden = false;
@@ -125,7 +125,7 @@
   };
   function currentContext() {
     const view = document.body.dataset.view;
-    if(view === 'explore') {const rect=$('atlasExplorer')?.getBoundingClientRect();return rect && rect.top < innerHeight * .55 && rect.bottom > 140 ? 'atlas' : 'explore';}
+    if(view === 'explore') {const rect=$('atlasExplorer')?.getBoundingClientRect();const example=window.CerebellumBoot?.profile.example_data_available!==false;return rect && (!example || rect.top < innerHeight * .55 && rect.bottom > 140) ? 'atlas' : example ? 'explore' : 'general';}
     if(view === 'research') {const mode=window.CerebellumWorkspace?.snapshot().mode;return contexts[mode] ? mode : 'general';}
     return contexts[view] ? view : 'general';
   }
