@@ -37,7 +37,7 @@ Then open `http://localhost:8000`. Python 3.10 or newer is enough to build; ther
 ```bash
 npm ci
 npx playwright install chromium
-python3 -m pip install numpy scipy torch
+python3 -m pip install -r scripts/requirements-lab.txt -r scripts/requirements-atlas.txt -r scripts/requirements-atlas-pdf.txt -r scripts/requirements-tiff-compatibility.txt torch
 python3 qa/run_public_checks.py
 ```
 
