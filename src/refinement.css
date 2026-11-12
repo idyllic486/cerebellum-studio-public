@@ -234,6 +234,8 @@ dialog.focus-card:not(#_#_):not(.x){position:fixed!important;inset:0;margin:auto
 /* Researcher 2026-11-07: words never clip inside a pill (the sheen layer needs overflow:hidden, so the
    pill itself must never shrink below its words); the Sections family tabs are a liquid track. */
 button:not(#_#_):not(.x):not(.y),summary:not(#_#_):not(.x):not(.y){flex-shrink:0;min-width:max-content;white-space:nowrap}
+/* A card that is a button holds a sentence, not a pill's two words: its text wraps inside the card. */
+button.workspace-choice:not(#_#_):not(.x):not(.y){min-width:0;flex-shrink:1;white-space:normal}
 .row:not(#_#_)>button{flex:0 0 auto;width:auto}
 #cutFamilyNav:not(#_#_),.family-nav:not(#_#_){display:inline-flex;gap:2px;padding:4px;border-radius:var(--pill);background:var(--glass-bg)!important;-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);box-shadow:inset 0 1px 0 var(--glass-edge),inset 0 -1px 0 var(--glass-rim)}
 /* Researcher 2026-11-07: the three home steps keep their buttons on one line — each step is a column
