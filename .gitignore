@@ -9,3 +9,4 @@ qa/*-browser*.json
 qa/*.json
 !qa/public-checks.json
 qa/*.csv
+qa/research-fixtures/
