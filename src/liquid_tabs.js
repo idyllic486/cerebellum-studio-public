@@ -13,6 +13,9 @@ const TRACKS=[
  {selector:'#studySteps',active:'[aria-selected="true"]',tone:'light'},
  {selector:'#cutFamilyNav,.family-nav',active:'.active',tone:'light'},
  {selector:'#studioLocaleMenu',active:'[aria-selected="true"]',tone:'light',axis:'y'},
+ {selector:'#analysisViewBar',active:'.is-lead',tone:'light',lead:true},
+ {selector:'#analysisRasterBar',active:'.is-lead',tone:'light',items:'summary,button',lead:true},
+ {selector:'#analysisMoreBar',active:'.is-lead',tone:'light',items:'summary,button',lead:true},
  {selector:'#heroBar',active:'.is-lead',tone:'light',items:'button,a',lead:true}
 ];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
@@ -25,7 +28,7 @@ const H=1/240;
 function setup(track,cfg){
  if(track.dataset.liquid)return;track.dataset.liquid=cfg.tone;
  // An action bar has no selected item: the drop rests on the first action and stays there.
- if(cfg.lead){const items=()=>[...track.querySelectorAll(cfg.items)].filter(x=>x.getBoundingClientRect().width>0&&!x.disabled);const lead=x=>{for(const n of track.querySelectorAll('.is-lead'))if(n!==x)n.classList.remove('is-lead');if(x&&!x.classList.contains('is-lead'))x.classList.add('is-lead');};const home=()=>lead(items()[0]);home();new MutationObserver(home).observe(track,{attributes:true,subtree:true,attributeFilter:['hidden','disabled','style']});}
+ if(cfg.lead){const items=()=>[...track.querySelectorAll(cfg.items||'button')].filter(x=>x.getBoundingClientRect().width>0&&!x.disabled);const lead=x=>{for(const n of track.querySelectorAll('.is-lead'))if(n!==x)n.classList.remove('is-lead');if(x&&!x.classList.contains('is-lead'))x.classList.add('is-lead');};const home=()=>{const now=track.querySelector('.is-lead');if(!now||!items().includes(now))lead(items()[0]);};home();new MutationObserver(home).observe(track,{attributes:true,subtree:true,attributeFilter:['hidden','disabled','style']});/* A bar that was hidden when the page loaded finds its first action once it has a size. */new ResizeObserver(home).observe(track);/* Choosing an action carries the drop to it, by pointer or by keyboard. */const pick=e=>{const x=e.target.closest&&e.target.closest(cfg.items||'button');if(x&&track.contains(x)&&!x.disabled&&!x.closest('dialog'))lead(x);};track.addEventListener('pointerdown',pick,true);track.addEventListener('focusin',e=>{if(e.target.matches&&e.target.matches(':focus-visible'))pick(e);});}
  const pill=document.createElement('span');pill.className='lg-pill lg-pill-'+cfg.tone;pill.setAttribute('aria-hidden','true');track.append(pill);
  const lens=window.LiquidLens;if(lens)lens.attach(pill,{scale:24,bezel:13,blur:0,saturate:1,magnify:0,vertical:.4,physical:true});
  let current=null,drag=null,suppressClick=0,placed=false,raf=0,last=0,acc=0,dir=0,stiff=1,lift=0,liftV=0,liftT=0,shownA=-1;
@@ -71,14 +74,14 @@ function setup(track,cfg){
   const d=(t.l+t.r)/2-from;if(Math.abs(d)>6)dir=d>0?1:-1;
   kick();
  }
- function sync(){const next=track.querySelector('button'+cfg.active);if(next===current)return;current=next;lean.l=lean.r=0;if(!next){pill.style.opacity='0';placed=false;return;}pill.style.opacity='1';retarget(next,true);}
+ function sync(){const next=track.querySelector((cfg.items||'button').split(',').map(x=>x.trim()+cfg.active).join(','));if(next===current)return;current=next;lean.l=lean.r=0;if(!next){pill.style.opacity='0';placed=false;return;}pill.style.opacity='1';retarget(next,true);}
  function relayout(){if(!current||drag)return;const r=rectOf(current);if(r.w<1){placed=false;return;}if(raf&&placed)aim(r);else retarget(current,false);}
  const vertical=cfg.axis==='y';
  function nearestY(y){let best=null,d=Infinity;for(const o of buttons()){const r=rectOf(o),dd=Math.abs(r.y+r.h/2-y);if(dd<d){d=dd;best=o;}}return best;}
  function nearest(x){let best=null,d=Infinity;for(const o of buttons()){const r=rectOf(o),dd=Math.abs(r.x+r.w/2-x);if(dd<d){d=dd;best=o;}}return best;}
  // Press: the drop is drawn toward the tab under the finger before the click lands; pressing the
  // drop itself flattens it. A sideways move picks it up.
- track.addEventListener('pointerdown',e=>{if(e.button!==0||!current||!placed)return;
+ track.addEventListener('pointerdown',e=>{/* A bar of separate actions has nothing to slide between: its drop stays put. */if(cfg.lead)return;if(e.button!==0||!current||!placed)return;
   drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,moved:false,vx:0,lastX:e.clientX,lastT:performance.now(),c0:(t.l+t.r)/2,cy0:t.y+t.h/2};
   if(reduced.matches)return;
   const btn=e.target.closest&&e.target.closest(cfg.items||'button');
@@ -112,13 +115,15 @@ function setup(track,cfg){
  track.addEventListener('pointerup',end);track.addEventListener('pointercancel',end);
  track.addEventListener('click',e=>{if(performance.now()-suppressClick<300){e.stopPropagation();e.preventDefault();}},true);
  new MutationObserver(()=>sync()).observe(track,{attributes:true,subtree:true,attributeFilter:['aria-current','aria-pressed','aria-selected','hidden','class']});
+ // A track whose items are rebuilt loses the drop with them: put it back and place it again.
+ new MutationObserver(()=>{if(!pill.isConnected){track.append(pill);current=null;sync();}}).observe(track,{childList:true});
  // A track that opens with an animation was measured while still growing: measure again once it has settled.
  track.addEventListener('animationend',e=>{if(e.target===track&&current&&!drag){retarget(current,false);}});
  new ResizeObserver(relayout).observe(track);
  window.addEventListener('resize',relayout);
  sync();
 }
-function scan(){for(const cfg of TRACKS)for(const track of document.querySelectorAll(cfg.selector))if(track.querySelector('button'))setup(track,cfg);}
+function scan(){for(const cfg of TRACKS)for(const track of document.querySelectorAll(cfg.selector))if(track.querySelector(cfg.items||'button'))setup(track,cfg);}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',scan);else scan();
 window.addEventListener('load',scan);
 let timer=0;new MutationObserver(()=>{clearTimeout(timer);timer=setTimeout(scan,60);}).observe(document.documentElement,{childList:true,subtree:true});

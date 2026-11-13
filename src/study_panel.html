@@ -10,6 +10,11 @@
       <button id="studyExample" type="button">Load synthetic example</button>
       <a class="filebutton" href="./downloads/study-pipeline-guide.md" download>Download workflow guide <span class="mini" translate="no" lang="en">(English)</span></a>
     </div>
+    <div id="studyRegister" class="study-register" hidden>
+      <button id="studyRegisterToggle" type="button" aria-expanded="false" aria-controls="studyRegisterBody">Register many sections at once</button>
+      <p class="study-note">For sections outlined elsewhere: add each image with its ROI file and measurement CSV, then start a study from them.</p>
+      <div id="studyRegisterBody" hidden></div>
+    </div>
     <div class="study-actions study-bridge">
       <label class="research-field">Registered animal ID<input id="studyResearchAnimalID" type="text" maxlength="128" placeholder="Enter the specimen’s lab ID" aria-describedby="studyAnimalIdentityHelp" required></label>
       <button id="studyFromResearch" type="button" disabled>Start new study from registered animal</button>

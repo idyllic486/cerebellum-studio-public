@@ -3934,5 +3934,12 @@
   "Review and approve": "レビューと承認",
   "Check every outline on the image, correct what is off, then approve. You get the measurements as CSV and the outlines as ImageJ ROI files.": "画像の上で輪郭を1つずつ確認し、ずれを直してから承認します。測定値はCSV、輪郭はImageJ ROIファイルとして得られます。",
   "Starts once the section has outlines.": "切片に輪郭ができると始められます。",
-  "More": "その他"
+  "More": "その他",
+  "Register many sections at once": "複数の切片をまとめて登録",
+  "For sections outlined elsewhere: add each image with its ROI file and measurement CSV, then start a study from them.": "別の場所で輪郭を描いた切片向けです。切片ごとに画像、ROI ファイル、測定 CSV を追加し、それらから研究を開始します。",
+  "Edit by coordinates": "座標で編集",
+  "About these files": "これらのファイルについて",
+  "Image view": "画像表示",
+  "Enter the reviewer name to approve.": "承認するにはレビュー担当者名を入力してください。",
+  "Turn on the confirmation to approve.": "承認するには上の確認スイッチをオンにしてください。"
 }

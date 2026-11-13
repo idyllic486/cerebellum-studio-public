@@ -721,6 +721,10 @@
     "ui": []
   },
   {
+    "source": "Lateral {0} mm",
+    "ui": []
+  },
+  {
     "source": "Plane {0} · Lateral {1} mm",
     "ui": []
   },

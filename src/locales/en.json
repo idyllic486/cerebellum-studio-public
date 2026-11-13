@@ -3934,5 +3934,12 @@
   "Review and approve": "Review and approve",
   "Check every outline on the image, correct what is off, then approve. You get the measurements as CSV and the outlines as ImageJ ROI files.": "Check every outline on the image, correct what is off, then approve. You get the measurements as CSV and the outlines as ImageJ ROI files.",
   "Starts once the section has outlines.": "Starts once the section has outlines.",
-  "More": "More"
+  "More": "More",
+  "Register many sections at once": "Register many sections at once",
+  "For sections outlined elsewhere: add each image with its ROI file and measurement CSV, then start a study from them.": "For sections outlined elsewhere: add each image with its ROI file and measurement CSV, then start a study from them.",
+  "Edit by coordinates": "Edit by coordinates",
+  "About these files": "About these files",
+  "Image view": "Image view",
+  "Enter the reviewer name to approve.": "Enter the reviewer name to approve.",
+  "Turn on the confirmation to approve.": "Turn on the confirmation to approve."
 }

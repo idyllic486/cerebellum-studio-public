@@ -3934,5 +3934,12 @@
   "Review and approve": "검토와 승인",
   "Check every outline on the image, correct what is off, then approve. You get the measurements as CSV and the outlines as ImageJ ROI files.": "이미지 위에서 윤곽을 하나씩 확인하고, 어긋난 곳을 고친 뒤 승인합니다. 측정값은 CSV로, 윤곽은 ImageJ ROI 파일로 받습니다.",
   "Starts once the section has outlines.": "절편에 윤곽이 생기면 시작됩니다.",
-  "More": "더 보기"
+  "More": "더 보기",
+  "Register many sections at once": "여러 절편 한꺼번에 등록",
+  "For sections outlined elsewhere: add each image with its ROI file and measurement CSV, then start a study from them.": "다른 곳에서 이미 윤곽을 그린 절편용입니다. 절편마다 영상, ROI 파일, 측정 CSV를 넣은 뒤 그 자료로 연구를 시작합니다.",
+  "Edit by coordinates": "좌표로 고치기",
+  "About these files": "이 파일들에 대하여",
+  "Image view": "영상 보기",
+  "Enter the reviewer name to approve.": "승인하려면 검토자 이름을 입력하세요.",
+  "Turn on the confirmation to approve.": "승인하려면 위의 확인 스위치를 켜세요."
 }

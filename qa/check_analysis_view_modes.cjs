@@ -24,7 +24,7 @@ function tiff(){const w=64,h=48,entries=[[256,4,w],[257,4,h],[258,3,8],[259,3,1]
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));let browser;
  try{
   browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',headless:true,args:['--enable-unsafe-swiftshader']});
-  const page=await browser.newPage({viewport:{width:1440,height:1000},acceptDownloads:true});page.on('pageerror',error=>report.page_errors.push(error.message));
+  const page=await browser.newPage({viewport:{width:1440,height:1000},acceptDownloads:true});await page.addInitScript(()=>{/* These steps exercise every control, including the ones a focused edition tucks away. */window.CerebellumEdition='full';});page.on('pageerror',error=>report.page_errors.push(error.message));
   await page.goto('http://127.0.0.1:'+server.address().port);await page.locator('body.ready').waitFor({timeout:60000});await page.evaluate(()=>CerebellumWorkspace.open('image'));
   const idle=()=>page.waitForFunction(()=>!document.getElementById('analysisImage').disabled),snapshot=()=>page.evaluate(()=>CerebellumAnalysis.snapshot());
   const saved=()=>page.waitForFunction(()=>{const s=CerebellumAnalysis.recoveryState();return s.savedVersion===s.changeVersion&&!s.error;});

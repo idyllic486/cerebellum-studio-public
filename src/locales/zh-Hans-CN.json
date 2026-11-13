@@ -3934,5 +3934,12 @@
   "Review and approve": "审核并批准",
   "Check every outline on the image, correct what is off, then approve. You get the measurements as CSV and the outlines as ImageJ ROI files.": "在图像上检查每一条轮廓，修正偏差，然后批准。您会得到 CSV 测量值和 ImageJ ROI 轮廓文件。",
   "Starts once the section has outlines.": "切片有轮廓后即可开始。",
-  "More": "更多"
+  "More": "更多",
+  "Register many sections at once": "一次登记多个切片",
+  "For sections outlined elsewhere: add each image with its ROI file and measurement CSV, then start a study from them.": "适用于已在别处描好轮廓的切片：为每个切片添加图像、ROI 文件和测量 CSV，再由这些资料开始研究。",
+  "Edit by coordinates": "按坐标编辑",
+  "About these files": "关于这些文件",
+  "Image view": "图像视图",
+  "Enter the reviewer name to approve.": "请输入审阅者姓名以进行批准。",
+  "Turn on the confirmation to approve.": "请打开上方的确认开关以进行批准。"
 }

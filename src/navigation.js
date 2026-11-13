@@ -77,12 +77,12 @@
     const hoverOpen = () => { resting = null; clearTimers(); opening = setTimeout(() => openMenu(key,button),180); };
     group.addEventListener('pointerenter', event => { if (event.pointerType !== 'mouse' || matchMedia('(max-width: 760px)').matches) return; if (pointerMovedFrom(event,pointerX,pointerY)) hoverOpen(); else resting = {x:event.clientX,y:event.clientY,first:Number.isNaN(pointerX)}; });
     group.addEventListener('pointermove', event => { if (resting && event.pointerType === 'mouse' && (resting.first || pointerMovedFrom(event,resting.x,resting.y))) hoverOpen(); });
-    group.addEventListener('pointerleave', () => {resting = null; clearTimeout(opening); closing = setTimeout(() => closeMenu(),250);});
+    group.addEventListener('pointerleave', () => {resting = null; /* One pending close at a time: an earlier one left running would shut a menu that opens a moment later. */ clearTimers(); closing = setTimeout(() => closeMenu(),250);});
     button.addEventListener('click', () => {resting = null; closeMenu();});
     button.addEventListener('keydown', event => { if (event.key === 'ArrowDown') { event.preventDefault(); openMenu(key,button,true); } });
   }
   panel.addEventListener('pointerenter', clearTimers);
-  panel.addEventListener('pointerleave', event => {if(event.pointerType === 'mouse') closing = setTimeout(() => closeMenu(),250);});
+  panel.addEventListener('pointerleave', event => {if(event.pointerType === 'mouse') {clearTimeout(closing); closing = setTimeout(() => closeMenu(),250);}});
   panel.querySelector('.studio-navigation-close').addEventListener('click', () => closeMenu(true));
   header.addEventListener('focusout', () => setTimeout(() => { if(!header.contains(document.activeElement)) closeMenu(); },0));
   document.addEventListener('pointerdown', event => {if(!header.contains(event.target)) closeMenu();});

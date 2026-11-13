@@ -37,7 +37,19 @@ if(!profile.example_data_available){for(const button of document.querySelectorAl
 // The focused edition leaves out pages a newcomer cannot use: the Observations and Research tools tabs, the
 // collaboration panel (no service behind it) and the batch stage (needs a separate local runner). They stay in the
 // document, out of sight, because other scripts hold on to them.
-if(profile.focused_edition)document.body.dataset.edition='focused';
+// Beside the approve button: what is still missing, in words, instead of a button that silently does nothing.
+{const hint=$('analysisApproveHint'),name=$('analysisReviewer'),checked=$('analysisChecked'),approve=$('analysisApprove'),line=$('analysisStatus');if(hint&&name&&checked&&approve){let failed='';const show=()=>{hint.textContent=failed||(!name.value.trim()?'Enter the reviewer name to approve.':!checked.checked?'Turn on the confirmation to approve.':'');};name.addEventListener('input',()=>{failed='';show();});checked.addEventListener('change',()=>{failed='';show();});approve.addEventListener('click',()=>{failed='';setTimeout(()=>{if(line&&line.dataset.state==='error'){failed=line.textContent;}show();},400);});show();}}
+// The workspace menu rides just under the header, whatever height the header takes on this screen.
+{const header=document.querySelector('.site-header');if(header){const measure=()=>document.documentElement.style.setProperty('--header-height',Math.round(header.getBoundingClientRect().height)+'px');measure();new ResizeObserver(measure).observe(header);}}
+// Either edition can be asked for in the address: ?edition=focused or ?edition=full.
+const askedEdition=new URLSearchParams(location.search).get('edition')||window.CerebellumEdition;
+if(askedEdition==='focused'||(profile.focused_edition&&askedEdition!=='full')){document.body.dataset.edition='focused';
+ // Registering many sections at once lives inside Study & 3D here: the Observations page is not offered, so its
+ // register and the step that starts a study from it are moved, whole, under one button in the study panel.
+ const register=$('studyRegister'),body=$('studyRegisterBody'),toggle=$('studyRegisterToggle'),pane=$('workspaceObservations'),bridge=document.querySelector('#studyPanel .study-bridge'),help=$('studyAnimalIdentityHelp');
+ if(register&&body&&toggle&&pane){pane.removeAttribute('data-workspace-pane');pane.hidden=false;body.append(pane);if(bridge)body.append(bridge);if(help)body.append(help);register.hidden=false;
+ {const more=$('analysisEditorMore'),advanced=$('analysisEditorAdvanced');if(more&&advanced)more.addEventListener('click',()=>{const open=!advanced.classList.contains('open');advanced.classList.toggle('open',open);more.setAttribute('aria-expanded',String(open));});}
+  toggle.addEventListener('click',()=>{const open=body.hidden;body.hidden=!open;toggle.setAttribute('aria-expanded',String(open));if(open)window.dispatchEvent(new Event('resize'));});}}
 if(!profile.atlas_reference_available){$('atlasRefLoadMessage').textContent=t('atlasUnavailable');$('atlasRefRetry').hidden=true;for(const node of document.querySelectorAll('#atlasExplorer,a[href="#atlasExplorer"]'))node.hidden=true;}
 for(const id of ['atlasRefPerspective','atlasRefSagittal','atlasRefReset','atlasRefZoomOut','atlasRefZoomIn','atlasRefStack','atlasRefInner'])$(id).disabled=true;
 // Researcher 2026-11-12: the language button grows into its own glass panel instead of the browser's list.

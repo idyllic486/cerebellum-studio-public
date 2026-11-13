@@ -674,7 +674,7 @@ dialog.lg-lit:not(#_#_)::before,.site-header.lg-lit:not(#_#_)::before,#studioToo
 #analysisStart:not(#_#_):lang(ko) :is(.analysis-start-lead,.analysis-step-note,.analysis-way-text,.analysis-drop-hint,h3,label,strong,.analysis-way-why,.analysis-step-why){word-break:keep-all;overflow-wrap:anywhere}
 #analysisPanel #analysisStatus.status:not(#_#_):lang(ko){word-break:keep-all;overflow-wrap:anywhere}
 /* Focused edition: pages a newcomer cannot use stay out of sight, and the study has five stages instead of six. */
-body[data-edition=focused] :is(#workspaceNav [data-workspace-mode=observations],#workspaceNav [data-workspace-mode=tools],#studyTab6,#studyPage6,.study-bridge,#privateCollaboration,#workspaceToolsNav):not(#_#_):not(.x):not(.y){display:none!important}
+body[data-edition=focused] :is(#workspaceNav [data-workspace-mode=observations],#workspaceNav [data-workspace-mode=tools],#studyTab6,#studyPage6,#privateCollaboration,#workspaceToolsNav):not(#_#_):not(.x):not(.y){display:none!important}
 body[data-edition=focused] #researchView #studySteps:not(#_#_):not(.x){grid-template-columns:repeat(5,minmax(0,1fr))}
 @media(max-width:1000px){body[data-edition=focused] #researchView #studySteps:not(#_#_):not(.x){grid-template-columns:repeat(3,minmax(0,1fr))}}
 
@@ -980,3 +980,144 @@ button.primary:disabled:not(#_#_):not(.x):not(.y){box-shadow:inset 0 0 0 1px rgb
 dialog.focus-details-dialog .focus-details-body:not(#_#_) :is(.analysis-toolbar,.study-toolbar,.science-actions):not(.x){background:transparent!important;box-shadow:none!important;border:0!important;padding-left:0!important;padding-right:0!important}
 .atlas-explorer .atlas-ref-frame:not(#_#_):not(.x),.atlas-explorer .atlas-ref-topline:not(#_#_):not(.x){background:transparent!important}
 .atlas-explorer .atlas-ref-topline:not(#_#_):not(.x){border-bottom:0!important;padding-left:0!important;padding-right:0!important}
+.atlas-explorer #atlasRefStage:not(#_#_):not(.x),.atlas-explorer #atlasRefStage:not(#_#_):not(.x) canvas{background:transparent!important}
+
+/* Registering many sections at once, inside Study & 3D (focused edition). */
+#researchView .study-register:not(#_#_){display:grid;gap:10px;justify-items:start;margin:22px 0 6px;min-width:0}
+#researchView .study-register:not(#_#_)>.study-note{margin:0;max-width:72ch}
+#researchView #studyRegisterBody:not(#_#_){justify-self:stretch;min-width:0;margin-top:10px;display:grid;gap:18px}
+#researchView #studyRegisterBody:not(#_#_)[hidden]{display:none}
+#researchView #studyRegisterBody:not(#_#_) :is(.annotation-intro,.research-workspace){display:none!important}
+#researchView #studyRegisterBody:not(#_#_) #workspaceObservations{display:block;min-width:0}
+#researchView #studyRegisterBody:not(#_#_) .study-bridge{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin:0}
+
+/* Image analysis review screen. */
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y) .analysis-drop-mark{display:none!important}
+#analysisStart:not(#_#_) .analysis-drop.has-file:not(.x):not(.y):not(.z){padding-left:26px}
+/* Three glass slide bars built like the workspace menu: the More entries, the structure filter and the image view controls. */
+#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__){position:relative;display:flex!important;flex-wrap:nowrap!important;align-items:center;justify-content:flex-start;gap:4px!important;box-sizing:border-box;width:fit-content!important;max-width:100%!important;margin:0 auto!important;padding:7px!important;border:0!important;border-radius:var(--pill)!important;background:transparent!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 .6px rgba(0,0,0,.15),0 10px 24px -12px rgba(0,0,0,.22),0 2px 5px rgba(0,0,0,.04)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;overflow-x:auto;overflow-y:hidden;scrollbar-width:none}
+#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__)::-webkit-scrollbar{display:none}
+#researchView #analysisMoreBar:not(#_#_):not(#__) :is(.analysis-support-grid,.analysis-more-actions,details){display:contents!important}
+#analysisStart[data-stage=empty]:not(#_#_) #analysisMoreBar:not(#__) .analysis-more-actions{display:none!important}
+#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__) :is(summary,button):not(dialog *):not(.x):not(.y):not(.z),#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__) :is(summary,button):not(dialog *):not(.x):not(.y):not(.z):hover{position:relative;z-index:1;flex:0 0 auto;display:inline-flex!important;align-items:center;justify-content:center;gap:7px;box-sizing:border-box;width:auto!important;height:46px!important;min-height:46px!important;margin:0!important;padding:0 20px!important;border:0!important;border-radius:var(--pill)!important;background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;font-size:15px;font-weight:600;line-height:1!important;letter-spacing:-.01em;color:#5c5c61!important;white-space:nowrap;transform:none!important;animation:none!important}
+#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__) :is(summary,button):not(dialog *):not(.x):not(.y):not(.z):is(.is-lead,[aria-pressed=true]){color:#0b0b0c!important}
+#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__) :is(summary,button):not(dialog *):not(.x):not(.y):not(.z):not(.is-lead):not([aria-pressed=true]):not(:disabled):hover{color:#1c1c1e!important}
+#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__) button:not(dialog *):disabled:not(.x):not(.y):not(.z){color:#a5a5aa!important}
+#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__) :is(summary,button):not(dialog *)::before,#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__) :is(summary,button):not(dialog *)::after{display:none!important}
+#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__)>.lg-pill{z-index:2!important;border-radius:var(--pill)!important;background:transparent!important;box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,0,0,.07),0 0 0 .6px rgba(0,0,0,.28),0 6px 14px -6px rgba(0,0,0,.26)!important}
+#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__)>.lg-pill::after{display:none!important}
+/* Structure filter: centred over the image, every chip the same width so the row is even. */
+#researchView #analysisStructures:not(#_#_):not(.x){display:flex;flex-direction:column;align-items:center;gap:12px;margin:0 0 16px;background:transparent!important;box-shadow:none!important;border:0!important;padding:0!important}
+#researchView #analysisStructures:not(#_#_):not(.x)[hidden]{display:none}
+#researchView #analysisLabelChips:not(#_#_):not(#__)>button:not(.x):not(.y):not(.z){min-width:92px;padding:0 16px!important}
+#researchView #analysisLabelChips:not(#_#_):not(#__) .analysis-label-dot{width:9px;height:9px;margin:0!important;border-radius:50%;box-shadow:0 0 0 2px rgba(255,255,255,.9)}
+#researchView #analysisLabelChips:not(#_#_):not(#__) .analysis-label-count{font-weight:500;color:#8a8a90;font-variant-numeric:tabular-nums}
+/* Image controls: one centred row on the page background, no grey tray. */
+#researchView .analysis-visual:not(#_#_):not(.x),#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x){background:transparent!important;box-shadow:none!important;border:0!important}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x){display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:12px 16px;padding:0 0 16px!important;margin:0}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x)>label{display:inline-flex;align-items:center;gap:8px;margin:0;font-size:13px;color:#55555a}
+#researchView #analysisViewBar:not(#_#_):not(#__){margin:0!important}
+/* The drawing surface: a quiet rounded sheet with a hairline edge. */
+#researchView .analysis-stage:not(#_#_):not(.x){border-radius:24px;overflow:hidden;background:rgba(255,255,255,.55)!important;border:0!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.07),0 14px 34px -22px rgba(20,30,60,.25)}
+#researchView #analysisVertexMarker:not(#_#_){stroke:#0b0b0c;stroke-width:1.6;fill:#fff}
+/* Editor: on the page background; in the focused edition the coordinate tools wait behind one button. */
+#researchView .analysis-editor:not(#_#_):not(.x){background:transparent!important;border:0!important;box-shadow:none!important;padding:0 0 0 8px!important;display:grid;gap:14px;align-content:start}
+#researchView .analysis-editor:not(#_#_):not(.x)>*{margin:0}
+#researchView .analysis-editor:not(#_#_):not(.x)>h3{font-size:21px;font-weight:650;letter-spacing:-.02em}
+#researchView .analysis-editor:not(#_#_) .analysis-actions:not(.x){display:flex;flex-wrap:wrap;gap:10px}
+#researchView .analysis-editor:not(#_#_) .analysis-editor-advanced{display:grid;gap:14px}
+#researchView .analysis-editor:not(#_#_) .analysis-editor-more{display:none;justify-self:start}
+body[data-edition=focused] #researchView .analysis-editor:not(#_#_) .analysis-editor-more{display:inline-flex}
+body[data-edition=focused] #researchView .analysis-editor:not(#_#_) .analysis-editor-advanced:not(.open){display:none}
+/* Files to take away: first thing in the review, one row, no box. */
+#researchView .analysis-separated-exports:not(#_#_):not(.x){display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 12px;margin:0 0 26px!important;padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important;text-align:center}
+#researchView .analysis-separated-exports:not(#_#_):not(.x)>h3{flex:1 1 100%;margin:0;font-size:21px;font-weight:650;letter-spacing:-.02em}
+#researchView .analysis-separated-exports:not(#_#_):not(.x)>p{flex:1 1 100%;margin:0;font-size:14px;color:#55555a}
+#researchView .analysis-separated-exports:not(#_#_):not(.x)>.analysis-actions{display:contents}
+#researchView .analysis-separated-exports:not(#_#_):not(.x) #analysisExportDraftROI{order:-1}
+#researchView .analysis-separated-exports:not(#_#_):not(.x) :is(button,summary):not(.y):not(.z){font-size:15px;min-height:44px;border:0;border-radius:var(--pill)}
+#researchView .analysis-separated-exports:not(#_#_):not(.x)>details{order:9}
+#researchView :is(.analysis-qc,.analysis-approval,.analysis-save):not(#_#_):not(.x){background:transparent!important;border:0!important;box-shadow:none!important;padding-left:0!important;padding-right:0!important}
+#researchView .status:not([data-state=error]):not(#_#_):not(.x):not(.y){background:transparent!important;box-shadow:none!important;border:0!important;padding-left:0!important;padding-right:0!important}
+#researchView .analysis-separated-exports:not(#_#_):not(.x)>h3{order:-3}
+#researchView .analysis-separated-exports:not(#_#_):not(.x)>p{order:-2}
+/* Review sections below the image: on the page background, their parts spaced apart instead of touching. */
+#researchView #analysisWorkspace:not(#_#_) :is(.analysis-qc,.analysis-approval,.analysis-save,#analysisMetadata,#analysisCSV):not(.x){display:grid;gap:14px;justify-items:start;margin:28px 0!important}
+#researchView #analysisWorkspace:not(#_#_) :is(.analysis-qc,.analysis-approval,.analysis-save,#analysisMetadata,#analysisCSV):not(.x)>*{margin:0;min-width:0}
+#researchView #analysisWorkspace:not(#_#_) :is(.analysis-qc,.analysis-approval,.analysis-save,#analysisMetadata):not(.x)>:is(.research-field,.analysis-fields,.analysis-pair,ul,p){justify-self:stretch}
+#researchView #analysisWorkspace:not(#_#_) :is(.analysis-qc,.analysis-approval):not(.x)>h3{font-size:21px;font-weight:650;letter-spacing:-.02em}
+#researchView #analysisWorkspace:not(#_#_) .research-field:not(.x){display:grid;gap:7px}
+#researchView #analysisWorkspace:not(#_#_) .research-field:not(.x)>:is(input,select,textarea){margin:0}
+#researchView #analysisWorkspace:not(#_#_) .analysis-fields:not(.x){gap:16px}
+#researchView .analysis-visual:not(#_#_)>:is(p,.mini,.analysis-note):not(.x),#researchView .analysis-visual:not(#_#_) :is(.analysis-stage-note,.analysis-view-note):not(.x),#analysisStart:not(#_#_) :is(.analysis-file-row,.analysis-roi-file,#analysisROIFile):not(.x){background:transparent!important;box-shadow:none!important;border:0!important;padding-left:0!important;padding-right:0!important}
+/* Section details in the focused edition: who and which section, and the pixel size. Depth and spacing are entered where the 3D stack is built. */
+body[data-edition=focused] #researchView #analysisMetadata:not(#_#_) .research-field:has(#analysisZ,#analysisThickness,#analysisInterval){display:none}
+/* The workspace menu rides under the header while its workspace scrolls, so the other workspaces stay one press away. A light blur keeps its labels readable over passing text. */
+#researchView #workspaceNav:not(#_#_):not(.x):not(.y){position:sticky!important;top:calc(var(--header-height,76px) + 10px);z-index:24}
+#researchView #workspaceNav:not(#_#_):not(.x):not(.y)::before{content:""!important;display:block!important;position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;background:rgba(255,255,255,.1)!important;opacity:1!important}
+#researchView #analysisWorkspace:not(#_#_) :is(#analysisMetadata,#analysisCSV)[open]:not(.x)>:not(summary):not(dialog){margin-top:14px!important}
+#researchView #workspaceNav:not(#_#_):not(.x):not(.y){-webkit-backdrop-filter:blur(4px) saturate(1.3);backdrop-filter:blur(4px) saturate(1.3)}
+#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__) :is(summary,button)[hidden]:not(.x):not(.y):not(.z){display:none!important}
+/* Image controls: nothing clips the bar's rim; the view bar sits centred on its own line with the two pickers side by side beneath it. */
+#researchView :is(.analysis-visual,.analysis-workspace):not(#_#_):not(.x),#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x){overflow:visible!important}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x){display:grid;grid-template-columns:repeat(2,max-content);justify-content:center;justify-items:center;align-items:center;gap:14px 22px;padding:6px 0 18px!important}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x)>#analysisViewBar{grid-column:1/-1}
+@media(min-width:701px){#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__){overflow:visible}}
+@media(max-width:520px){#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x){grid-template-columns:minmax(0,1fr)}#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x)>label{flex-wrap:wrap;justify-content:center}}
+/* Editor buttons keep their own width; the floating tools button sits low in the corner with a light blur so it never tangles with what passes under it. */
+#researchView .analysis-editor:not(#_#_):not(.x)>button,#researchView .analysis-editor:not(#_#_) .analysis-editor-advanced>button{justify-self:start;width:auto}
+.studio-tool-dock:not(#_#_):not(.x){bottom:22px}
+main#mainWorkspace:not(#_#_){padding-bottom:96px}
+/* An opened section clips with a margin, so the rims and shadows of the controls at its edges are whole. */
+details:not(#_#_)::details-content{overflow-clip-margin:18px}
+details[open]:not(:has(>dialog[open])):not(#_#_)::details-content{overflow:visible}
+/* Field names are read first: larger, bold and dark, everywhere a field has a name above it. */
+:is(.research-field,.analysis-toolbar>label,.study-fields label,.science-fields label,.atlas-ref-placed label,.atlas-ref-selection label,.private-fields label):not(#_#_):not(.x){font-size:15px!important;font-weight:650!important;letter-spacing:-.01em;color:#1c1c1e!important}
+:is(.research-field,.study-fields label,.science-fields label,.atlas-ref-placed label,.atlas-ref-selection label,.private-fields label):not(#_#_):not(.x)>:is(input,select,textarea){font-weight:400;letter-spacing:0}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) label:not(:has(>input[type=checkbox])):not(.filebutton):not(.layer-chip){font-size:15px!important;font-weight:650!important;color:#1c1c1e!important}
+
+/* What the model produced, kept as evidence: one line and one bar of actions. The counts, the map picker and the overlay switch matter when a draft could not be made, so they show only then (or in the full edition). */
+#researchView #analysisRasterFailure:not(#_#_):not(.x){background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important;margin:28px 0!important;display:grid;gap:12px;justify-items:center;text-align:center}
+#researchView #analysisRasterFailure:not(#_#_):not(.x)[hidden]{display:none}
+#researchView #analysisRasterFailure:not(#_#_):not(.x)>*{margin:0;max-width:78ch}
+#researchView #analysisRasterFailure:not(#_#_):not(.x)>h3{font-size:21px;font-weight:650;letter-spacing:-.02em}
+#researchView #analysisRasterBar:not(#_#_):not(#__) :is(.analysis-actions,details){display:contents!important}
+#researchView #analysisRasterFailure:not(#_#_):not(.x)>#analysisRasterBar{max-width:100%}
+body[data-edition=focused] #researchView #analysisRasterFailure.is-converted:not(#_#_)>:is(.mini,.research-field,.analysis-check){display:none!important}
+/* Image controls on one line: the view bar, then the two short pickers. They wrap only when the screen is too narrow. */
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y){display:flex!important;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px 18px}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y)>label{flex:0 0 auto;white-space:nowrap}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y) select:not(.z){min-width:0!important;width:auto!important;max-width:176px;padding-left:16px}
+#researchView #analysisViewBar:not(#_#_):not(#__)>button:not(.x):not(.y):not(.z){padding:0 16px!important}
+/* In a slide bar the glass drop is the focus mark; no separate black ring. */
+[data-liquid]:not(#_#_):not(.x) :is(button,summary,a):is(:focus,:focus-visible):not(dialog *){outline:0!important}
+
+/* Steps keep their numbers when done; the step in hand is dark, the others grey. No check marks. */
+#analysisStart:not(#_#_) .analysis-step-number:not(.x):not(.y):not(.z),#analysisStart:not(#_#_):not(.x) [data-step] .analysis-step-number:not(.y):not(.z){font-size:30px!important;color:#b4b4ba}
+#analysisStart:not(#_#_):not(.x) [data-step] .analysis-step-number:not(.y):not(.z)::after{display:none!important;content:none!important}
+#analysisStart[data-stage=empty]:not(#_#_):not(.x) [data-step=open] .analysis-step-number:not(.y):not(.z),#analysisStart[data-stage=image]:not(#_#_):not(.x) [data-step=outline] .analysis-step-number:not(.y):not(.z),#analysisStart:is([data-stage=outlined],[data-stage=approved]):not(#_#_):not(.x) [data-step=review] .analysis-step-number:not(.y):not(.z){color:var(--ink)}
+/* Image controls: one line, one height. */
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y){gap:10px 12px;flex-wrap:nowrap}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y) #analysisViewBar:not(#__){padding:5px!important;flex:0 0 auto}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y) #analysisViewBar:not(#__)>button:not(.z){height:42px!important;min-height:42px!important;padding:0 14px!important}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y) select:not(.z){height:52px!important;min-height:52px!important;max-width:168px}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y)>label{gap:6px}
+@media(max-width:1180px){#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y){flex-wrap:wrap}}
+/* Bars may show their whole rim on wide screens; on narrower ones they scroll inside themselves and never widen the page. */
+@media(max-width:1100px){#researchView :is(#analysisMoreBar,#analysisLabelChips,#analysisViewBar,#analysisRasterBar):not(#_#_):not(#__){overflow-x:auto;overflow-y:hidden}}
+/* Space under the riding menu, so a workspace never starts beneath it. */
+#researchView :is(.analysis-workspace,#analysisStart,#studyPanel):not(#_#_){scroll-margin-top:calc(var(--header-height,76px) + 96px)}
+/* Finishing a section, in four numbered parts in the order they are done: details, checks, approval, files. */
+#researchView #analysisWorkspace:not(#_#_){counter-reset:finish}
+#researchView #analysisWorkspace:not(#_#_)>:is(#analysisMetadata,.analysis-qc,.analysis-approval,.analysis-separated-exports):not(.x){counter-increment:finish;position:relative;padding-left:56px!important;margin:34px 0!important;justify-items:start;text-align:left;display:grid;gap:14px}
+#researchView #analysisWorkspace:not(#_#_)>:is(#analysisMetadata,.analysis-qc,.analysis-approval,.analysis-separated-exports):not(.x)::before{content:counter(finish);display:block!important;position:absolute;left:4px;top:-2px;font-size:30px;font-weight:750;letter-spacing:-.03em;line-height:1.2;color:var(--ink);background:none!important}
+#researchView #analysisWorkspace:not(#_#_)>.analysis-separated-exports:not(.x){display:flex;justify-content:flex-start;text-align:left}
+#researchView #analysisWorkspace:not(#_#_)>.analysis-separated-exports:not(.x)>:is(h3,p){text-align:left}
+#researchView #analysisWorkspace:not(#_#_)>:is(.analysis-qc,.analysis-approval,.analysis-save,.analysis-separated-exports):not(.x)>.mini:not([role=status]){font-size:13px;color:#77777c;max-width:86ch}
+#researchView .analysis-draft-export:not(#_#_){display:flex;justify-content:center;margin:0 0 18px}
+#researchView .analysis-approve-hint:not(#_#_){margin:0;font-size:14px;font-weight:600;color:#9a4a00}
+#researchView .analysis-approve-hint:not(#_#_):empty{display:none}
+#researchView .analysis-approval:not(#_#_) .analysis-actions:not(.x){align-items:center}
+#researchView #analysisWorkspace:not(#_#_)>.analysis-save:not(.x){padding-left:56px!important}
+@media(max-width:600px){#researchView #analysisWorkspace:not(#_#_)>:is(#analysisMetadata,.analysis-qc,.analysis-approval,.analysis-separated-exports,.analysis-save):not(.x){padding-left:0!important;padding-top:40px!important}}
+#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y) select:not(.z){font-weight:500;padding:0 36px 0 14px!important;max-width:182px;background-position:right 12px center}
