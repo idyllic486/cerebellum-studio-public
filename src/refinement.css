@@ -1066,8 +1066,6 @@ body[data-edition=focused] #researchView #analysisMetadata:not(#_#_) .research-f
 @media(max-width:520px){#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x){grid-template-columns:minmax(0,1fr)}#researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x)>label{flex-wrap:wrap;justify-content:center}}
 /* Editor buttons keep their own width; the floating tools button sits low in the corner with a light blur so it never tangles with what passes under it. */
 #researchView .analysis-editor:not(#_#_):not(.x)>button,#researchView .analysis-editor:not(#_#_) .analysis-editor-advanced>button{justify-self:start;width:auto}
-.studio-tool-dock:not(#_#_):not(.x){bottom:22px}
-main#mainWorkspace:not(#_#_){padding-bottom:96px}
 /* An opened section clips with a margin, so the rims and shadows of the controls at its edges are whole. */
 details:not(#_#_)::details-content{overflow-clip-margin:18px}
 details[open]:not(:has(>dialog[open])):not(#_#_)::details-content{overflow:visible}
@@ -1121,3 +1119,4 @@ body[data-edition=focused] #researchView #analysisRasterFailure.is-converted:not
 #researchView #analysisWorkspace:not(#_#_)>.analysis-save:not(.x){padding-left:56px!important}
 @media(max-width:600px){#researchView #analysisWorkspace:not(#_#_)>:is(#analysisMetadata,.analysis-qc,.analysis-approval,.analysis-separated-exports,.analysis-save):not(.x){padding-left:0!important;padding-top:40px!important}}
 #researchView .analysis-visual:not(#_#_) .analysis-toolbar:not(.x):not(.y) select:not(.z){font-weight:500;padding:0 36px 0 14px!important;max-width:182px;background-position:right 12px center}
+#researchView .analysis-separated-exports:not(#_#_):not(.x)>.analysis-actions{display:flex!important;flex-wrap:wrap;gap:10px 12px}
