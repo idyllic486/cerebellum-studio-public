@@ -976,3 +976,7 @@ button.primary:disabled:not(#_#_):not(.x):not(.y){box-shadow:inset 0 0 0 1px rgb
 @media(prefers-reduced-motion:reduce){.studio-locale-menu:not(#_#_):not(.x):not(.y).open,.studio-locale-menu:not(#_#_):not(.x).open>button{animation:none}}
 /* Header: a light blur so page text passing under the menu does not tangle with it. The blur sits on a layer behind the header's content, so the language panel still blurs the page itself. */
 .site-header:not(#_#_):not(.x):not(.y)::before{content:""!important;display:block!important;position:absolute;inset:0;z-index:-1;pointer-events:none;background:rgba(255,255,255,.08)!important;-webkit-backdrop-filter:blur(9px) saturate(1.3)!important;backdrop-filter:blur(9px) saturate(1.3)!important}
+/* Left-over inner boxes: the toolbar inside the model window and the strip above the atlas view carry no fill. */
+dialog.focus-details-dialog .focus-details-body:not(#_#_) :is(.analysis-toolbar,.study-toolbar,.science-actions):not(.x){background:transparent!important;box-shadow:none!important;border:0!important;padding-left:0!important;padding-right:0!important}
+.atlas-explorer .atlas-ref-frame:not(#_#_):not(.x),.atlas-explorer .atlas-ref-topline:not(#_#_):not(.x){background:transparent!important}
+.atlas-explorer .atlas-ref-topline:not(#_#_):not(.x){border-bottom:0!important;padding-left:0!important;padding-right:0!important}
