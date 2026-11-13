@@ -10,8 +10,10 @@ const TRACKS=[
  {selector:'#workspaceNav',active:'[aria-current="page"]',tone:'light'},
  {selector:'#workspaceToolsNav',active:'[aria-pressed="true"]',tone:'light'},
  {selector:'.analysis-label-chips',active:'[aria-pressed="true"]',tone:'light'},
- {selector:'#studySteps',active:'[aria-selected="true"]',tone:'dark'},
- {selector:'#cutFamilyNav,.family-nav',active:'.active',tone:'light'}
+ {selector:'#studySteps',active:'[aria-selected="true"]',tone:'light'},
+ {selector:'#cutFamilyNav,.family-nav',active:'.active',tone:'light'},
+ {selector:'#studioLocaleMenu',active:'[aria-selected="true"]',tone:'light',axis:'y'},
+ {selector:'#heroBar',active:'.is-lead',tone:'light',items:'button,a',lead:true}
 ];
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');
 // Unit mass. lead: pull of the target on the leading edge. tension: surface tension that drags the
@@ -22,11 +24,13 @@ const P={lead:{k:340,c:26},tension:{k:210,c:18},anchor:40,couple:.12,edge:{k:300
 const H=1/240;
 function setup(track,cfg){
  if(track.dataset.liquid)return;track.dataset.liquid=cfg.tone;
+ // An action bar has no selected item: the drop rests on the first action and stays there.
+ if(cfg.lead){const items=()=>[...track.querySelectorAll(cfg.items)].filter(x=>x.getBoundingClientRect().width>0&&!x.disabled);const lead=x=>{for(const n of track.querySelectorAll('.is-lead'))if(n!==x)n.classList.remove('is-lead');if(x&&!x.classList.contains('is-lead'))x.classList.add('is-lead');};const home=()=>lead(items()[0]);home();new MutationObserver(home).observe(track,{attributes:true,subtree:true,attributeFilter:['hidden','disabled','style']});}
  const pill=document.createElement('span');pill.className='lg-pill lg-pill-'+cfg.tone;pill.setAttribute('aria-hidden','true');track.append(pill);
- const lens=window.LiquidLens;if(lens)lens.attach(pill,{scale:22,bezel:22,blur:0,saturate:1.4,magnify:.22,vertical:.22});
+ const lens=window.LiquidLens;if(lens)lens.attach(pill,{scale:24,bezel:13,blur:0,saturate:1,magnify:0,vertical:.4,physical:true});
  let current=null,drag=null,suppressClick=0,placed=false,raf=0,last=0,acc=0,dir=0,stiff=1,lift=0,liftV=0,liftT=0,shownA=-1;
  const b={l:0,r:0,vl:0,vr:0,y:0,vy:0,h:0,vh:0},t={l:0,r:0,y:0,h:0},lean={l:0,r:0};
- const buttons=()=>[...track.querySelectorAll('button')].filter(x=>x.getBoundingClientRect().width>0);
+ const buttons=()=>[...track.querySelectorAll(cfg.items||'button')].filter(x=>x.getBoundingClientRect().width>0);
  const rectOf=x=>{const o=track.getBoundingClientRect(),r=x.getBoundingClientRect();return{x:r.left-o.left,y:r.top-o.top,w:r.width,h:r.height};};
  const restWidth=()=>Math.max(1,(t.r+lean.r)-(t.l+lean.l));
  function paint(){
@@ -69,18 +73,24 @@ function setup(track,cfg){
  }
  function sync(){const next=track.querySelector('button'+cfg.active);if(next===current)return;current=next;lean.l=lean.r=0;if(!next){pill.style.opacity='0';placed=false;return;}pill.style.opacity='1';retarget(next,true);}
  function relayout(){if(!current||drag)return;const r=rectOf(current);if(r.w<1){placed=false;return;}if(raf&&placed)aim(r);else retarget(current,false);}
+ const vertical=cfg.axis==='y';
+ function nearestY(y){let best=null,d=Infinity;for(const o of buttons()){const r=rectOf(o),dd=Math.abs(r.y+r.h/2-y);if(dd<d){d=dd;best=o;}}return best;}
  function nearest(x){let best=null,d=Infinity;for(const o of buttons()){const r=rectOf(o),dd=Math.abs(r.x+r.w/2-x);if(dd<d){d=dd;best=o;}}return best;}
  // Press: the drop is drawn toward the tab under the finger before the click lands; pressing the
  // drop itself flattens it. A sideways move picks it up.
  track.addEventListener('pointerdown',e=>{if(e.button!==0||!current||!placed)return;
-  drag={id:e.pointerId,startX:e.clientX,moved:false,vx:0,lastX:e.clientX,lastT:performance.now(),c0:(t.l+t.r)/2};
+  drag={id:e.pointerId,startX:e.clientX,startY:e.clientY,moved:false,vx:0,lastX:e.clientX,lastT:performance.now(),c0:(t.l+t.r)/2,cy0:t.y+t.h/2};
   if(reduced.matches)return;
-  const btn=e.target.closest&&e.target.closest('button');
+  const btn=e.target.closest&&e.target.closest(cfg.items||'button');
   if(btn&&btn!==current&&track.contains(btn)){const r=rectOf(btn),d=r.x+r.w/2-(t.l+t.r)/2,amt=Math.min(18,Math.abs(d)*.14);dir=d>0?1:-1;if(d>0){lean.l=amt*.25;lean.r=amt;}else{lean.l=-amt;lean.r=-amt*.25;}}
   else{lean.l=-3;lean.r=3;liftT=-.05;}
   kick();
  },{passive:true});
  track.addEventListener('pointermove',e=>{if(!drag||drag.id!==e.pointerId)return;const dx=e.clientX-drag.startX;
+  // A list that runs downwards is dragged downwards: the drop follows the pointer's height and takes the row it is over.
+  if(vertical){const dy=e.clientY-drag.startY;if(!drag.moved){if(Math.abs(dy)<6)return;drag.moved=true;try{track.setPointerCapture(e.pointerId);}catch(_){}track.classList.add('lg-dragging');lean.l=lean.r=0;liftT=.1;stiff=P.drag;}
+   const o=track.getBoundingClientRect(),cy=drag.cy0+dy,under=nearestY(cy),ur=under?rectOf(under):{x:t.l,y:t.y,w:t.r-t.l,h:t.h},y=Math.max(0,Math.min(o.height-ur.h,cy-ur.h/2));
+   aim({x:ur.x,y:y,w:ur.w,h:ur.h});for(const k of buttons())k.classList.toggle('lg-under',k===under);kick();return;}
   if(!drag.moved){if(Math.abs(dx)<6)return;drag.moved=true;try{track.setPointerCapture(e.pointerId);}catch(_){}track.classList.add('lg-dragging');lean.l=lean.r=0;liftT=.1;stiff=P.drag;}
   const now=performance.now();drag.vx=(e.clientX-drag.lastX)/Math.max(1,now-drag.lastT)*1000;drag.lastT=now;drag.lastX=e.clientX;
   // The drop takes the width of the tab it is passing over and chases the pointer
@@ -92,9 +102,9 @@ function setup(track,cfg){
  const end=e=>{if(!drag||drag.id!==e.pointerId)return;const d=drag;drag=null;lean.l=lean.r=0;liftT=0;stiff=1;track.classList.remove('lg-dragging');for(const k of buttons())k.classList.remove('lg-under');
   if(!d.moved){if(current)aim(rectOf(current));kick();return;}
   try{track.releasePointerCapture(e.pointerId);}catch(_){}
-  const target=nearest((t.l+t.r)/2);
+  const target=vertical?nearestY(t.y+t.h/2):nearest((t.l+t.r)/2);
   // Released: the drop keeps the speed of the hand and falls into the nearest tab
-  if(!reduced.matches){b.vl+=d.vx*.35;b.vr+=d.vx*.35;}
+  if(!reduced.matches&&!vertical){b.vl+=d.vx*.35;b.vr+=d.vx*.35;}
   if(target&&target!==current){current=null;target.click();if(current!==target){current=target;retarget(target,true);}}
   else if(current)retarget(current,true);
   if(e.type==='pointerup')suppressClick=performance.now();
@@ -102,6 +112,8 @@ function setup(track,cfg){
  track.addEventListener('pointerup',end);track.addEventListener('pointercancel',end);
  track.addEventListener('click',e=>{if(performance.now()-suppressClick<300){e.stopPropagation();e.preventDefault();}},true);
  new MutationObserver(()=>sync()).observe(track,{attributes:true,subtree:true,attributeFilter:['aria-current','aria-pressed','aria-selected','hidden','class']});
+ // A track that opens with an animation was measured while still growing: measure again once it has settled.
+ track.addEventListener('animationend',e=>{if(e.target===track&&current&&!drag){retarget(current,false);}});
  new ResizeObserver(relayout).observe(track);
  window.addEventListener('resize',relayout);
  sync();

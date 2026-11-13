@@ -1,16 +1,33 @@
 <section id="analysisPanel" class="panel analysis-panel" aria-labelledby="analysisTitle">
   <div class="panelhead"><h2 id="analysisTitle">From image to reviewed measurements</h2><span id="analysisBadge" class="analysis-badge">No image</span></div>
   <div class="panelbody">
-    <p id="analysisRecoveryStatus" class="mini" role="status" aria-live="polite" data-state="ready">Checking browser recovery copies…</p>
     <div id="analysisReplacement" class="analysis-replacement" hidden role="region" aria-labelledby="analysisReplacementTitle">
       <h3 id="analysisReplacementTitle">A new result is ready</h3><p id="analysisReplacementName" class="mini"></p>
       <p>Accept to switch after saving the current work as a recovery copy, or keep the current review. Earlier copies remain available under Browser recovery.</p>
       <div class="analysis-actions"><button id="analysisAcceptReplacement" type="button" class="primary">Accept new result</button><button id="analysisKeepCurrent" type="button">Keep current review</button></div>
     </div>
-    <div class="analysis-inputs">
-      <div class="research-field"><label for="analysisImage">1 · Original section TIFF</label><input id="analysisImage" type="file" accept=".tif,.tiff" aria-describedby="analysisFileHelp"><div class="auto-roi-analysis-entry"><button id="autoROIAnalysisStart" type="button">Open automatic ROI controls</button></div><button id="analysisClearImage" type="button" disabled>Clear image selection</button></div>
-      <div class="research-field"><label for="analysisROIImport">2 · Existing ImageJ ROIs · optional</label><input id="analysisROIImport" type="file" accept=".roi,.zip" multiple disabled><ul id="analysisROIFiles" class="analysis-attachments" aria-label="Attached original ROI files"></ul><button id="analysisManual" type="button" disabled>Start manual review</button><button id="analysisClearReview" type="button" disabled>Clear all reviewed ROIs</button></div>
-    </div>
+    <div id="analysisStart" class="analysis-start" data-stage="empty">
+      <p class="analysis-start-lead">One section at a time: open the image, get its layer outlines, check them, then download reviewed measurements.</p>
+      <ol class="analysis-steps">
+        <li class="analysis-step" data-step="open"><span class="analysis-step-number" aria-hidden="true">1</span>
+          <div class="analysis-step-body"><h3>Open your section</h3>
+            <div id="analysisDrop" class="analysis-drop"><span class="analysis-drop-mark" aria-hidden="true"></span><label for="analysisImage">Choose a section TIFF</label><span id="analysisDropName" class="analysis-drop-name" translate="no" hidden></span><span class="analysis-drop-hint" data-when="empty">Click here or drop the file. It stays on this computer.</span><span class="analysis-drop-hint" data-when="open">Click or drop to open a different section.</span><input id="analysisImage" type="file" accept=".tif,.tiff" aria-describedby="analysisFileHelp"></div>
+          </div></li>
+        <li class="analysis-step" data-step="outline"><span class="analysis-step-number" aria-hidden="true">2</span>
+          <div class="analysis-step-body"><h3>Get the outlines</h3><p class="analysis-step-note">Three ways lead to the same review. Choose the one that fits.</p>
+            <div class="analysis-ways">
+              <div class="analysis-way analysis-way-file"><label for="analysisROIImport">Import ImageJ ROIs</label><span class="analysis-way-text">Use outlines you already drew in ImageJ or Fiji, as a .zip or .roi file.</span><span class="analysis-way-why">Open a section first</span><input id="analysisROIImport" type="file" accept=".roi,.zip" multiple disabled></div>
+              <div class="auto-roi-analysis-entry"><button id="autoROIAnalysisStart" type="button" class="analysis-way"><strong>Draft with a model</strong><small class="analysis-way-text">Opens the automatic ROI controls. A trained model draws a first draft for you to correct.</small></button></div>
+              <button id="analysisManual" type="button" class="analysis-way" disabled><strong>Draw by hand</strong><small class="analysis-way-text">Trace each layer yourself on the image, point by point.</small><span class="analysis-way-why">Open a section first</span></button>
+            </div>
+            <ul id="analysisROIFiles" class="analysis-attachments" aria-label="Attached original ROI files"></ul>
+          </div></li>
+        <li class="analysis-step" data-step="review"><span class="analysis-step-number" aria-hidden="true">3</span>
+          <div class="analysis-step-body"><h3>Review and approve</h3><p class="analysis-step-note">Check every outline on the image, correct what is off, then approve. You get the measurements as CSV and the outlines as ImageJ ROI files.</p><p class="analysis-step-why">Starts once the section has outlines.</p>
+    <details id="analysisWorkflowDetails" class="help-detail"><summary>Suggested next steps</summary><div id="analysisWorkflow"></div></details>
+          </div></li>
+      </ol>
+      <div class="analysis-more" role="group" aria-labelledby="analysisMoreTitle"><h3 id="analysisMoreTitle" class="analysis-more-title">More</h3>
     <div class="analysis-support-grid">
     <details id="analysisAdvanced" class="help-detail"><summary>Automatic ROI · trained models and generation</summary>
       <div class="research-field"><label for="analysisModel">Trained model JSON (.json)</label><input id="analysisModel" type="file" accept=".json,application/json" aria-describedby="analysisModelHelp analysisModelInfo"><button id="analysisBuiltInModel" type="button" hidden>Use the built-in model</button><button id="analysisClearModel" type="button" disabled>Clear model selection</button><span id="analysisModelHelp" class="mini">Open auto-roi-models.json from the automatic ROI tools, or a compatible Local Lab model. TIFF, ROI ZIP and CSV are research data, not model weights.</span></div>
@@ -36,8 +53,11 @@
       <p>Coordinates refer to the original TIFF, even when its preview is reduced. The preview displays 8-bit colour; low-range 16-bit images may look dark. Original pixel values are retained for inference and export. Polygon interiors and holes determine geometric area. ROI coordinates use ImageJ’s float32 precision. Geometric screening flags layer overlap and boundaries outside CB. Screening is not anatomical validation; review any flags and record your decision. Review layer boundaries; CB may overlap its constituent layers, and their areas must not be added to CB. Absence of a class remains missing, not zero. Approval records a researcher’s review; it does not establish model accuracy.</p>
     </details>
     </div>
+        <div class="analysis-more-actions"><button id="analysisClearImage" type="button" disabled>Clear image selection</button><button id="analysisClearReview" type="button" disabled>Clear all reviewed ROIs</button></div>
+        <p id="analysisRecoveryStatus" class="mini" role="status" aria-live="polite" data-state="ready">Checking browser recovery copies…</p>
+      </div>
+    </div>
     <div id="analysisStatus" class="status" role="status" aria-live="polite" data-state="empty">Open one source section to begin.</div>
-    <details id="analysisWorkflowDetails" class="help-detail"><summary>Suggested next steps</summary><div id="analysisWorkflow"></div></details>
     <section id="analysisRasterFailure" class="analysis-replacement" hidden aria-labelledby="analysisRasterFailureTitle"><h3 id="analysisRasterFailureTitle">Model pixels are available; ROI conversion needs review</h3><p id="analysisRasterFailureReason" role="status"></p><p class="mini">No islands, holes or pixels were removed. This is unreviewed model output, not an approved measurement. Download the native label map and model evidence, then review existing ImageJ boundaries or draw manual ROIs on the TIFF.</p><label class="research-field">Native prediction map<select id="analysisRasterHead"></select></label><label class="analysis-check"><input id="analysisShowFailedRaster" type="checkbox">Preview unreviewed model labels over the source image</label><div class="analysis-actions"><button id="analysisDownloadFailedRaster" type="button">Download label-map evidence</button><button id="analysisManualFallback" type="button">Start manual review</button></div>
       <details class="help-detail"><summary>Create editable candidates</summary>
         <p class="mini">Create an approximate boundary draft from the native prediction maps. Block voting changes pixels; the original maps and the exact change counts are retained. Review the new boundaries before approval.</p>

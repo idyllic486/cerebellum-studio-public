@@ -384,3 +384,595 @@ body[data-example=none] #exploreView .hero-layout:not(#_#_){display:flex;flex-di
 body[data-example=none] #exploreView .explore-heading:not(#_#_){display:flex;flex-direction:column;align-items:center;max-width:760px;margin-inline:auto}
 body[data-example=none] #exploreView .explore-heading:not(#_#_)>:is(h1,p,.eyebrow){margin-inline:auto;text-align:center}
 body[data-example=none] #exploreView .explore-heading:not(#_#_) :is(.intro-actions,.intro-links){justify-content:center}
+
+/* Researcher 2026-11-12: one size for every menu box, glass on menu boxes and sliders, and switches instead of tick boxes.
+   The inputs keep their type, name and state, so nothing that reads them changes. */
+select:not(#_#_):not(.x):not(#studioLocale){-webkit-appearance:none;appearance:none;box-sizing:border-box;height:44px;min-height:44px;min-width:168px;max-width:100%;padding:0 42px 0 16px;border:0;border-radius:14px;font-size:14px;line-height:44px;color:var(--ink);cursor:pointer;
+ background:var(--glass-bg-strong) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23555' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 15px center;
+ -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);box-shadow:inset 0 1px 0 var(--glass-edge),inset 0 -1px 0 var(--glass-rim),0 0 0 1px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.06);transition:box-shadow var(--morph),background-color var(--morph),transform var(--morph)}
+select:not(#_#_):not(.x):not(#studioLocale):hover:not(:disabled){background-color:rgba(255,255,255,.86);box-shadow:inset 0 1px 0 var(--glass-edge),inset 0 -1px 0 var(--glass-rim),0 0 0 1px rgba(0,0,0,.08),0 6px 16px rgba(0,0,0,.10)}
+select:not(#_#_):not(.x):not(#studioLocale):focus-visible{outline:0;box-shadow:inset 0 1px 0 var(--glass-edge),0 0 0 1px rgba(0,113,227,.55),0 0 0 4px rgba(0,113,227,.2)}
+select:not(#_#_):not(.x):not(#studioLocale):disabled{cursor:default;opacity:.55}
+select[multiple]:not(#_#_):not(.x),select[size]:not([size="1"]):not(#_#_):not(.x){height:auto;line-height:1.5;padding:8px 12px;background-image:none}
+input[type=range]:not(#_#_):not(.x)::-webkit-slider-runnable-track{height:12px;border-radius:6px;background:rgba(120,120,128,.18);box-shadow:inset 0 1px 2px rgba(0,0,0,.14),inset 0 -1px 0 var(--glass-edge),0 0 0 1px rgba(0,0,0,.05)}
+input[type=range]:not(#_#_):not(.x)::-moz-range-track{height:12px;border-radius:6px;background:rgba(120,120,128,.18);box-shadow:inset 0 1px 2px rgba(0,0,0,.14),0 0 0 1px rgba(0,0,0,.05)}
+input[type=range]:not(#_#_):not(.x)::-webkit-slider-thumb{width:30px;height:30px;margin-top:-9px;cursor:grab}
+input[type=range]:not(#_#_):not(.x):active::-webkit-slider-thumb{cursor:grabbing}
+input[type=range]:not(#_#_):not(.x){touch-action:pan-y}
+input[type=checkbox]:not(#_#_):not(.x){-webkit-appearance:none;appearance:none;box-sizing:border-box;position:relative;flex:0 0 auto;width:46px;min-width:46px;height:28px;min-height:28px;margin:0 10px 0 0;padding:0;border:0;border-radius:14px;vertical-align:middle;cursor:pointer;
+ background:rgba(120,120,128,.24);box-shadow:inset 0 1px 2px rgba(0,0,0,.16),inset 0 -1px 0 var(--glass-edge);transition:background-color var(--morph),box-shadow var(--morph)}
+input[type=checkbox]:not(#_#_):not(.x)::before{content:"";position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:linear-gradient(180deg,#fff,#f3f3f6);box-shadow:inset 0 1px 0 #fff,0 0 0 .5px rgba(0,0,0,.06),0 2px 5px rgba(0,0,0,.24);transition:transform var(--morph),width var(--morph)}
+input[type=checkbox]:not(#_#_):not(.x):checked{background:var(--ink)}
+input[type=checkbox]:not(#_#_):not(.x):checked::before{transform:translateX(18px)}
+input[type=checkbox]:not(#_#_):not(.x):active:not(:disabled)::before{width:28px}
+input[type=checkbox]:not(#_#_):not(.x):checked:active:not(:disabled)::before{transform:translateX(14px)}
+input[type=checkbox]:not(#_#_):not(.x):focus-visible{outline:0;box-shadow:inset 0 1px 2px rgba(0,0,0,.16),0 0 0 4px rgba(0,113,227,.3)}
+input[type=checkbox]:not(#_#_):not(.x):disabled{cursor:default;opacity:.5}
+/* The layer chips are switches of their own: their tick box stays out of sight inside the chip. */
+.layer-chip:not(#_#_):not(.x) input[type=checkbox]{position:absolute;width:1px;min-width:0;height:1px;min-height:0;margin:0;opacity:0;box-shadow:none;background:none}
+.layer-chip:not(#_#_):not(.x) input[type=checkbox]::before{content:none}
+@media(prefers-reduced-motion:reduce){input[type=checkbox]:not(#_#_):not(.x),input[type=checkbox]:not(#_#_):not(.x)::before,select:not(#_#_):not(.x){transition:none}}
+@media(max-width:600px){select:not(#_#_):not(.x):not(#studioLocale){min-width:0;width:100%}}
+
+/* Language panel: the button's glass grows into a list of languages. */
+.studio-locale-menu:not(#_#_){position:absolute;top:0;right:0;z-index:40;display:flex;flex-direction:column;gap:2px;box-sizing:border-box;min-width:100%;width:max-content;padding:6px;background:var(--glass-bg-strong);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);box-shadow:inset 0 1px 0 var(--glass-edge),inset 0 -1px 0 var(--glass-rim),0 0 0 1px rgba(0,0,0,.05),0 18px 44px rgba(0,0,0,.18);transform-origin:top right;opacity:0;transform:scale(.62,.2);border-radius:980px;transition:transform .3s cubic-bezier(.2,.9,.25,1.12),opacity .16s ease,border-radius .3s ease}
+.studio-locale-menu:not(#_#_)[hidden]{display:none}
+.studio-locale-menu:not(#_#_).open{opacity:1;transform:none;border-radius:22px}
+.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z){display:flex;align-items:center;justify-content:space-between;gap:18px;width:100%;min-width:0;min-height:42px;height:42px;margin:0;padding:0 14px;border:0!important;border-radius:16px!important;background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;color:#111!important;font-size:14px;font-weight:550;text-align:left;white-space:nowrap;cursor:pointer;transform:none!important}
+.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z)::before,.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z)::after{content:none}
+.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z):hover,.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z):focus-visible{background:rgba(0,0,0,.08)!important;outline:0}
+.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z)[aria-selected=true]{background:#111!important;color:#fff!important}
+.studio-language.locale-open #studioLocale:not(#_#_){opacity:0}
+@media(prefers-reduced-motion:reduce){.studio-locale-menu:not(#_#_){transition:none;transform:none;border-radius:22px}}
+
+/* Researcher 2026-11-12: the workspace menu sits in the middle, is larger and easier to read, and its glass has a
+   finished edge, curvature and reflections; the drop that marks the current page carries the same glass. */
+#researchView #workspaceNav:not(#_#_):not(.x){display:flex!important;flex-wrap:nowrap;width:fit-content;max-width:100%;margin:6px auto 44px;padding:7px;gap:4px;border-radius:var(--pill);border:0;
+ background:linear-gradient(180deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,.30) 46%,rgba(255,255,255,.44) 100%)!important;
+ box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 -1.5px 0 rgba(255,255,255,.55),inset 0 10px 14px -10px rgba(255,255,255,.9),inset 0 -12px 16px -12px rgba(0,0,0,.10),inset 1px 0 0 rgba(255,255,255,.55),inset -1px 0 0 rgba(255,255,255,.4),0 0 0 .6px rgba(0,0,0,.14),0 18px 40px -14px rgba(0,0,0,.26),0 3px 8px rgba(0,0,0,.07)}
+#researchView #workspaceNav:not(#_#_):not(.x)::before{content:"";position:absolute;left:6%;right:6%;top:2px;height:46%;border-radius:var(--pill);pointer-events:none;z-index:0;background:linear-gradient(180deg,rgba(255,255,255,.55),rgba(255,255,255,0));opacity:.7}
+#researchView #workspaceNav:not(#_#_):not(.x)>button:not(.x):not(.y){position:relative;z-index:3;height:50px!important;min-height:50px!important;line-height:50px!important;margin:0;padding:0 26px!important;font-size:16px;font-weight:600;letter-spacing:-.012em;color:#5c5c61;transition:color .28s var(--ease),transform var(--morph)}
+#researchView #workspaceNav:not(#_#_):not(.x)>button[aria-current=page]{color:#0b0b0c;background:transparent!important;box-shadow:none}
+#researchView #workspaceNav:not(#_#_):not(.x)>button:not([aria-current=page]):hover{color:#1c1c1e;background:rgba(255,255,255,.34)!important}
+#researchView #workspaceNav:not(#_#_):not(.x)>button:active{transform:scale(.97)}
+#researchView #workspaceNav:not(#_#_):not(.x)>.lg-pill-light{background:radial-gradient(120% 90% at 30% 0%,rgba(255,255,255,.98) 0%,rgba(255,255,255,.72) 38%,rgba(255,255,255,.5) 100%)!important;
+ box-shadow:inset 0 1.5px 0 #fff,inset 0 -2px 3px rgba(0,0,0,.08),inset 1.5px 0 0 rgba(255,255,255,.8),inset -1.5px 0 1px rgba(0,0,0,.04),0 0 0 .6px rgba(0,0,0,.16),0 12px 26px -8px rgba(0,0,0,.28),0 2px 5px rgba(0,0,0,.10)!important}
+#researchView #workspaceNav:not(#_#_):not(.x)>.lg-pill-light::after{content:"";position:absolute;left:10%;right:10%;top:3px;height:38%;border-radius:var(--pill);background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,0));pointer-events:none}
+@media(max-width:760px){#researchView #workspaceNav:not(#_#_):not(.x){padding:5px;gap:2px;margin-bottom:30px;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}#researchView #workspaceNav:not(#_#_):not(.x)::-webkit-scrollbar{display:none}#researchView #workspaceNav:not(#_#_):not(.x)>button:not(.x):not(.y){height:44px!important;min-height:44px!important;line-height:44px!important;padding:0 15px!important;font-size:14px;min-width:max-content;white-space:nowrap}}
+@media(prefers-reduced-transparency:reduce){#researchView #workspaceNav:not(#_#_):not(.x){background:#fff!important}}
+/* Researcher 2026-11-12: the light that follows the pointer was too bright, most of all on large surfaces such as cards. */
+.lg-lit:not(#_#_)::before{background:radial-gradient(45% 60% at var(--lx,50%) var(--ly,0%),rgba(255,255,255,.36) 0%,rgba(255,255,255,.11) 38%,rgba(255,255,255,0) 66%)}
+dialog.lg-lit:not(#_#_)::before,.site-header.lg-lit:not(#_#_)::before,#studioToolPanel.lg-lit:not(#_#_)::before,#studioLocaleMenu.lg-lit:not(#_#_)::before{opacity:calc(var(--lo,0)*.35)}
+/* Researcher 2026-11-12: the menu closes when the pointer leaves, on a click outside or with Escape, so its Close button
+   is not shown. It stays in place for keyboards and screen readers and appears when it receives keyboard focus. */
+.studio-navigation-close:not(#_#_):not(.x):not(.y):not(:focus-visible){position:absolute;width:1px;min-width:1px;height:1px;min-height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;box-shadow:none}
+/* Researcher 2026-11-12: the six study stages sit in the same glass frame as the other sliding menus,
+   with the same light drop marking the current stage. */
+#researchView #studySteps:not(#_#_):not(.x){gap:4px;padding:7px;border-radius:30px;border:0;
+ background:linear-gradient(180deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,.30) 46%,rgba(255,255,255,.44) 100%)!important;-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
+ box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 -1.5px 0 rgba(255,255,255,.55),inset 0 10px 14px -10px rgba(255,255,255,.9),inset 0 -12px 16px -12px rgba(0,0,0,.10),0 0 0 .6px rgba(0,0,0,.14),0 18px 40px -14px rgba(0,0,0,.26),0 3px 8px rgba(0,0,0,.07)}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y){position:relative;z-index:3;background:transparent!important;box-shadow:none!important;border:0!important;border-radius:24px!important;color:#5c5c61!important;padding:16px 16px!important;min-height:92px!important;transition:color .28s var(--ease)}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y) :is(span,small){color:#77777c!important}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y)[aria-selected=true]{color:#0b0b0c!important;font-weight:650}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y)[aria-selected=true] :is(span,small){color:#3a3a3d!important}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y):not([aria-selected=true]):hover{background:rgba(255,255,255,.34)!important}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y)[data-state=ready]:not([aria-selected=true]) small{color:#1c1c1e!important;font-weight:600}
+#researchView #studySteps:not(#_#_):not(.x)>.lg-pill{border-radius:24px!important;background:radial-gradient(120% 90% at 30% 0%,rgba(255,255,255,.98) 0%,rgba(255,255,255,.72) 38%,rgba(255,255,255,.5) 100%)!important;
+ box-shadow:inset 0 1.5px 0 #fff,inset 0 -2px 3px rgba(0,0,0,.08),inset 1.5px 0 0 rgba(255,255,255,.8),0 0 0 .6px rgba(0,0,0,.16),0 12px 26px -8px rgba(0,0,0,.28),0 2px 5px rgba(0,0,0,.10)!important}
+@media(max-width:600px){#researchView #studySteps:not(#_#_):not(.x){border-radius:22px;padding:5px}#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y){min-height:0!important;padding:10px 8px!important;border-radius:17px!important}#researchView #studySteps:not(#_#_):not(.x)>.lg-pill{border-radius:17px!important}}
+/* Researcher 2026-11-12: each study stage reads in two lines ("1 Data" in bold, its state below), and the frame is a
+   slider with round ends like the other sliding menus. */
+#researchView #studySteps:not(#_#_):not(.x){border-radius:var(--pill);padding:7px}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y){display:flex!important;flex-direction:row!important;flex-wrap:wrap;align-items:baseline!important;align-content:center;justify-content:center!important;column-gap:7px;row-gap:3px;text-align:center;border-radius:var(--pill)!important;min-height:70px!important;padding:10px 14px!important;font-size:18px;font-weight:700;letter-spacing:-.015em;line-height:1.25!important;white-space:normal}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y)>span{margin:0;font-size:18px;font-weight:700;letter-spacing:0;color:#8a8a8f!important}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y)>small{flex:0 0 100%;margin:0;font-size:13px;font-weight:500;letter-spacing:0}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y)[aria-selected=true]{font-weight:750}
+#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y)[aria-selected=true]>span{color:#0b0b0c!important}
+#researchView #studySteps:not(#_#_):not(.x)>.lg-pill{border-radius:var(--pill)!important}
+@media(max-width:1000px){#researchView #studySteps:not(#_#_):not(.x){border-radius:34px}#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y),#researchView #studySteps:not(#_#_):not(.x)>.lg-pill{border-radius:28px!important}}
+@media(max-width:600px){#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y){font-size:14px;min-height:56px!important;padding:8px 6px!important}#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y)>span{font-size:14px}#researchView #studySteps:not(#_#_):not(.x)>button:not(.x):not(.y)>small{font-size:11px}}
+
+/* Researcher 2026-11-12: the Start page is a guide, not a set of choices. It shows the path of the research as five
+   numbered stages in one glass frame; each stage says where it happens, what you do, what you can operate and what you get.
+   Nothing in the route is a control: the menu above is how one moves. */
+#researchView #workspaceHome:not(#_#_){display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;gap:44px;padding:0 0 64px}
+#researchView #workspaceHome:not(#_#_)>*{width:min(100%,1080px);min-width:0;margin-inline:auto;box-sizing:border-box}
+#researchView #workspaceHome:not(#_#_) .start-guide{display:grid;grid-template-columns:minmax(0,1fr);gap:0;padding:0;border:0;background:none;overflow-wrap:break-word}
+#researchView #workspaceHome:not(#_#_) .start-guide-heading{max-width:700px;margin:0 auto 34px;text-align:center}
+#researchView #workspaceHome:not(#_#_) .start-guide-heading h3{margin:0 0 14px;font-size:clamp(26px,3.3vw,38px);line-height:1.2;letter-spacing:-.035em;font-weight:650;color:#0b0b0c;text-wrap:balance}
+#researchView #workspaceHome:not(#_#_) .start-guide-heading p{margin:0 auto;max-width:56ch;font-size:16px;line-height:1.7;color:#55555a;text-wrap:pretty}
+#researchView #workspaceHome:not(#_#_) .start-route{position:relative;list-style:none;display:grid;grid-template-columns:minmax(0,1fr);gap:2px;margin:0;padding:10px;border:0;border-radius:36px;
+ background:linear-gradient(180deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,.30) 46%,rgba(255,255,255,.44) 100%);
+ box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 -1.5px 0 rgba(255,255,255,.55),inset 0 10px 14px -10px rgba(255,255,255,.9),inset 0 -12px 16px -12px rgba(0,0,0,.10),inset 1px 0 0 rgba(255,255,255,.55),inset -1px 0 0 rgba(255,255,255,.4),0 0 0 .6px rgba(0,0,0,.14),0 18px 40px -14px rgba(0,0,0,.26),0 3px 8px rgba(0,0,0,.07)}
+#researchView #workspaceHome:not(#_#_) .start-stage{position:relative;display:grid;grid-template-columns:48px minmax(0,1fr) minmax(0,1.32fr);align-items:start;gap:10px 30px;min-width:0;margin:0;padding:26px 30px 28px 24px;border:0;border-radius:27px;background:transparent;
+ transition:background-color var(--morph),box-shadow var(--morph);animation:start-stage-rise .62s cubic-bezier(.2,.9,.25,1.12) both}
+#researchView #workspaceHome:not(#_#_) .start-stage:nth-child(2){animation-delay:.05s}
+#researchView #workspaceHome:not(#_#_) .start-stage:nth-child(3){animation-delay:.1s}
+#researchView #workspaceHome:not(#_#_) .start-stage:nth-child(4){animation-delay:.15s}
+#researchView #workspaceHome:not(#_#_) .start-stage:nth-child(5){animation-delay:.2s}
+@keyframes start-stage-rise{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+/* The route: one line running from each number to the next. */
+#researchView #workspaceHome:not(#_#_) .start-stage:not(:last-child)::after{content:"";position:absolute;left:47px;top:82px;bottom:-22px;width:2px;border-radius:2px;background:linear-gradient(180deg,rgba(0,0,0,.16),rgba(0,0,0,.07));pointer-events:none}
+#researchView #workspaceHome:not(#_#_) .start-stage-number{position:relative;z-index:1;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;font-size:18px;font-weight:650;line-height:1;letter-spacing:0;font-variant-numeric:tabular-nums;color:#0b0b0c;
+ background:radial-gradient(120% 90% at 30% 0%,rgba(255,255,255,.98) 0%,rgba(255,255,255,.72) 38%,rgba(255,255,255,.5) 100%);
+ box-shadow:inset 0 1.5px 0 #fff,inset 0 -2px 3px rgba(0,0,0,.08),inset 1.5px 0 0 rgba(255,255,255,.8),0 0 0 .6px rgba(0,0,0,.16),0 10px 22px -8px rgba(0,0,0,.28),0 2px 5px rgba(0,0,0,.10);
+ transition:transform .42s cubic-bezier(.2,.9,.25,1.4)}
+#researchView #workspaceHome:not(#_#_) .start-stage-what{min-width:0}
+#researchView #workspaceHome:not(#_#_) .start-stage-where{margin:1px 0 8px;font-size:12px;font-weight:650;line-height:1.4;letter-spacing:.04em;color:#6e6e73}
+#researchView #workspaceHome:not(#_#_) .start-stage h4{margin:0 0 10px;font-size:21px;line-height:1.3;letter-spacing:-.022em;font-weight:650;color:#0b0b0c;text-wrap:balance}
+#researchView #workspaceHome:not(#_#_) .start-stage-what>p:not(.start-stage-where){margin:0;font-size:15px;line-height:1.65;color:#3a3a3d;text-wrap:pretty}
+#researchView #workspaceHome:not(#_#_) .start-stage-what>p.start-stage-aside{margin-top:12px;font-size:13px;line-height:1.6;color:#6e6e73}
+#researchView #workspaceHome:not(#_#_) .start-stage-aside a{display:inline;padding:0;border:0;background:none;box-shadow:none;font-weight:600;color:#1c1c1e;text-decoration:underline;text-decoration-color:rgba(0,0,0,.3);text-underline-offset:3px;white-space:normal}
+#researchView #workspaceHome:not(#_#_) .start-stage-aside a:hover{text-decoration-color:currentColor}
+#researchView #workspaceHome:not(#_#_) .start-stage-aside .mini{display:block;margin-top:2px;font-size:13px;color:#6e6e73}
+#researchView #workspaceHome:not(#_#_) .start-stage-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 28px;margin:0;padding:3px 0 0;min-width:0}
+#researchView #workspaceHome:not(#_#_) .start-stage-facts>div{min-width:0}
+#researchView #workspaceHome:not(#_#_) .start-stage-facts dt{margin:0 0 8px;font-size:11px;font-weight:650;line-height:1.4;letter-spacing:.08em;text-transform:uppercase;color:#6e6e73}
+#researchView #workspaceHome:not(#_#_) .start-stage-facts dd{margin:0;font-size:14px;line-height:1.65;color:#3a3a3d;text-wrap:pretty}
+@media(hover:hover) and (pointer:fine){
+ #researchView #workspaceHome:not(#_#_) .start-stage:hover{background:rgba(255,255,255,.42);box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 0 0 .6px rgba(0,0,0,.06)}
+ #researchView #workspaceHome:not(#_#_) .start-stage:hover .start-stage-number{transform:scale(1.09)}
+}
+/* Where the work stands, shown only once there is something to report. */
+#researchView #workspaceHome:not(#_#_) .start-now{display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:4px 12px;margin:26px auto 0;padding:0 16px;max-width:760px;text-align:center;font-size:14px;line-height:1.6;color:#3a3a3d}
+#researchView #workspaceHome:not(#_#_) .start-now:has([data-state=empty]){display:none}
+#researchView #workspaceHome:not(#_#_) .start-now-label{font-size:11px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:#6e6e73}
+#researchView #workspaceHome:not(#_#_) .start-now .auto-roi-readiness{display:inline;margin:0;padding:0;border:0;border-radius:0;background:none;font-size:14px;line-height:1.6;color:#1a1a1a;font-weight:550}
+#researchView #workspaceHome:not(#_#_) .workspace-local{margin:22px auto 0;padding:0 16px;max-width:760px;text-align:center;font-size:13px;line-height:1.7;color:#6e6e73}
+#researchView #workspaceHome:not(#_#_) .workspace-local strong{color:#1c1c1e;font-weight:650}
+/* Laboratory edition only: the training and preparation tools sit quietly below the guide. A public edition has none, so the block is not drawn. */
+#researchView #workspaceHome:not(#_#_) .start-laboratory{display:grid;grid-template-columns:minmax(0,1fr);justify-items:center;gap:16px;padding:0;border:0;background:none}
+#researchView #workspaceHome:not(#_#_) .start-laboratory:not(:has(a,details)){display:none}
+#researchView #workspaceHome:not(#_#_) .start-laboratory .auto-roi-advanced-title{margin:0;font-size:13px;font-weight:550;color:#6e6e73;text-align:center}
+#researchView #workspaceHome:not(#_#_) .start-laboratory-training{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px;min-width:0;max-width:100%}
+#researchView #workspaceHome:not(#_#_) .start-laboratory-training:not(:has(*)){display:none}
+#researchView #workspaceHome:not(#_#_) .start-laboratory-training .auto-roi-details{width:auto;margin:0;padding:0;border:0}
+#researchView #workspaceHome:not(#_#_) .start-laboratory .workspace-preparation-cards{width:100%}
+/* The backup is a real function, kept at the end in the same glass. */
+#researchView #workspaceHome:not(#_#_) .workspace-backup{margin:0 auto;padding:28px 30px;border:0;border-radius:30px;
+ background:linear-gradient(180deg,rgba(255,255,255,.56) 0%,rgba(255,255,255,.28) 50%,rgba(255,255,255,.40) 100%);
+ box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),inset 0 -1.5px 0 rgba(255,255,255,.5),0 0 0 .6px rgba(0,0,0,.12),0 14px 34px -16px rgba(0,0,0,.22),0 2px 6px rgba(0,0,0,.05)}
+@media(max-width:900px){
+ #researchView #workspaceHome:not(#_#_) .start-stage{grid-template-columns:44px minmax(0,1fr);gap:16px 20px;padding:22px 22px 24px 18px}
+ #researchView #workspaceHome:not(#_#_) .start-stage-number{width:44px;height:44px;font-size:17px}
+ #researchView #workspaceHome:not(#_#_) .start-stage-facts{grid-column:2;padding:0}
+ #researchView #workspaceHome:not(#_#_) .start-stage:not(:last-child)::after{left:39px;top:74px}
+}
+@media(max-width:560px){
+ #researchView #workspaceHome:not(#_#_){gap:34px;padding-bottom:44px}
+ #researchView #workspaceHome:not(#_#_) .start-guide-heading{margin-bottom:24px}
+ #researchView #workspaceHome:not(#_#_) .start-guide-heading p{font-size:15px}
+ #researchView #workspaceHome:not(#_#_) .start-route{padding:6px;border-radius:26px}
+ #researchView #workspaceHome:not(#_#_) .start-stage{grid-template-columns:36px minmax(0,1fr);gap:14px 12px;padding:18px 14px 20px 12px;border-radius:21px}
+ #researchView #workspaceHome:not(#_#_) .start-stage-number{width:36px;height:36px;font-size:15px}
+ #researchView #workspaceHome:not(#_#_) .start-stage h4{font-size:19px}
+ #researchView #workspaceHome:not(#_#_) .start-stage-facts{grid-column:1/-1;grid-template-columns:minmax(0,1fr);gap:14px}
+ #researchView #workspaceHome:not(#_#_) .start-stage:not(:last-child)::after{content:none}
+ #researchView #workspaceHome:not(#_#_) .start-stage:not(:last-child){box-shadow:0 1px 0 rgba(0,0,0,.06)}
+ #researchView #workspaceHome:not(#_#_) .workspace-backup{padding:22px 18px;border-radius:24px}
+}
+/* Korean breaks between words, never inside one. */
+:lang(ko) #researchView #workspaceHome:not(#_#_) :is(.start-guide,.start-laboratory){word-break:keep-all}
+@media(prefers-reduced-motion:reduce){#researchView #workspaceHome:not(#_#_) .start-stage{animation:none;transition:none}#researchView #workspaceHome:not(#_#_) .start-stage-number{transition:none}#researchView #workspaceHome:not(#_#_) .start-stage:hover .start-stage-number{transform:none}}
+@media(prefers-reduced-transparency:reduce){#researchView #workspaceHome:not(#_#_) .start-route,#researchView #workspaceHome:not(#_#_) .workspace-backup{background:#fff}}
+/* Researcher 2026-11-12: the start of Image analysis is a guided sequence instead of two grey cards and a
+   row of unrelated pills. Three numbered steps say what happens here, what can be operated and what comes
+   out: 1 a glass drop zone for the section, 2 three equal glass cards (import, model draft, by hand),
+   3 review and approve. Secondary controls sit in a quiet "More" row. A card that cannot be used yet lies
+   flat and says why. The file inputs stay the real controls: each covers its card, invisible but focusable.
+   Cards press, spring and catch the light through liquid_glass.js like every other drop on the site. */
+#analysisStart:not(#_#_){display:grid;gap:28px;margin:0 0 24px;min-width:0}
+#analysisStart:not(#_#_) .analysis-start-lead{margin:0;max-width:68ch;font-size:17px;line-height:1.5;color:var(--muted);text-wrap:balance}
+#analysisStart:not(#_#_) .analysis-steps{list-style:none;margin:0;padding:0;display:grid;gap:28px;min-width:0}
+#analysisStart:not(#_#_) .analysis-step{position:relative;display:grid;grid-template-columns:36px minmax(0,1fr);column-gap:16px;align-items:start;margin:0;padding:0;min-width:0}
+#analysisStart:not(#_#_) .analysis-step:not(:last-child)::before{content:"";position:absolute;left:17.5px;top:46px;bottom:-18px;width:1px;background:rgba(0,0,0,.10)}
+#analysisStart:not(#_#_) .analysis-step-number{position:relative;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;font-size:15px;font-weight:650;font-variant-numeric:tabular-nums;line-height:1;color:var(--muted);background:radial-gradient(140% 90% at 50% -30%,rgba(255,255,255,.95) 0%,rgba(255,255,255,.5) 40%,rgba(255,255,255,.3) 100%),rgba(240,240,243,.6);box-shadow:inset 0 1.5px 0 #fff,inset 0 -2px 3px -2px rgba(0,0,0,.14),0 0 0 .6px rgba(0,0,0,.16),0 3px 8px rgba(0,0,0,.06);transition:background-color .25s var(--ease),color .25s var(--ease),box-shadow .3s var(--ease),transform var(--morph)}
+#analysisStart:not(#_#_) .analysis-step-body{display:grid;gap:12px;min-width:0}
+#analysisStart:not(#_#_) .analysis-step-body>h3{margin:0;min-height:36px;display:flex;align-items:center;font-size:20px;line-height:1.25;font-weight:600;letter-spacing:-.015em;color:var(--ink)}
+#analysisStart:not(#_#_) .analysis-step-note{margin:-6px 0 0;font-size:15px;line-height:1.55;color:var(--muted);max-width:72ch}
+#analysisStart:not(#_#_) .analysis-step-why,#analysisStart:not(#_#_) .analysis-way-why{display:none;width:fit-content;max-width:100%;margin:0;padding:5px 12px;border-radius:var(--pill);background:rgba(0,0,0,.05);color:#6e6e6e;font-size:13px;font-weight:600;line-height:1.35;letter-spacing:0}
+/* The step in hand carries the dark drop; a finished step shows a tick */
+#analysisStart[data-stage=empty]:not(#_#_) [data-step=open] .analysis-step-number,#analysisStart[data-stage=image]:not(#_#_) [data-step=outline] .analysis-step-number,#analysisStart[data-stage=outlined]:not(#_#_) [data-step=review] .analysis-step-number{color:#fff;background:radial-gradient(140% 90% at 50% -30%,rgba(95,95,100,.9) 0%,rgba(35,35,38,.86) 40%,rgba(10,10,12,.82) 100%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.45),inset 0 -3px 4px -2px rgba(0,0,0,.6),0 0 0 .6px rgba(0,0,0,.4),0 6px 14px rgba(0,0,0,.22);transform:scale(1.06)}
+#analysisStart:not([data-stage=empty]):not(#_#_) [data-step=open] .analysis-step-number,#analysisStart:is([data-stage=outlined],[data-stage=approved]):not(#_#_) [data-step=outline] .analysis-step-number,#analysisStart[data-stage=approved]:not(#_#_) [data-step=review] .analysis-step-number{font-size:0;color:var(--ink)}
+#analysisStart:not([data-stage=empty]):not(#_#_) [data-step=open] .analysis-step-number::after,#analysisStart:is([data-stage=outlined],[data-stage=approved]):not(#_#_) [data-step=outline] .analysis-step-number::after,#analysisStart[data-stage=approved]:not(#_#_) [data-step=review] .analysis-step-number::after{content:"";position:absolute;left:50%;top:50%;width:13px;height:7px;margin:-6px 0 0 -6.5px;border-left:2.2px solid currentColor;border-bottom:2.2px solid currentColor;transform:rotate(-45deg)}
+#analysisStart:is([data-stage=empty],[data-stage=image]):not(#_#_) [data-step=review] :is(h3,.analysis-step-note){color:var(--muted)}
+#analysisStart:is([data-stage=empty],[data-stage=image]):not(#_#_) .analysis-step-why{display:block}
+/* Glass surfaces shared by the drop zone and the three ways */
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way):not(.x):not(.y):not(.z){position:relative;isolation:isolate;overflow:hidden;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;min-width:0;max-width:100%;height:auto;min-height:0;margin:0;padding:24px 20px;border:0!important;border-radius:var(--radius)!important;text-align:center;white-space:normal;flex-shrink:1;font:inherit;line-height:1.4;color:var(--ink);cursor:pointer;background:radial-gradient(140% 90% at 50% -30%,rgba(255,255,255,.96) 0%,rgba(255,255,255,.55) 42%,rgba(255,255,255,.32) 100%),rgba(240,240,243,.55)!important;box-shadow:inset 0 1.5px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.5),inset 0 -3px 4px -2px rgba(0,0,0,.12),0 0 0 .6px rgba(0,0,0,.16),0 1px 2px rgba(0,0,0,.06),0 8px 20px rgba(0,0,0,.08);transition:transform var(--morph),box-shadow .3s var(--ease),background-color .2s var(--ease),outline-color .2s var(--ease)}
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way):not(.x):not(.y):not(.z)::after{content:"";display:block;position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:-1;background:linear-gradient(118deg,rgba(255,255,255,.75) 0%,rgba(255,255,255,.18) 32%,rgba(255,255,255,0) 50%,rgba(255,255,255,.22) 82%,rgba(255,255,255,.5) 100%);background-size:220% 100%;background-position:100% 0;transition:background-position .45s var(--ease)}
+@media(hover:hover) and (pointer:fine){
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way):not(.x):not(.y):not(.z):not(:disabled):not(:has(>input:disabled)):hover{transform:translateY(-2px);box-shadow:inset 0 1.5px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.5),inset 0 -3px 4px -2px rgba(0,0,0,.12),0 0 0 .6px rgba(0,0,0,.2),0 2px 4px rgba(0,0,0,.06),0 16px 32px rgba(0,0,0,.13)}
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way):not(.x):not(.y):not(.z):not(:disabled):not(:has(>input:disabled)):hover::after{background-position:0 0}}
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way):not(.x):not(.y):not(.z):not(:disabled):not(:has(>input:disabled)):active{transform:scale(.975);transition-duration:.1s}
+/* Pressing a card: the same dip and spring as a pill, scaled to the size of a card */
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way).lg-touch:not(.x):not(.y):not(.z){animation:lg-card-wobble .38s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes lg-card-wobble{0%{transform:scale(.975)}45%{transform:scale(1.012)}75%{transform:scale(.997)}100%{transform:scale(1)}}
+/* The real file input covers its card: invisible, focusable, and the target of clicks and drops */
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way)>input[type=file]{position:absolute;inset:0;z-index:4;display:block;width:100%;height:100%;min-height:0;margin:0;padding:0;border:0;border-radius:inherit;opacity:0;cursor:pointer;font-size:0}
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way)>input[type=file]:disabled{cursor:not-allowed}
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way)>input[type=file]::file-selector-button{cursor:inherit}
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way) label{display:block;margin:0;padding:0;color:var(--ink);font-weight:600;letter-spacing:-.015em;overflow-wrap:anywhere;cursor:inherit}
+/* Step 1: the drop zone. A dashed inner line marks where a file can land. */
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y):not(.z){min-height:172px;padding:30px 24px;gap:6px;outline:1.5px dashed rgba(0,0,0,.17);outline-offset:-11px}
+#analysisStart:not(#_#_) .analysis-drop.is-over:not(.x):not(.y):not(.z){transform:scale(1.012);outline:2px dashed rgba(0,113,227,.7);outline-offset:-9px;box-shadow:inset 0 1.5px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 .6px rgba(0,113,227,.4),0 18px 36px rgba(0,113,227,.16)}
+#analysisStart:not(#_#_) .analysis-drop-mark{position:relative;display:block;flex:0 0 auto;width:44px;height:44px;margin-bottom:6px;border-radius:50%;background:radial-gradient(140% 90% at 50% -30%,rgba(95,95,100,.9) 0%,rgba(35,35,38,.86) 40%,rgba(10,10,12,.82) 100%);box-shadow:inset 0 1.5px 0 rgba(255,255,255,.45),inset 0 -3px 4px -2px rgba(0,0,0,.6),0 0 0 .6px rgba(0,0,0,.4),0 8px 18px rgba(0,0,0,.22);transition:transform var(--morph)}
+#analysisStart:not(#_#_) .analysis-drop-mark::before,#analysisStart:not(#_#_) .analysis-drop-mark::after{content:"";position:absolute;left:50%;top:50%;width:16px;height:2.2px;margin:-1.1px 0 0 -8px;border-radius:2px;background:#fff}
+#analysisStart:not(#_#_) .analysis-drop-mark::after{transform:rotate(90deg)}
+#analysisStart:not(#_#_) .analysis-drop:hover .analysis-drop-mark,#analysisStart:not(#_#_) .analysis-drop.is-over .analysis-drop-mark{transform:scale(1.08)}
+#analysisStart:not(#_#_) .analysis-drop label{font-size:21px;line-height:1.3}
+#analysisStart:not(#_#_) .analysis-drop-name{display:block;min-width:0;max-width:100%;font-size:19px;font-weight:600;line-height:1.3;letter-spacing:-.015em;color:var(--ink);overflow-wrap:anywhere}
+#analysisStart:not(#_#_) .analysis-drop-name[hidden]{display:none}
+#analysisStart:not(#_#_) .analysis-drop-hint{display:block;max-width:52ch;font-size:15px;line-height:1.5;color:var(--muted)}
+#analysisStart:not(#_#_) .analysis-drop:not(.has-file) .analysis-drop-hint[data-when=open],#analysisStart:not(#_#_) .analysis-drop.has-file .analysis-drop-hint[data-when=empty]{display:none}
+/* A section is open: the zone settles into a compact confirmation with a tick; the label stays for assistive technology */
+#analysisStart:not(#_#_) .analysis-drop.has-file:not(.x):not(.y):not(.z){min-height:0;padding:22px 24px;flex-direction:row;flex-wrap:wrap;column-gap:14px;row-gap:4px;outline-color:transparent}
+#analysisStart:not(#_#_) .analysis-drop.has-file.is-over:not(.x):not(.y):not(.z){outline-color:rgba(0,113,227,.7)}
+#analysisStart:not(#_#_) .analysis-drop.has-file label{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+#analysisStart:not(#_#_) .analysis-drop.has-file .analysis-drop-mark{width:32px;height:32px;margin:0}
+#analysisStart:not(#_#_) .analysis-drop.has-file .analysis-drop-mark::before{width:13px;height:7px;margin:-6px 0 0 -6.5px;border-radius:0;background:none;border-left:2.2px solid #fff;border-bottom:2.2px solid #fff;transform:rotate(-45deg)}
+#analysisStart:not(#_#_) .analysis-drop.has-file .analysis-drop-mark::after{display:none}
+#analysisStart:not(#_#_) .analysis-drop.has-file .analysis-drop-hint{flex:1 1 100%;max-width:none;font-size:14px}
+/* Step 2: three equal ways */
+#analysisStart:not(#_#_) .analysis-ways{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch;min-width:0}
+#analysisStart:not(#_#_) .analysis-ways>.auto-roi-analysis-entry{display:grid;margin:0;padding:0;border:0;border-radius:0;background:none;min-width:0}
+#analysisStart:not(#_#_) .analysis-way:not(.x):not(.y):not(.z){min-height:148px;padding:24px 20px}
+#analysisStart:not(#_#_) .analysis-way :is(strong,label){display:block;font-size:18px;font-weight:600;line-height:1.3;letter-spacing:-.015em;color:var(--ink)}
+#analysisStart:not(#_#_) .analysis-way .analysis-way-text{display:block;margin:0;max-width:34ch;font-size:14.5px;font-weight:400;line-height:1.5;letter-spacing:-.005em;color:var(--muted);overflow-wrap:anywhere}
+#analysisStart:not(#_#_) .analysis-way .analysis-way-why{margin-top:4px}
+#analysisStart[data-stage=empty]:not(#_#_) .analysis-way:is(:disabled,:has(>input:disabled)) .analysis-way-why{display:block}
+/* A way that cannot be used yet lies flat on the page: no lift, no light, and its reason in a small chip */
+#analysisStart:not(#_#_) .analysis-way:not(.x):not(.y):not(.z):is(:disabled,:has(>input:disabled)){cursor:not-allowed;opacity:1;background:rgba(0,0,0,.028)!important;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05);transform:none;animation:none}
+#analysisStart:not(#_#_) .analysis-way:not(.x):not(.y):not(.z):is(:disabled,:has(>input:disabled))::after,#analysisStart:not(#_#_) .analysis-way:is(:disabled,:has(>input:disabled))::before{display:none}
+#analysisStart:not(#_#_) .analysis-way:is(:disabled,:has(>input:disabled)) :is(strong,label){color:#77777c}
+#analysisStart:not(#_#_) .analysis-way:is(:disabled,:has(>input:disabled)) .analysis-way-text{color:#8a8a8f}
+#analysisStart:not(#_#_) .analysis-attachments{margin:0;gap:8px}
+#analysisStart:not(#_#_) .analysis-attachments li{border:0;border-radius:14px;background:rgba(0,0,0,.035);padding:8px 8px 8px 16px;font-size:14px;color:var(--ink)}
+/* Step 3 keeps its one disclosure as a pill under the sentence */
+#analysisStart:not(#_#_) [data-step=review] details{margin:0;width:fit-content;max-width:100%}
+@media(min-width:761px){
+#analysisStart:not(#_#_) [data-step=review] .analysis-step-body{grid-template-columns:minmax(0,1fr) auto;column-gap:24px;align-items:center}
+#analysisStart:not(#_#_) [data-step=review] .analysis-step-body>:is(h3,.analysis-step-note,.analysis-step-why){grid-column:1}
+#analysisStart:not(#_#_) [data-step=review] details{grid-column:2;grid-row:1/span 3}}
+/* More: secondary controls as a quiet, centred line of words; a soft glass pill lifts under the pointer */
+#analysisStart:not(#_#_) .analysis-more{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2px 6px;margin:4px 0 0;padding:14px 16px;border-radius:var(--radius);background:rgba(0,0,0,.024);min-width:0}
+#analysisStart:not(#_#_) .analysis-more-title{margin:0 8px 0 0;font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+#analysisStart:not(#_#_) .analysis-more .analysis-support-grid:not(.x),#analysisStart:not(#_#_) .analysis-more-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:2px 6px;margin:0;min-width:0;max-width:100%}
+#analysisStart:not(#_#_) .analysis-more .analysis-support-grid:not(.x)>details{margin:0;background:transparent;border-radius:0}
+#analysisStart:not(#_#_) .analysis-more :is(.analysis-support-grid>details>summary,.analysis-more-actions>button):not(.x):not(.y):not(.z){min-height:44px!important;height:auto!important;padding:10px 14px!important;line-height:1.3!important;font-size:14px;font-weight:550;color:#55555a;background:transparent!important;box-shadow:none!important;border-radius:var(--pill)!important}
+#analysisStart:not(#_#_) .analysis-more :is(.analysis-support-grid>details>summary,.analysis-more-actions>button):not(.x):not(.y):not(.z)::after{display:none}
+#analysisStart:not(#_#_) .analysis-more :is(.analysis-support-grid>details>summary,.analysis-more-actions>button:not(:disabled)):not(.x):not(.y):not(.z):hover{color:var(--ink);background:rgba(255,255,255,.7)!important;box-shadow:inset 0 1.5px 0 rgba(255,255,255,.95),0 0 0 .6px rgba(0,0,0,.12),0 6px 16px rgba(0,0,0,.08)!important;transform:none}
+#analysisStart:not(#_#_) .analysis-more-actions>button:disabled{color:#a5a5aa;cursor:default}
+#analysisStart[data-stage=empty]:not(#_#_) .analysis-more-actions{display:none}
+#analysisStart:not(#_#_) .analysis-more>#analysisRecoveryStatus{flex:1 1 100%;margin:4px 0 0;text-align:center;font-size:13px;line-height:1.5;color:var(--muted)}
+#analysisStart:not(#_#_) .analysis-more>#analysisRecoveryStatus:empty{display:none}
+#analysisPanel #analysisStatus.status:not(#_#_){margin:0 0 20px;padding:12px 18px;border-radius:14px;text-align:center;font-size:14px;line-height:1.5}
+@media(max-width:760px){
+#analysisStart:not(#_#_) .analysis-ways{grid-template-columns:minmax(0,1fr);gap:12px}
+#analysisStart:not(#_#_) .analysis-way:not(.x):not(.y):not(.z){min-height:0;padding:20px 18px}
+#analysisStart:not(#_#_) .analysis-way .analysis-way-text{max-width:46ch}
+#analysisStart:not(#_#_) .analysis-way .analysis-way-why{margin-top:4px}}
+@media(max-width:600px){
+#analysisStart:not(#_#_){gap:24px}
+#analysisStart:not(#_#_) .analysis-start-lead{font-size:16px}
+#analysisStart:not(#_#_) .analysis-step{grid-template-columns:32px minmax(0,1fr);column-gap:12px;row-gap:12px}
+#analysisStart:not(#_#_) .analysis-step:not(:last-child)::before{display:none}
+#analysisStart:not(#_#_) .analysis-step-number{width:32px;height:32px;font-size:14px}
+#analysisStart:not(#_#_) .analysis-step-body{display:contents}
+#analysisStart:not(#_#_) .analysis-step-body>h3{min-height:32px;font-size:19px}
+#analysisStart:not(#_#_) .analysis-step-body>:not(h3){grid-column:1/-1}
+#analysisStart:not(#_#_) .analysis-step-note{margin-top:-4px}
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y):not(.z){min-height:148px;padding:26px 20px}
+#analysisStart:not(#_#_) .analysis-drop label{font-size:19px}
+#analysisStart:not(#_#_) .analysis-more{padding:12px 8px}
+#analysisStart:not(#_#_) .analysis-more-title{flex:1 1 100%;margin:0 0 2px;text-align:center}
+#analysisStart:not(#_#_) .analysis-more :is(.analysis-support-grid>details>summary,.analysis-more-actions>button):not(.x):not(.y):not(.z){white-space:normal;text-align:center;justify-content:center;min-width:0;max-width:100%;overflow-wrap:anywhere}}
+@media(prefers-reduced-motion:reduce){#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way,.analysis-step-number,.analysis-drop-mark):not(.x):not(.y):not(.z),#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way):not(.x):not(.y):not(.z)::after{transition:none!important;transform:none!important;animation:none!important}}
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way):not(.x):not(.y):not(.z):is(:focus-visible,:has(>input:focus-visible)){outline:3px solid rgba(0,113,227,.55);outline-offset:3px}
+/* The light that follows the pointer lies on the glass, under the words, so text keeps its full contrast */
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way).lg-lit:not(.lg-touch)::before{z-index:-1}
+/* Korean breaks lines between words, not inside them */
+#analysisStart:not(#_#_):lang(ko) :is(.analysis-start-lead,.analysis-step-note,.analysis-way-text,.analysis-drop-hint,h3,label,strong,.analysis-way-why,.analysis-step-why){word-break:keep-all;overflow-wrap:anywhere}
+#analysisPanel #analysisStatus.status:not(#_#_):lang(ko){word-break:keep-all;overflow-wrap:anywhere}
+/* Focused edition: pages a newcomer cannot use stay out of sight, and the study has five stages instead of six. */
+body[data-edition=focused] :is(#workspaceNav [data-workspace-mode=observations],#workspaceNav [data-workspace-mode=tools],#studyTab6,#studyPage6,.study-bridge,#privateCollaboration,#workspaceToolsNav):not(#_#_):not(.x):not(.y){display:none!important}
+body[data-edition=focused] #researchView #studySteps:not(#_#_):not(.x){grid-template-columns:repeat(5,minmax(0,1fr))}
+@media(max-width:1000px){body[data-edition=focused] #researchView #studySteps:not(#_#_):not(.x){grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Content sits directly on the aurora: no white rounded container around a page, no connecting rule between numbered steps, no dashed drop outline. Glass controls keep their glass. */
+#researchView :is(.panel,.panelhead,.panelbody,.study-recovery):not(#_#_):not(.x):not(.y){background:transparent!important;box-shadow:none!important;border:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+#researchView :is(.panelhead,.panelbody,.study-recovery):not(#_#_):not(.x):not(.y){padding-left:0!important;padding-right:0!important}
+#researchView :is(.panel,.panelhead,.panelbody):not(#_#_):not(.x):not(.y)::before,#researchView :is(.panel,.panelhead,.panelbody):not(#_#_):not(.x):not(.y)::after{display:none!important}
+#analysisStart:not(#_#_) .analysis-step:not(.x):not(.y)::before{display:none!important}
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y):not(.z),#analysisStart:not(#_#_) .analysis-drop:is(.is-over,.has-file):not(.x):not(.y):not(.z){outline:0!important}
+#researchView #workspaceHome:not(#_#_) :is(.start-route,.workspace-backup):not(.x):not(.y){background:transparent!important;box-shadow:none!important;border:0!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding-left:0!important;padding-right:0!important}
+#researchView #workspaceHome:not(#_#_) :is(.start-route,.workspace-backup):not(.x):not(.y)::before,#researchView #workspaceHome:not(#_#_) :is(.start-route,.workspace-backup):not(.x):not(.y)::after,#researchView #workspaceHome:not(#_#_) .start-stage:not(.x):not(.y)::after{display:none!important}
+#researchView #workspaceHome:not(#_#_) .start-stage:not(.x):not(.y){box-shadow:none!important}
+
+/* Switch and slider after the current Apple pattern: a capsule knob that is solid at rest and turns to glass, larger than its track, while it is touched. Motion is continuous, never stepped. */
+@property --lg-fill{syntax:'<length>';inherits:true;initial-value:0px}
+input[type=checkbox]:not(#_#_):not(.x):not(.y){width:58px;min-width:58px;overflow:visible;transition:background-color .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s cubic-bezier(.2,.8,.2,1)}
+input[type=checkbox]:not(#_#_):not(.x):not(.y)::before{width:34px;height:24px;border-radius:12px;transform:none;translate:0 0;scale:1;background:#fff;box-shadow:inset 0 1px 0 #fff,0 0 0 .5px rgba(0,0,0,.05),0 2px 6px rgba(0,0,0,.22);transition:translate .46s cubic-bezier(.3,1.35,.45,1),scale .3s cubic-bezier(.3,1.5,.5,1),background-color .22s ease,box-shadow .22s ease}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):checked::before{transform:none;translate:20px 0}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):is(.lg-glass,:active):not(:disabled)::before{width:34px;transform:none;scale:1.24 1.42;background:radial-gradient(120% 90% at 50% -10%,rgba(255,255,255,.75),rgba(255,255,255,.16) 55%,rgba(255,255,255,.34));-webkit-backdrop-filter:blur(1.5px) saturate(180%) brightness(1.12);backdrop-filter:blur(1.5px) saturate(180%) brightness(1.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),inset 0 1.5px 2px #fff,inset 0 -2px 4px rgba(0,0,0,.08),0 5px 14px rgba(0,0,0,.2)}
+.layer-chip:not(#_#_):not(.x) input[type=checkbox]:not(.y){width:1px;min-width:0}
+input[type=range]:not(#_#_):not(.x):not(.y){transition:--lg-fill var(--lg-tt,.34s) cubic-bezier(.2,.85,.3,1)}
+input[type=range]:not(#_#_):not(.x):not(.y)::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(var(--ink),var(--ink)) 0 0/var(--lg-fill,0px) 100% no-repeat,rgba(120,120,128,.2);box-shadow:none}
+input[type=range]:not(#_#_):not(.x):not(.y)::-moz-range-track{height:6px;border-radius:3px;background:rgba(120,120,128,.2);box-shadow:none}
+input[type=range]:not(#_#_):not(.x):not(.y)::-moz-range-progress{height:6px;border-radius:3px}
+input[type=range]:not(#_#_):not(.x):not(.y)::-webkit-slider-thumb{width:38px;height:24px;margin-top:-9px;border-radius:12px;transform:none;translate:var(--lg-dx,0px) 0;scale:1;background:#fff;box-shadow:inset 0 1px 0 #fff,0 0 0 .5px rgba(0,0,0,.06),0 2px 7px rgba(0,0,0,.22);transition:translate var(--lg-tt,.34s) cubic-bezier(.2,.85,.3,1),scale .3s cubic-bezier(.3,1.5,.5,1),background-color .22s ease,box-shadow .22s ease}
+input[type=range]:not(#_#_):not(.x):not(.y)::-moz-range-thumb{width:38px;height:24px;border-radius:12px;translate:var(--lg-dx,0px) 0;transition:translate var(--lg-tt,.34s) cubic-bezier(.2,.85,.3,1),scale .3s cubic-bezier(.3,1.5,.5,1)}
+input[type=range]:not(#_#_):not(.x):not(.y):is(.lg-drag,:active):not(:disabled)::-webkit-slider-thumb{transform:none;scale:1.26 1.46;background:radial-gradient(120% 90% at 50% -10%,rgba(255,255,255,.78),rgba(255,255,255,.18) 55%,rgba(255,255,255,.36));box-shadow:inset 0 0 0 1px rgba(255,255,255,.78),inset 0 1.5px 2px #fff,inset 0 -2px 4px rgba(0,0,0,.08),0 6px 16px rgba(0,0,0,.2)}
+input[type=range]:not(#_#_):not(.x):not(.y):is(.lg-drag,:active):not(:disabled)::-moz-range-thumb{scale:1.26 1.46;background:rgba(255,255,255,.4)}
+@media(prefers-reduced-motion:reduce){input[type=checkbox]:not(#_#_):not(.x):not(.y)::before,input[type=range]:not(#_#_):not(.x):not(.y),input[type=range]:not(#_#_):not(.x):not(.y)::-webkit-slider-thumb{transition:none}}
+/* File pickers: the button and the file name share one centre line. */
+input[type=file]:not(#_#_)::file-selector-button{box-sizing:border-box;height:32px;min-height:0;margin:0 10px 0 0;padding:0 14px;border-radius:16px;line-height:30px;vertical-align:middle}
+/* Language panel: one corner shape from start to finish, grown evenly; names bold, centred and larger. */
+.studio-locale-menu:not(#_#_):not(.x){border-radius:22px;transform:scale(.6);min-width:max(100%,176px)}
+.studio-locale-menu:not(#_#_):not(.x).open{border-radius:22px;transform:none}
+.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z){justify-content:center;text-align:center;height:46px;min-height:46px;font-size:17px;font-weight:700!important;letter-spacing:-.01em}
+#researchView #workspaceHome:not(#_#_) .start-stage:not(.x):not(.y),#researchView #workspaceHome:not(#_#_) .start-stage:not(.x):not(.y):hover{background:transparent!important}
+/* Stage numbers are plain numerals, large and bold, with no glass badge behind them. */
+#researchView #workspaceHome:not(#_#_) .start-stage-number:not(.x):not(.y),#researchView #workspaceHome:not(#_#_) .start-stage:hover .start-stage-number:not(.x):not(.y){background:none!important;box-shadow:none!important;border:0!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;transform:none!important;place-items:start center;font-size:46px;font-weight:750;line-height:1;letter-spacing:-.04em;color:#0b0b0c}
+#researchView #workspaceHome:not(#_#_) .start-stage-number:not(.x):not(.y)::before,#researchView #workspaceHome:not(#_#_) .start-stage-number:not(.x):not(.y)::after{display:none!important}
+@media(max-width:720px){#researchView #workspaceHome:not(#_#_) .start-stage-number:not(.x):not(.y){font-size:34px}}
+#analysisStart:not(#_#_) .analysis-step-number:not(.x):not(.y){background:none!important;box-shadow:none!important;transform:none!important;font-size:30px;font-weight:750;letter-spacing:-.03em;color:#b4b4ba}
+#analysisStart[data-stage=empty]:not(#_#_) [data-step=open] .analysis-step-number:not(.x):not(.y),#analysisStart[data-stage=image]:not(#_#_) [data-step=outline] .analysis-step-number:not(.x):not(.y),#analysisStart[data-stage=outlined]:not(#_#_) [data-step=review] .analysis-step-number:not(.x):not(.y){color:var(--ink)}
+#analysisStart:not([data-stage=empty]):not(#_#_) [data-step=open] .analysis-step-number:not(.x):not(.y),#analysisStart:is([data-stage=outlined],[data-stage=approved]):not(#_#_) [data-step=outline] .analysis-step-number:not(.x):not(.y),#analysisStart[data-stage=approved]:not(#_#_) [data-step=review] .analysis-step-number:not(.x):not(.y){font-size:0;color:var(--ink)}
+/* Slider glass reads as glass on the pale aurora: a nearly clear body, a thick bright rim, a faint colour split at the edges and a caustic along the lower lip. */
+#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y){background:linear-gradient(180deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.05) 48%,rgba(255,255,255,.16) 100%)!important;
+ box-shadow:inset 0 1.5px 0 rgba(255,255,255,.98),inset 0 0 0 1px rgba(255,255,255,.6),inset 0 0 14px 3px rgba(255,255,255,.5),inset 0 -8px 12px -8px rgba(70,95,160,.22),inset 3px 0 5px -3px rgba(110,150,255,.4),inset -3px 0 5px -3px rgba(255,160,130,.34),0 0 0 .6px rgba(0,0,0,.16),0 20px 42px -16px rgba(30,40,90,.3),0 3px 8px rgba(0,0,0,.06)!important}
+#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y)>.lg-pill{background:radial-gradient(130% 100% at 30% -10%,rgba(255,255,255,.82) 0%,rgba(255,255,255,.34) 42%,rgba(255,255,255,.2) 70%,rgba(255,255,255,.42) 100%)!important;
+ box-shadow:inset 0 1.5px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.7),inset 0 0 10px 2px rgba(255,255,255,.6),inset 0 -5px 8px -5px rgba(70,95,160,.26),inset 2.5px 0 4px -2.5px rgba(110,150,255,.42),inset -2.5px 0 4px -2.5px rgba(255,160,130,.36),0 0 0 .6px rgba(0,0,0,.18),0 12px 24px -8px rgba(30,40,90,.32),0 2px 5px rgba(0,0,0,.08)!important}
+body[data-edition=focused] #researchView #studySteps:not(#_#_):not(.x)>#studyTab6:not(.x):not(.y):not(.z){display:none!important}
+#researchView .status[data-state=empty]:not(#_#_):not(.x):not(.y){background:transparent!important;box-shadow:none!important;border:0!important;padding-left:0!important;padding-right:0!important}
+#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y){background:linear-gradient(180deg,rgba(255,255,255,.34) 0%,rgba(255,255,255,0) 42%),linear-gradient(112deg,rgba(120,160,255,.16) 0%,rgba(255,255,255,.03) 38%,rgba(130,220,200,.12) 68%,rgba(255,190,150,.16) 100%)!important;
+ box-shadow:inset 0 1.5px 0 rgba(255,255,255,.98),inset 0 0 0 1px rgba(255,255,255,.62),inset 0 0 7px 1px rgba(255,255,255,.4),inset 0 -11px 14px -10px rgba(40,60,130,.24),inset 4px 0 6px -4px rgba(100,145,255,.5),inset -4px 0 6px -4px rgba(255,150,120,.42),0 0 0 .6px rgba(20,30,70,.22),0 20px 42px -16px rgba(30,40,90,.3),0 3px 8px rgba(0,0,0,.06)!important}
+#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y)>.lg-pill{background:linear-gradient(180deg,rgba(255,255,255,.78) 0%,rgba(255,255,255,.3) 46%,rgba(255,255,255,.46) 100%)!important;
+ box-shadow:inset 0 1.5px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.72),inset 0 -7px 9px -6px rgba(40,60,130,.22),inset 3px 0 5px -3px rgba(100,145,255,.46),inset -3px 0 5px -3px rgba(255,150,120,.4),0 0 0 .6px rgba(20,30,70,.24),0 12px 24px -8px rgba(30,40,90,.34),0 2px 5px rgba(0,0,0,.08)!important}
+#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y)::before{display:none}
+/* The three ways are the same size whatever their text. */
+#analysisStart:not(#_#_) .analysis-ways:not(.x){grid-auto-rows:1fr}
+#analysisStart:not(#_#_) .analysis-ways>.auto-roi-analysis-entry:not(.x){align-items:stretch;height:100%}
+#analysisStart:not(#_#_) .analysis-ways :is(.analysis-way):not(.x):not(.y):not(.z){height:100%;width:100%;min-height:164px;align-self:stretch}
+/* More: no grey box, and each entry is a glass button like every other button on the site, so it is plain what can be pressed. */
+#analysisStart:not(#_#_) .analysis-more:not(.x):not(.y){background:transparent!important;padding-left:0;padding-right:0;gap:8px 10px}
+#analysisStart:not(#_#_) .analysis-more .analysis-support-grid:not(.x):not(.y),#analysisStart:not(#_#_) .analysis-more-actions:not(.x):not(.y){gap:8px 10px}
+#analysisStart:not(#_#_) .analysis-more :is(.analysis-support-grid>details>summary,.analysis-more-actions>button:not(:disabled)):not(.x):not(.y):not(.z),#analysisStart:not(#_#_) .analysis-more :is(.analysis-support-grid>details>summary,.analysis-more-actions>button:not(:disabled)):not(.x):not(.y):not(.z):hover{padding:10px 20px!important;font-weight:600;color:var(--ink);cursor:pointer;background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.62)),#eceef1!important;box-shadow:inset 0 1px 0 var(--glass-edge),inset 0 -1px 0 var(--glass-rim),0 0 0 .6px rgba(0,0,0,.12),0 2px 6px rgba(0,0,0,.07)!important}
+#analysisStart:not(#_#_) .analysis-more :is(.analysis-support-grid>details>summary,.analysis-more-actions>button:not(:disabled)):not(.x):not(.y):not(.z):hover{box-shadow:inset 0 1px 0 var(--glass-edge),inset 0 -1px 0 var(--glass-rim),0 0 0 .6px rgba(0,0,0,.14),0 8px 18px rgba(0,0,0,.12)!important;transform:translateY(-1px)}
+/* Switch and slider knobs change in one continuous movement: only properties that interpolate, travel and glass overlapping, no rebound. */
+input[type=checkbox]:not(#_#_):not(.x):not(.y){transition:background-color .36s cubic-bezier(.3,.7,.2,1),box-shadow .36s cubic-bezier(.3,.7,.2,1)}
+input[type=checkbox]:not(#_#_):not(.x):not(.y)::before{background:none;background-color:#fff;will-change:translate,scale;transition:translate .4s cubic-bezier(.3,.7,.2,1),scale .34s cubic-bezier(.3,.7,.2,1),background-color .3s ease,box-shadow .3s ease}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):is(.lg-glass,:active):not(:disabled)::before{background:none;background-color:rgba(255,255,255,.34);-webkit-backdrop-filter:none;backdrop-filter:none;scale:1.2 1.36;box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),inset 0 2px 3px rgba(255,255,255,.95),inset 0 -3px 5px rgba(60,80,140,.14),0 5px 14px rgba(0,0,0,.18)}
+input[type=range]:not(#_#_):not(.x):not(.y)::-webkit-slider-thumb{background:none;background-color:#fff;transition:translate var(--lg-tt,.34s) cubic-bezier(.3,.7,.2,1),scale .34s cubic-bezier(.3,.7,.2,1),background-color .3s ease,box-shadow .3s ease}
+input[type=range]:not(#_#_):not(.x):not(.y):is(.lg-drag,:active):not(:disabled)::-webkit-slider-thumb{background:none;background-color:rgba(255,255,255,.34);scale:1.22 1.4;box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),inset 0 2px 3px rgba(255,255,255,.95),inset 0 -3px 5px rgba(60,80,140,.14),0 6px 16px rgba(0,0,0,.18)}
+/* A field that holds a file picker and buttons gives each its own breathing room. */
+.research-field:has(>button):not(#_#_):not(.x){display:flex;flex-wrap:wrap;align-items:center;gap:12px 12px}
+.research-field:has(>button):not(#_#_):not(.x)>:is(label,input[type=file],.mini,span){flex:1 1 100%;margin:0}
+/* Opening a section is one compact glass button: a plus, what it does, and a short hint. A file can still be dropped on it. */
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y):not(.z),#analysisStart:not(#_#_) .analysis-drop.has-file:not(.x):not(.y):not(.z){width:fit-content;max-width:100%;min-height:56px;padding:10px 26px 10px 12px;flex-direction:row;flex-wrap:wrap;justify-content:flex-start;align-items:center;column-gap:12px;row-gap:2px;border-radius:var(--pill);text-align:left;animation:none}
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y) .analysis-drop-mark{width:36px;height:36px;margin:0}
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y) label{font-size:17px;line-height:1.3}
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y) .analysis-drop-name{font-size:17px}
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y) .analysis-drop-hint,#analysisStart:not(#_#_) .analysis-drop.has-file:not(.x):not(.y) .analysis-drop-hint{flex:0 1 auto;max-width:none;font-size:14px}
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y)>input[type=file]{border-radius:inherit}
+#analysisStart:not(#_#_) .analysis-drop:not(.x):not(.y):not(.z),#analysisStart:not(#_#_) .analysis-drop.has-file:not(.x):not(.y):not(.z){border-radius:28px}
+/* Slider glass, flat and colourless. The pill lies over the labels, so its lens bends and magnifies the letters beneath it as it passes. */
+#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y){background:rgba(255,255,255,.16)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 .6px rgba(0,0,0,.15),0 10px 24px -12px rgba(0,0,0,.22),0 2px 5px rgba(0,0,0,.04)!important}
+#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y)>button:not(.x):not(.y){z-index:1}
+#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y)>.lg-pill{z-index:2!important;background:rgba(255,255,255,.2)!important;
+ box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.65),inset 0 -1px 0 rgba(0,0,0,.05),0 0 0 .6px rgba(0,0,0,.2),0 6px 14px -6px rgba(0,0,0,.24)!important}
+#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y)>.lg-pill::after{display:none!important}
+/* "You can" and "You get" are headings a reader catches at a glance, not small grey captions. */
+#researchView :is(.workspace-facts,.start-stage-facts):not(#_#_):not(.x) dt{margin:0 0 6px;font-size:18px;font-weight:700;line-height:1.3;letter-spacing:-.015em;text-transform:none;color:#0b0b0c}
+#researchView :is(.workspace-facts,.start-stage-facts):not(#_#_):not(.x) dd{font-size:15px;line-height:1.6;color:#4a4a4f}
+#researchView .workspace-facts:not(#_#_):not(.x){margin-top:22px;gap:14px 36px}
+#researchView #workspaceHome:not(#_#_):not(.x) .start-stage-facts dt{margin:0 0 6px;font-size:18px;font-weight:700;line-height:1.3;letter-spacing:-.015em;text-transform:none;color:#0b0b0c}
+#researchView #workspaceHome:not(#_#_):not(.x) .start-stage-facts dd{font-size:15px;line-height:1.6;color:#4a4a4f}
+#researchView #workspaceHome:not(#_#_):not(.x) .start-stage-where{font-size:14px;font-weight:650;letter-spacing:0;text-transform:none;color:#55555a}
+#analysisStart:not(#_#_):not(.x) .analysis-more-title{font-size:15px;font-weight:700;letter-spacing:0;text-transform:none;color:#0b0b0c}
+/* Language panel opens as glass that grows out of the language button: it lengthens from the button's own height, swells slightly past its size and settles, a sheen runs down it and the names arrive one after another. */
+.studio-locale-menu:not(#_#_):not(.x).open{overflow:hidden;background:rgba(255,255,255,.84);animation:lg-locale-expand .56s cubic-bezier(.25,.9,.3,1) both}
+@keyframes lg-locale-expand{0%{max-height:48px;opacity:.5;transform:scale(.9)}45%{opacity:1}62%{transform:scale(1.035)}100%{max-height:360px;opacity:1;transform:none}}
+.studio-locale-menu:not(#_#_):not(.x).open::after{content:"";position:absolute;left:0;right:0;top:0;height:55%;pointer-events:none;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.85) 50%,rgba(255,255,255,0));animation:lg-locale-sheen .62s cubic-bezier(.3,.6,.3,1) both}
+@keyframes lg-locale-sheen{0%{transform:translateY(-100%);opacity:0}30%{opacity:1}100%{transform:translateY(190%);opacity:0}}
+.studio-locale-menu:not(#_#_):not(.x).open>button{animation:lg-locale-item .42s cubic-bezier(.3,1.3,.5,1) both}
+.studio-locale-menu:not(#_#_):not(.x).open>button:nth-child(1){animation-delay:.04s}.studio-locale-menu:not(#_#_):not(.x).open>button:nth-child(2){animation-delay:.085s}.studio-locale-menu:not(#_#_):not(.x).open>button:nth-child(3){animation-delay:.13s}.studio-locale-menu:not(#_#_):not(.x).open>button:nth-child(4){animation-delay:.175s}.studio-locale-menu:not(#_#_):not(.x).open>button:nth-child(5){animation-delay:.22s}
+@keyframes lg-locale-item{0%{opacity:0;translate:0 -10px;scale:.94}100%{opacity:1;translate:0 0;scale:1}}
+@media(prefers-reduced-motion:reduce){.studio-locale-menu:not(#_#_):not(.x).open,.studio-locale-menu:not(#_#_):not(.x).open::after,.studio-locale-menu:not(#_#_):not(.x).open>button{animation:none}.studio-locale-menu:not(#_#_):not(.x).open::after{display:none}}
+.studio-locale-menu:not(#_#_):not(.x).open{animation:lg-locale-grow .46s cubic-bezier(.45,0,.2,1) both,lg-locale-swell .6s cubic-bezier(.25,.9,.3,1) both}
+@keyframes lg-locale-grow{0%{max-height:48px}100%{max-height:262px}}
+@keyframes lg-locale-swell{0%{opacity:.5;transform:scale(.9)}40%{opacity:1}68%{transform:scale(1.035)}100%{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.studio-locale-menu:not(#_#_):not(.x).open{animation:none}}
+#analysisStart:not(#_#_) .analysis-drop:not(.has-file):not(.x):not(.y) .analysis-drop-mark{display:none}
+#analysisStart:not(#_#_) .analysis-drop:not(.has-file):not(.x):not(.y):not(.z){padding-left:26px}
+#researchView #workspaceTitle:not(#_#_):not(.x){font-size:clamp(46px,6.2vw,68px);font-weight:750;line-height:1.06;letter-spacing:-.045em;margin-bottom:18px}
+/* With the container gone nothing should cut the rim or shadow of a control that reaches the page edge. */
+#researchView :is(.panel,.panelhead,.panelbody,.workspace-pane):not(#_#_):not(.x):not(.y){overflow:visible!important;contain:none}
+/* "You can" and "You get" start on the same line as the bold stage heading, not on the small label above it. */
+@media(min-width:901px){#researchView #workspaceHome:not(#_#_):not(.x) .start-stage-facts{padding-top:29px}}
+@media(min-width:901px){#researchView #workspaceHome:not(#_#_):not(.x) .start-stage-facts dt{font-size:21px;line-height:1.3;letter-spacing:-.022em;font-weight:650;margin-bottom:10px}}
+/* Every button, picker and field is the same clear liquid glass: a nearly transparent body that shows what is behind it, a bright upper rim, a hair-thin outline and a soft shadow. */
+:root{--lg-clear:rgba(255,255,255,.16);--lg-clear-hover:rgba(255,255,255,.3);--lg-clear-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.45),inset 0 -1px 0 rgba(0,0,0,.05),0 0 0 .6px rgba(0,0,0,.17),0 8px 18px -10px rgba(0,0,0,.24);--lg-clear-filter:blur(8px) saturate(1.7)}
+button:not(.primary):not(:disabled):not(#_#_):not(.x),summary:not(#_#_):not(.x),.filebutton:not(#_#_):not(.x),.studio-tool-toggle:not(#_#_):not(.x),#studioLocale:not(#_#_):not(.x){background:var(--lg-clear)!important;box-shadow:var(--lg-clear-shadow)!important;-webkit-backdrop-filter:var(--lg-clear-filter);backdrop-filter:var(--lg-clear-filter)}
+button:not(.primary):not(:disabled):not(#_#_):not(.x):hover,summary:not(#_#_):not(.x):hover,.filebutton:not(#_#_):not(.x):hover{background:var(--lg-clear-hover)!important}
+button:not(.primary):disabled:not(#_#_):not(.x){background:rgba(255,255,255,.07)!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),0 0 0 .6px rgba(0,0,0,.08)!important;color:#8a8a90}
+button.primary:not(#_#_):not(.x){background:rgba(17,17,19,.78)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.34),inset 0 0 0 1px rgba(255,255,255,.1),0 0 0 .6px rgba(0,0,0,.5),0 10px 22px -10px rgba(0,0,0,.45)!important;-webkit-backdrop-filter:var(--lg-clear-filter);backdrop-filter:var(--lg-clear-filter)}
+select:not(#_#_):not(.x):not(#studioLocale):not(.y),select:not(#_#_):not(.x):not(#studioLocale):not(.y):hover:not(:disabled){background-color:var(--lg-clear);box-shadow:var(--lg-clear-shadow);-webkit-backdrop-filter:var(--lg-clear-filter);backdrop-filter:var(--lg-clear-filter)}
+select:not(#_#_):not(.x):not(#studioLocale):not(.y):hover:not(:disabled){background-color:var(--lg-clear-hover)}
+select:not(#_#_):not(.x):not(#studioLocale):not(.y):disabled{background-color:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),0 0 0 .6px rgba(0,0,0,.08);opacity:.7}
+input[type=file]:not(#_#_):not(.x),input[type=text]:not(#_#_):not(.x),input[type=number]:not(#_#_):not(.x),input[type=search]:not(#_#_):not(.x),textarea:not(#_#_):not(.x){background:var(--lg-clear)!important;border:0!important;box-shadow:var(--lg-clear-shadow);-webkit-backdrop-filter:var(--lg-clear-filter);backdrop-filter:var(--lg-clear-filter)}
+input[type=file]:not(#_#_):not(.x){border-radius:22px!important}
+input[type=file]:not(#_#_):not(.x)::file-selector-button{background:rgba(255,255,255,.3);border:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 0 0 .6px rgba(0,0,0,.16);color:var(--ink);font-weight:600}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):not(:checked){background-color:rgba(120,120,128,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 0 0 1px rgba(255,255,255,.35),0 0 0 .6px rgba(0,0,0,.16)}
+.atlas-explorer .atlas-ref-viewbar:not(#_#_):not(.x){background:transparent!important;border:0!important}
+body[data-edition=focused] [data-workspace-open=observations]:not(#_#_):not(.x){display:none!important}
+/* Header menu: only the page you are on carries glass; the others are plain words. */
+.site-header nav button[data-tab]:not(.active):not(#_#_):not(.x):not(.y){background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+.site-header nav button[data-tab]:not(.active):not(#_#_):not(.x):not(.y):hover{background:rgba(255,255,255,.3)!important}
+/* Glass buttons never underline their text, on hover, focus or press. */
+button:not(#_#_):not(.x):is(:hover,:focus,:focus-visible,:active),.filebutton:not(#_#_):not(.x):is(:hover,:focus-within,:active),summary:not(#_#_):not(.x):is(:hover,:focus,:active){text-decoration:none!important}
+/* Inside a slider only the moving pill is glass; the labels themselves stay plain. */
+[data-liquid]:not(#_#_):not(.x)>button:not(.x):not(.y):not(.z),[data-liquid]:not(#_#_):not(.x)>button:not(.x):not(.y):not(.z):hover{background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+/* Fields share the buttons' shape: a 44px round-ended capsule of clear glass. Multi-line fields keep a 22px corner. */
+input:is([type=text],[type=number],[type=search],[type=email],[type=url],[type=date],:not([type])):not(#_#_):not(.x),select:not(#_#_):not(.x):not(#studioLocale):not([multiple]):not(.y){box-sizing:border-box;height:44px;min-height:44px;padding-left:18px;border:0!important;border-radius:var(--pill)!important;font-size:15px;background-color:var(--lg-clear)!important;box-shadow:var(--lg-clear-shadow);-webkit-backdrop-filter:var(--lg-clear-filter);backdrop-filter:var(--lg-clear-filter)}
+input:is([type=text],[type=number],[type=search],[type=email],[type=url],[type=date],:not([type])):not(#_#_):not(.x){padding-right:18px;background:var(--lg-clear)!important}
+input[type=file]:not(#_#_):not(.x){border-radius:var(--pill)!important}
+textarea:not(#_#_):not(.x),select[multiple]:not(#_#_):not(.x){border:0!important;border-radius:22px!important;background:var(--lg-clear)!important;box-shadow:var(--lg-clear-shadow);-webkit-backdrop-filter:var(--lg-clear-filter);backdrop-filter:var(--lg-clear-filter);padding:12px 18px}
+:is(input:is([type=text],[type=number],[type=search],[type=email],[type=url],[type=date],:not([type])),textarea,select):not(#_#_):not(.x):disabled{background-color:rgba(255,255,255,.07)!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),0 0 0 .6px rgba(0,0,0,.1);color:#8a8a90}
+:is(input:is([type=text],[type=number],[type=search],[type=email],[type=url],[type=date],:not([type])),textarea):not(#_#_):not(.x):focus-visible{outline:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 0 0 1px rgba(0,113,227,.55),0 0 0 4px rgba(0,113,227,.2)}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):not(:checked){background-color:rgba(120,120,128,.24)}
+/* Switch and slider finish: exact insets, a recessed track, a knob with a fine rim and a two-layer shadow, label centred on the switch. */
+input[type=checkbox]:not(#_#_):not(.x):not(.y){width:62px;min-width:62px;height:28px;min-height:28px;border-radius:14px;margin:0 12px 0 0;box-shadow:inset 0 1px 2px rgba(0,0,0,.16),inset 0 0 0 .5px rgba(0,0,0,.1),0 1px 0 rgba(255,255,255,.7)}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):checked{background-color:#111;box-shadow:inset 0 1px 2px rgba(0,0,0,.6),inset 0 0 0 .5px rgba(255,255,255,.1),0 1px 0 rgba(255,255,255,.7)}
+input[type=checkbox]:not(#_#_):not(.x):not(.y)::before{top:2px;left:2px;width:36px;height:24px;border-radius:12px;box-shadow:inset 0 1px 0 #fff,inset 0 0 0 .5px rgba(0,0,0,.05),0 1px 1px rgba(0,0,0,.14),0 3px 7px rgba(0,0,0,.2)}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):checked::before{translate:22px 0}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):is(.lg-glass,:active):not(:disabled)::before{width:36px}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):focus-visible{outline:2px solid rgba(0,113,227,.6);outline-offset:3px}
+.layer-chip:not(#_#_):not(.x) input[type=checkbox]:not(.y){width:1px;min-width:0;height:1px;min-height:0;margin:0;box-shadow:none}
+label:has(>input[type=checkbox]):not(.layer-chip):not(#_#_){display:inline-flex;align-items:center;line-height:1.4}
+input[type=range]:not(#_#_):not(.x):not(.y)::-webkit-slider-runnable-track{box-shadow:inset 0 .5px 1px rgba(0,0,0,.2),0 .5px 0 rgba(255,255,255,.8)}
+input[type=range]:not(#_#_):not(.x):not(.y)::-webkit-slider-thumb{box-shadow:inset 0 1px 0 #fff,inset 0 0 0 .5px rgba(0,0,0,.05),0 1px 1px rgba(0,0,0,.14),0 3px 7px rgba(0,0,0,.2)}
+/* Windows opened from a button: one vertical rhythm, labels above their fields, buttons in spaced rows, nothing touching. */
+dialog.focus-details-dialog .focus-details-body:not(#_#_){display:flex;flex-direction:column;align-items:stretch;gap:18px}
+dialog.focus-details-dialog .focus-details-body:not(#_#_)>*{margin:0}
+dialog.focus-details-dialog .focus-details-body:not(#_#_)>:is(button,summary,.filebutton,a.filebutton){align-self:flex-start}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) :is(.science-fields,.study-fields,.analysis-fields,.research-fields,.private-fields){display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px 16px;align-items:end;margin:0}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) label:not(:has(>input[type=checkbox])):not(.filebutton):not(.layer-chip){display:grid;gap:7px;margin:0;font-size:13px;color:#55555a}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) label>:is(input,select,textarea):not([type=checkbox]){margin:0;width:100%}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) :is(.science-actions,.study-actions,.analysis-actions,.analysis-toolbar,.research-actions,.row){display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px;margin:0}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) :is(.science-table,.table-scroll){overflow:auto;margin:0}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) table{width:100%;border-collapse:separate;border-spacing:8px 8px}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) table :is(th,td){padding:0;border:0;text-align:left;font-size:13px}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) table :is(input,select){width:100%;min-width:72px}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) fieldset{margin:0;padding:14px 16px;border:0;border-radius:18px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);display:grid;gap:10px}
+dialog.focus-details-dialog .focus-details-body:not(#_#_) :is(p,.mini,.study-note){line-height:1.6}
+dialog.focus-card .focus-card-content:not(#_#_){padding-bottom:22px}
+#researchView #scienceTools .panelbody:not(#_#_)>details{display:inline-block;margin:0 10px 12px 0;vertical-align:top}
+/* Opening actions: one glass bar. A dark glass drop rests on the first action and slides to the one under the pointer or focus. */
+.explore-heading #heroBar:not(#_#_){position:relative;display:inline-flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4px;width:fit-content;max-width:100%;margin:30px auto 0;padding:7px;border-radius:34px;background:rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 .6px rgba(0,0,0,.15),0 10px 24px -12px rgba(0,0,0,.22);-webkit-backdrop-filter:blur(8px) saturate(1.7);backdrop-filter:blur(8px) saturate(1.7)}
+.explore-heading #heroBar:not(#_#_)>:is(.intro-actions,.intro-links):not(.x):not(.y){display:contents!important}
+.explore-heading #heroBar:not(#_#_) :is(button,a):not(.x):not(.y):not(.z),.explore-heading #heroBar:not(#_#_) :is(button,a):not(.x):not(.y):not(.z):hover{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box;height:50px!important;min-height:50px!important;margin:0!important;padding:0 24px!important;border:0!important;border-radius:var(--pill)!important;background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;font-size:16px;font-weight:600;letter-spacing:-.012em;color:#4a4a4f!important;text-decoration:none!important;white-space:nowrap;transform:none;transition:color .25s var(--ease)}
+.explore-heading #heroBar:not(#_#_) :is(button,a):not(.x):not(.y):not(.z)::before,.explore-heading #heroBar:not(#_#_) :is(button,a):not(.x):not(.y):not(.z)::after{display:none!important}
+.explore-heading #heroBar:not(#_#_) :is(button,a).is-lead:not(.x):not(.y):not(.z),.explore-heading #heroBar:not(#_#_) :is(button,a).is-lead:not(.x):not(.y):not(.z):hover{color:#fff!important}
+.explore-heading #heroBar:not(#_#_)>.lg-pill{z-index:0!important;border-radius:var(--pill)!important;background:rgba(17,17,19,.82)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.34),inset 0 0 0 1px rgba(255,255,255,.1),0 0 0 .6px rgba(0,0,0,.5),0 10px 22px -10px rgba(0,0,0,.45)!important}
+.explore-heading #heroBar:not(#_#_)>.lg-pill::after{display:none!important}
+.explore-heading:not(#_#_){text-align:center}
+@media(max-width:700px){.explore-heading #heroBar:not(#_#_){border-radius:28px;padding:6px}.explore-heading #heroBar:not(#_#_) :is(button,a):not(.x):not(.y):not(.z){height:44px!important;min-height:44px!important;padding:0 16px!important;font-size:15px}}
+.explore-heading #heroBar:not(#_#_) :is(button:disabled,[hidden]):not(.x):not(.y):not(.z),body[data-edition=focused] .explore-heading #heroBar:not(#_#_) [data-workspace-open=observations]:not(.x):not(.y):not(.z){display:none!important}
+.explore-heading #heroBar:not(#_#_){box-sizing:border-box;max-width:min(100%,calc(100vw - 32px))}
+.explore-heading #heroBar:not(#_#_):not(.x){display:flex!important;flex-wrap:nowrap!important;width:fit-content!important;max-width:min(100%,calc(100vw - 32px))!important;margin:30px auto 0!important;padding:7px!important;gap:4px!important}
+.explore-heading:not(#_#_){min-width:0;max-width:100%}
+@media(max-width:900px){.explore-heading #heroBar:not(#_#_):not(.x){justify-content:flex-start!important;overflow-x:auto!important;overflow-y:hidden!important}}
+/* The opening bar is the same clear glass slider as the workspace menu: no black, a clear glass drop over the first action. */
+.explore-heading #heroBar:not(#_#_):not(.x){background:rgba(255,255,255,.16)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 .6px rgba(0,0,0,.15),0 10px 24px -12px rgba(0,0,0,.22),0 2px 5px rgba(0,0,0,.04)!important}
+.explore-heading #heroBar:not(#_#_):not(.x)>.lg-pill{z-index:2!important;background:rgba(255,255,255,.2)!important;box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.65),inset 0 -1px 0 rgba(0,0,0,.05),0 0 0 .6px rgba(0,0,0,.2),0 6px 14px -6px rgba(0,0,0,.24)!important}
+.explore-heading #heroBar:not(#_#_) :is(button,a):not(.x):not(.y):not(.z),.explore-heading #heroBar:not(#_#_) :is(button,a):not(.x):not(.y):not(.z):hover{color:#5c5c61!important}
+.explore-heading #heroBar:not(#_#_) :is(button,a).is-lead:not(.x):not(.y):not(.z),.explore-heading #heroBar:not(#_#_) :is(button,a).is-lead:not(.x):not(.y):not(.z):hover{color:#0b0b0c!important}
+.explore-heading #heroBar:not(#_#_) :is(button,a):not(.is-lead):not(.x):not(.y):not(.z):hover{color:#1c1c1e!important}
+.hero-layout:not(#_#_)>.explore-heading:not(.x){min-width:0!important}
+@media(max-width:900px){.explore-heading #heroBar:not(#_#_):not(.x){width:100%!important;max-width:100%!important;contain:inline-size}}
+/* Switch corners: fully round ends on track and knob, even 3px inset all round, no offset edge shadow that squares the corner. */
+input[type=checkbox]:not(#_#_):not(.x):not(.y){width:64px;min-width:64px;height:32px;min-height:32px;border-radius:999px;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.1);outline-offset:3px}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):checked{box-shadow:none}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):not(:checked){box-shadow:inset 0 0 0 .5px rgba(0,0,0,.12)}
+input[type=checkbox]:not(#_#_):not(.x):not(.y)::before{top:3px;left:3px;width:36px;height:26px;border-radius:999px;box-shadow:0 0 0 .5px rgba(0,0,0,.04),0 2px 6px rgba(0,0,0,.18)}
+input[type=checkbox]:not(#_#_):not(.x):not(.y):checked::before{translate:22px 0}
+.layer-chip:not(#_#_):not(.x) input[type=checkbox]:not(.y){width:1px;min-width:0;height:1px;min-height:0;margin:0;box-shadow:none}
+input[type=range]:not(#_#_):not(.x):not(.y)::-webkit-slider-thumb{border-radius:999px;box-shadow:0 0 0 .5px rgba(0,0,0,.05),0 2px 6px rgba(0,0,0,.18)}
+
+/* Liquid glass is clear, not frosted: no white fill and no blur. A control is drawn by its rim, its highlight and its shadow alone, and what lies behind shows through unchanged. */
+:root{--lg-clear:transparent;--lg-clear-hover:rgba(255,255,255,.1);--lg-clear-filter:none;--lg-clear-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.55),inset 0 -1px 0 rgba(0,0,0,.06),0 0 0 .6px rgba(0,0,0,.24),0 8px 18px -10px rgba(0,0,0,.26)}
+#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y),.explore-heading #heroBar:not(#_#_):not(.x),[data-liquid]:not(#_#_):not(.x){background:transparent!important}
+[data-liquid]:not(#_#_):not(.x)>.lg-pill,#researchView :is(#workspaceNav,#studySteps):not(#_#_):not(.x):not(.y)>.lg-pill,.explore-heading #heroBar:not(#_#_):not(.x)>.lg-pill{background:transparent!important;box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,0,0,.07),0 0 0 .6px rgba(0,0,0,.28),0 6px 14px -6px rgba(0,0,0,.26)!important}
+.explore-heading #heroBar:not(#_#_):not(.x){-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way):not(.x):not(.y):not(.z),#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way):not(.x):not(.y):not(.z):hover,#analysisStart:not(#_#_) .analysis-way:not(.x):not(.y):not(.z):is(:disabled,:has(>input:disabled)){background:transparent!important;box-shadow:var(--lg-clear-shadow)!important}
+#analysisStart:not(#_#_) :is(.analysis-drop,.analysis-way):not(.x):not(.y):not(.z)::after{display:none!important}
+#analysisStart:not(#_#_) .analysis-way:not(.x):not(.y):not(.z):is(:disabled,:has(>input:disabled)){box-shadow:inset 0 0 0 1px rgba(255,255,255,.4),0 0 0 .6px rgba(0,0,0,.12)!important}
+#analysisStart:not(#_#_) .analysis-more :is(.analysis-support-grid>details>summary,.analysis-more-actions>button:not(:disabled)):not(.x):not(.y):not(.z),#analysisStart:not(#_#_) .analysis-more :is(.analysis-support-grid>details>summary,.analysis-more-actions>button:not(:disabled)):not(.x):not(.y):not(.z):hover{background:transparent!important;box-shadow:var(--lg-clear-shadow)!important}
+.studio-tool-toggle:not(#_#_):not(.x):not(.y),#studioLocale:not(#_#_):not(.x):not(.y),.site-header nav button[data-tab].active:not(#_#_):not(.x):not(.y){background:transparent!important;box-shadow:var(--lg-clear-shadow)!important}
+button.primary:not(#_#_):not(.x):not(.y){background:transparent!important;color:#0b0b0c!important;font-weight:700;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1.5px rgba(11,11,12,.85),0 8px 18px -10px rgba(0,0,0,.3)!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+button.primary:disabled:not(#_#_):not(.x):not(.y){color:#8a8a90!important;box-shadow:inset 0 0 0 1.5px rgba(11,11,12,.25)!important}
+input[type=file]:not(#_#_):not(.x)::file-selector-button{background:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 0 0 .6px rgba(0,0,0,.24)}
+:is(input:is([type=text],[type=number],[type=search],[type=email],[type=url],[type=date],:not([type])),textarea,select):not(#_#_):not(.x):disabled,button:not(.primary):disabled:not(#_#_):not(.x){background-color:transparent!important;background:transparent!important}
+input[type=range]:not(#_#_):not(.x):not(.y):is(.lg-drag,:active):not(:disabled)::-webkit-slider-thumb,input[type=checkbox]:not(#_#_):not(.x):not(.y):is(.lg-glass,:active):not(:disabled)::before{background-color:rgba(255,255,255,.06)}
+#researchView #studySteps:not(#_#_):not(.x):not(.y){-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+/* The surfaces that float over the page are clear glass too: header, opened windows, tool panel, language list. */
+.site-header:not(#_#_):not(.x),.studio-tool-panel:not(#_#_):not(.x),dialog.focus-card:not(#_#_):not(.x),dialog.studio-dialog:not(#_#_):not(.x),.studio-locale-menu:not(#_#_):not(.x),.studio-locale-menu:not(#_#_):not(.x).open{background:transparent!important}
+.site-header:not(#_#_):not(.x)::before,.site-header:not(#_#_):not(.x)::after{background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.studio-tool-panel:not(#_#_):not(.x),dialog.focus-card:not(#_#_):not(.x),dialog.studio-dialog:not(#_#_):not(.x),.studio-locale-menu:not(#_#_):not(.x){box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.55),0 0 0 .6px rgba(0,0,0,.26),0 18px 44px -14px rgba(0,0,0,.3)!important}
+.studio-locale-menu:not(#_#_):not(.x).open::after{display:none}
+.studio-tool-panel:not(#_#_):not(.x):not(.y){-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+/* A button that opens a window stays exactly where and as wide as it is when pressed: no wobble, no lift, no stretching while its window is open. */
+summary:not(#_#_):not(.x),summary.lg-touch:not(#_#_):not(.x),summary:not(#_#_):not(.x):is(:hover,:active,:focus){animation:none!important;transform:none!important}
+details:has(>summary[aria-haspopup=dialog]):not(#_#_):not(.x),details[open]:has(>summary[aria-haspopup=dialog]):not(#_#_):not(.x){width:auto!important;max-width:100%;flex:0 0 auto!important;transition:none!important}
+details:has(>summary[aria-haspopup=dialog]):not(#_#_):not(.x)>summary{width:auto!important;min-width:0!important;white-space:nowrap}
+#researchView #scienceTools .panelbody:not(#_#_)>details[open]{display:inline-block}
+/* A button that opens a window never shows the window's content in the page itself. Without this the content was laid back into the page for a fifth of a second each time a window closed or moved to the previous one, and the page jumped. */
+details:not([open]):has(>summary[aria-haspopup=dialog]):not(.focus-details-open):not(#_#_)::details-content{block-size:0!important;opacity:0!important;overflow:clip!important;content-visibility:hidden!important;transition:none!important}
+#researchView #scienceTools .panelbody:not(#_#_):not(.x)>details:not(.y),#researchView #scienceTools .panelbody:not(#_#_):not(.x)>details[open]:not(.y){display:inline-block!important;width:auto!important;margin:0 10px 12px 0!important;vertical-align:top}
+#researchView #scienceTools .panelbody:not(#_#_):not(.x):not(.y){display:flex!important;flex-wrap:wrap;align-items:flex-start;gap:12px 10px}
+#researchView #scienceTools .panelbody:not(#_#_):not(.x):not(.y)>:not(details){flex:1 1 100%;min-width:0}
+#researchView #scienceTools .panelbody:not(#_#_):not(.x)>details:not(.y),#researchView #scienceTools .panelbody:not(#_#_):not(.x)>details[open]:not(.y){flex:0 0 auto;margin:0!important}
+/* Windows and floating panels carry their own text, so the page behind them is blurred for reading. They no longer use the rim lens: its map was measured while the window was still growing, which left a visible seam inside the glass. */
+dialog.focus-card:not(#_#_):not(.x):not(.y),dialog.studio-dialog:not(#_#_):not(.x):not(.y),.studio-tool-panel:not(#_#_):not(.x):not(.y),.studio-locale-menu:not(#_#_):not(.x):not(.y){background:rgba(255,255,255,.18)!important;-webkit-backdrop-filter:blur(26px) saturate(1.5)!important;backdrop-filter:blur(26px) saturate(1.5)!important}
+/* A window-opening button may wrap its label on a narrow screen instead of pushing the page wider. */
+details:has(>summary[aria-haspopup=dialog]):not(#_#_):not(.x){min-width:0}
+details:has(>summary[aria-haspopup=dialog]):not(#_#_):not(.x)>summary{white-space:normal;max-width:100%;height:auto!important;min-height:44px;line-height:1.3!important;text-align:left}
+.model-frame details.view-settings:not(#_#_):not(.x):not(.y){display:block;width:fit-content!important;margin-left:auto!important;margin-right:auto!important}
+/* The moving drop never reaches outside its own slider, so a drop caught mid-resize cannot widen the page. */
+[data-liquid]:not(#workspaceNav):not(#heroBar):not(#_#_):not(.x){overflow:clip}
+/* Language panel: a gentler opening and closing, and softer, concentric corners (inner radius = outer radius minus the padding). */
+.studio-locale-menu:not(#_#_):not(.x):not(.y),.studio-locale-menu:not(#_#_):not(.x):not(.y).open{border-radius:30px;corner-shape:squircle;padding:7px;gap:3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.5),0 0 0 .5px rgba(0,0,0,.12),0 22px 48px -18px rgba(0,0,0,.26),0 4px 12px -6px rgba(0,0,0,.1)!important}
+.studio-locale-menu:not(#_#_):not(.x):not(.y){transform:scale(.94);opacity:0;transition:opacity .26s cubic-bezier(.4,0,.2,1),transform .32s cubic-bezier(.4,0,.2,1)}
+.studio-locale-menu:not(#_#_):not(.x):not(.y).open{transform:none;opacity:1;animation:lg-locale-grow2 .52s cubic-bezier(.22,1,.36,1) both,lg-locale-fade2 .3s ease-out both}
+@keyframes lg-locale-grow2{0%{max-height:50px;transform:scale(.96)}100%{max-height:290px;transform:none}}
+@keyframes lg-locale-fade2{0%{opacity:0}100%{opacity:1}}
+.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z){border-radius:23px!important;corner-shape:squircle;height:48px;min-height:48px;transition:background-color .22s ease,color .22s ease}
+.studio-locale-menu:not(#_#_):not(.x).open>button{animation:lg-locale-item2 .46s cubic-bezier(.22,1,.36,1) both}
+@keyframes lg-locale-item2{0%{opacity:0;translate:0 -6px}100%{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:reduce){.studio-locale-menu:not(#_#_):not(.x):not(.y),.studio-locale-menu:not(#_#_):not(.x):not(.y).open,.studio-locale-menu:not(#_#_):not(.x).open>button{animation:none;transition:none}}
+/* The chosen language is marked by a clear glass capsule, not a black one. */
+.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z)[aria-selected=true],.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z)[aria-selected=true]:hover{background:transparent!important;color:#0b0b0c!important;box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,0,0,.07),0 0 0 .6px rgba(0,0,0,.26),0 6px 14px -6px rgba(0,0,0,.24)!important}
+.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z){corner-shape:round;color:#4a4a4f!important}
+.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z):not([aria-selected=true]):hover{color:#0b0b0c!important;background:rgba(255,255,255,.22)!important}
+.studio-locale-menu:not(#_#_):not(.x):not(.y),.studio-locale-menu:not(#_#_):not(.x):not(.y).open{border-radius:31px;corner-shape:round}
+.studio-locale-menu:not(#_#_)>button:not(.x):not(.y):not(.z){border-radius:24px!important}
+/* The main action is the same clear glass as every other button, told apart by its bolder label only: no black outline. */
+button.primary:not(#_#_):not(.x):not(.y),button.primary:not(#_#_):not(.x):not(.y):hover{box-shadow:var(--lg-clear-shadow)!important}
+button.primary:disabled:not(#_#_):not(.x):not(.y){box-shadow:inset 0 0 0 1px rgba(255,255,255,.35),0 0 0 .6px rgba(0,0,0,.1)!important}
+/* About page: a section's heading takes its own line and the buttons that open its windows sit together beneath it, left-aligned, instead of one drifting to the right of the heading. */
+#projectView .project-section:not(#_#_):not(.x){display:flex!important;flex-wrap:wrap;align-items:flex-start;gap:12px 10px}
+#projectView .project-section:not(#_#_):not(.x)>:not(details){flex:1 1 100%;min-width:0}
+#projectView .project-section:not(#_#_):not(.x)>details.project-detail{flex:0 0 auto;margin:0!important;max-width:100%}
+#projectView .project-section:not(#_#_):not(.x)>.section-heading{margin-bottom:8px}
+#projectView .project-section:not(#_#_):not(.x)>:not(details){flex:0 0 100%;max-width:none!important;width:100%}
+#projectView .project-section:not(#_#_):not(.x)>.section-heading>*{max-width:720px}
+/* Choosing a language: one clear glass drop slides from the current language to the chosen one. The header carries no backdrop effect of its own, so the panel's blur reaches the page beneath it. */
+.site-header:not(#_#_):not(.x):not(.y){-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.studio-locale-menu[data-liquid]:not(#_#_):not(.x):not(.y){overflow:hidden}
+.studio-locale-menu[data-liquid]:not(#_#_)>button:not(.x):not(.y):not(.z),.studio-locale-menu[data-liquid]:not(#_#_)>button:not(.x):not(.y):not(.z)[aria-selected=true],.studio-locale-menu[data-liquid]:not(#_#_)>button:not(.x):not(.y):not(.z)[aria-selected=true]:hover{position:relative;z-index:1;background:transparent!important;box-shadow:none!important}
+.studio-locale-menu[data-liquid]:not(#_#_):not(.x)>.lg-pill{border-radius:24px!important;z-index:2!important;background:transparent!important;box-shadow:inset 0 1px 0 #fff,inset 0 0 0 1px rgba(255,255,255,.7),inset 0 -1px 0 rgba(0,0,0,.07),0 0 0 .6px rgba(0,0,0,.26),0 6px 14px -6px rgba(0,0,0,.24)!important}
+.studio-locale-menu[data-liquid]:not(#_#_):not(.x)>.lg-pill::after{display:none!important}
+.studio-locale-menu[data-liquid]:not(#_#_):not(.x):not(.y),.studio-locale-menu[data-liquid]:not(#_#_):not(.x):not(.y).open{display:flex!important;flex-direction:column!important;align-items:stretch!important;border-radius:31px!important;padding:7px!important;gap:3px!important;width:max-content!important;min-width:max(100%,176px)!important;height:auto!important}
+.studio-locale-menu[data-liquid]:not(#_#_):not(.x):not(.y)[hidden]{display:none!important}
+.studio-locale-menu[data-liquid]:not(#_#_)>button:not(.x):not(.y):not(.z){height:48px!important;min-height:48px!important;line-height:48px!important;padding:0 14px!important;border-radius:24px!important;width:100%!important}
+/* Outbound links that stand alone on the About page are glass buttons like the rest. */
+#projectView .project-section p>a[target=_blank]:only-child:not(#_#_),#projectView .project-section p>a[target=_blank]:only-child:not(#_#_):hover{display:inline-flex;align-items:center;box-sizing:border-box;height:44px;padding:0 18px;border-radius:var(--pill);font-size:15px;font-weight:600;color:var(--ink);text-decoration:none!important;background:transparent;box-shadow:var(--lg-clear-shadow);transition:background-color .2s ease}
+#projectView .project-section p>a[target=_blank]:only-child:not(#_#_):hover{background:var(--lg-clear-hover)}
+/* Language panel finish: one hairline and one highlight on the panel, a drop whose corner is exactly the panel's corner minus the gap between them, a grab cursor on the drop's rows. */
+.studio-locale-menu[data-liquid]:not(#_#_):not(.x):not(.y),.studio-locale-menu[data-liquid]:not(#_#_):not(.x):not(.y).open{border-radius:32px!important;padding:8px!important;gap:2px!important;touch-action:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 0 0 .5px rgba(0,0,0,.14),0 24px 50px -20px rgba(0,0,0,.28),0 6px 14px -8px rgba(0,0,0,.1)!important}
+.studio-locale-menu[data-liquid]:not(#_#_)>button:not(.x):not(.y):not(.z){border-radius:24px!important;cursor:grab}
+.studio-locale-menu[data-liquid].lg-dragging:not(#_#_)>button:not(.x):not(.y):not(.z){cursor:grabbing}
+.studio-locale-menu[data-liquid]:not(#_#_):not(.x)>.lg-pill{border-radius:24px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 0 0 .5px rgba(255,255,255,.6),0 0 0 .5px rgba(0,0,0,.22),0 8px 16px -8px rgba(0,0,0,.22)!important}
+.studio-locale-menu[data-liquid]:not(#_#_)>button.lg-under:not(.x):not(.y):not(.z){color:#0b0b0c!important}
+.studio-locale-menu[data-liquid]:not(#_#_):not(#__)>button:not(#_#_):not(.x):not(.y):not(.z){height:48px!important;min-height:48px!important;line-height:48px!important;border-radius:24px!important}
+/* Language panel leaves as gently as it arrives. */
+.studio-locale-menu:not(#_#_):not(.x):not(.y).closing{pointer-events:none;opacity:0;transform:scale(.97) translateY(-4px);transition:opacity .28s cubic-bezier(.4,0,.2,1),transform .3s cubic-bezier(.4,0,.2,1)}
+.studio-locale-menu:not(#_#_):not(.x):not(.y).open{animation:lg-locale-grow3 .6s cubic-bezier(.16,1,.3,1) both,lg-locale-fade2 .36s ease-out both}
+@keyframes lg-locale-grow3{0%{max-height:56px;transform:scale(.97) translateY(-3px)}100%{max-height:300px;transform:none}}
+.studio-locale-menu:not(#_#_):not(.x).open>button{animation:lg-locale-item3 .5s cubic-bezier(.16,1,.3,1) both}
+@keyframes lg-locale-item3{0%{opacity:0;translate:0 -4px}100%{opacity:1;translate:0 0}}
+@media(prefers-reduced-motion:reduce){.studio-locale-menu:not(#_#_):not(.x):not(.y).open,.studio-locale-menu:not(#_#_):not(.x).open>button{animation:none}}
+/* Header: a light blur so page text passing under the menu does not tangle with it. The blur sits on a layer behind the header's content, so the language panel still blurs the page itself. */
+.site-header:not(#_#_):not(.x):not(.y)::before{content:""!important;display:block!important;position:absolute;inset:0;z-index:-1;pointer-events:none;background:rgba(255,255,255,.08)!important;-webkit-backdrop-filter:blur(9px) saturate(1.3)!important;backdrop-filter:blur(9px) saturate(1.3)!important}

@@ -50,11 +50,11 @@ const report={pass:false,checks:[],page_errors:[],external_requests:[]},record=(
   await page.locator('#analysisClearModel').click();assert.ok(await details.isHidden());assert.match(await info.innerText(),/built-in model/);
   record('Clearing the model hides its details');
 
-  // The workflow card starts the same path.
-  await page.keyboard.press('Escape');await page.evaluate(()=>CerebellumWorkspace.open('home'));await page.locator('#autoROIBuiltInModel').waitFor({state:'visible'});
-  await page.locator('#autoROIBuiltInModel').click();await page.waitForFunction(id=>document.getElementById('analysisModelInfo').textContent.includes(id),model.id,{timeout:120000});
+  // The Start guide carries no model button; the guided entry in Image analysis starts the same path.
+  await page.keyboard.press('Escape');await page.evaluate(()=>CerebellumWorkspace.open('home'));assert.equal(await page.locator('#workspaceHome #startGuide button').count(),0);
+  await page.evaluate(()=>CerebellumWorkspace.open('image',{focus:false}));await page.locator('#autoROIAnalysisStart').click();await page.locator('#analysisBuiltInModel').click();await page.waitForFunction(id=>document.getElementById('analysisModelInfo').textContent.includes(id),model.id,{timeout:120000});
   assert.equal(await page.evaluate(()=>CerebellumWorkspace.snapshot().mode),'image');assert.ok(await page.locator('#analysisAutoGenerate').isChecked());
-  record('The workflow card loads the built-in model and turns on automatic drafts');
+  record('The guided entry in Image analysis loads the built-in model and turns on automatic drafts');
 
   assert.deepEqual(report.page_errors,[]);assert.deepEqual(report.external_requests,[]);record('No browser errors or external requests');report.pass=true;
  }finally{if(browser)await browser.close();await new Promise(r=>server.close(r));fs.writeFileSync(path.join(__dirname,'builtin-model-browser.json'),JSON.stringify(report,null,2)+'\n');}

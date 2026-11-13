@@ -595,3 +595,35 @@ const workspaceBackup=Object.freeze({export:exportWorkspaceBackup,prepare:prepar
 
 window.CerebellumAnalysis=Object.freeze({lastCombined:()=>lastCombined?clone(lastCombined):null,automationState,backup:workspaceBackup,snapshot:()=>state?clone(state):null,recoveryState:()=>({sessionId,revision:sessionRevision,changeVersion,savedVersion,error:recoveryError})});controls();refreshRecoveryList();restoreRememberedModel();
 })();
+
+/* Guided start of the panel. Presentation only: it mirrors what is loaded as a stage on #analysisStart
+   (empty, image, outlined, approved), shows the open file's name in the drop zone, and lets a dragged file
+   land on a card. A drop is handed to the card's own file input, which stays the control: its change
+   handler does the rest. A card whose input is disabled takes no drop, and the browser does not navigate. */
+(function(){'use strict';
+const start=document.getElementById('analysisStart');if(!start)return;
+const $=id=>document.getElementById(id),drop=$('analysisDrop'),name=$('analysisDropName'),image=$('analysisImage');
+function sync(){
+ const s=window.CerebellumAnalysis?.automationState?.()||{},stage=s.approved?'approved':s.hasDraft?'outlined':s.hasSource?'image':'empty';
+ if(start.dataset.stage!==stage)start.dataset.stage=stage;
+ const file=s.hasSource?image.files?.[0]?.name||'':'';
+ if(name.textContent!==file)name.textContent=file;
+ if(name.hidden!==!file)name.hidden=!file;
+ if(drop.classList.contains('has-file')!==!!file)drop.classList.toggle('has-file',!!file);
+}
+function landing(card,input){
+ let depth=0;const over=on=>{if(card.classList.contains('is-over')!==on)card.classList.toggle('is-over',on);};
+ const files=event=>[...(event.dataTransfer?.types||[])].includes('Files');
+ card.addEventListener('dragenter',event=>{if(!files(event))return;event.preventDefault();depth++;over(!input.disabled);});
+ card.addEventListener('dragover',event=>{if(!files(event))return;event.preventDefault();event.dataTransfer.dropEffect=input.disabled?'none':'copy';});
+ card.addEventListener('dragleave',event=>{if(!files(event))return;depth=Math.max(0,depth-1);if(!depth)over(false);});
+ card.addEventListener('drop',event=>{
+  if(!files(event))return;event.preventDefault();depth=0;over(false);
+  const dropped=[...event.dataTransfer.files];if(input.disabled||!dropped.length)return;
+  try{const transfer=new DataTransfer();for(const file of input.multiple?dropped:dropped.slice(0,1))transfer.items.add(file);input.files=transfer.files;}catch{return;}
+  input.dispatchEvent(new Event('change',{bubbles:true}));
+ });
+}
+landing(drop,image);landing($('analysisROIImport').parentElement,$('analysisROIImport'));
+window.addEventListener('cerebellum-analysis-state',sync);sync();
+})();

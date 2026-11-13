@@ -1,6 +1,6 @@
 # Interface languages
 
-English is the default and editorial source. Visitors choose English, 한국어, 日本語, 繁體中文（台灣） or 简体中文（大陆） using the language control in the header. The supported BCP47 tags are `en`, `ko`, `ja`, `zh-Hant-TW` and `zh-Hans-CN`.
+English is the default and editorial source. Visitors choose English, 한국어, 日本語, 中文（台灣） or 中文（简体） using the language control in the header. The supported BCP47 tags are `en`, `ko`, `ja`, `zh-Hant-TW` and `zh-Hans-CN`.
 
 ## Behavior
 

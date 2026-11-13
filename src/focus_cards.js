@@ -179,7 +179,7 @@
   window.CerebellumFocusCards=Object.freeze({open,close,slide,openDetails,closeDetails,closeAllDetails,inventory,activeCount:()=>animations.size});
   for (const id of ['workspaceGuide','guideDialog']) { const dialog=$(id); if(dialog)prepare(dialog); }
 
-  // Enhance only the three read-only training/review notes. Native details remain
+  // Enhance only the read-only training note of the laboratory edition. Native details remain
   // the fallback; no live form, control, canvas or scientific state is copied.
   // Keep canonical source copy independent of the current locale and the
   // translator's bounded reverse-translation cache. Each newly rendered text
@@ -188,13 +188,6 @@
     {title:'Setup details', paragraphs:[
       'Run Start-Auto-ROI.command on your Mac. It checks the source files, trains CB and tissue-layer models, and evaluates sampled pixels from held-out animals. Your original images stay on your computer.',
       'After the tool finishes, keep auto-roi-models.json. This is the model file to open in step 2.'
-    ]},
-    {title:'Workflow guide', paragraphs:[
-      'Reuse your reviewed sections to train once. For each new montage, let the model draw a draft, inspect its boundaries and correct what needs attention.',
-      'Open auto-roi-models.json, then select one new section TIFF. Automatic draft generation is enabled when you enter this workflow.'
-    ]},
-    {title:'Review guidance', paragraphs:[
-      'Inspect the draft with or without the image. Correct uncertain boundaries, confirm scale when known, then approve and export or continue to Study.'
     ]}
   ];
   const notes=[...document.querySelectorAll('#autoROIWorkflow .auto-roi-details')].slice(0,noteCopy.length);

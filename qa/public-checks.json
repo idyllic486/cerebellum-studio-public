@@ -246,5 +246,9 @@
  [
   "node",
   "qa/check_editable_roi_core.cjs"
+ ],
+ [
+  "node",
+  "qa/check_focused_edition.cjs"
  ]
 ]

@@ -217,7 +217,9 @@ def build(profile='private', output=None, allow_unchecked_names=False):
                       'example_data_available': profile == 'private',
                       'atlas_reference_available': bool(atlases),
                       'atlas_reference': ({'url': './' + atlases[0]['output'], 'sha256': atlases[0]['sha256']} if atlases else None),
-                      'collaboration_server_available': False,
+                      'collaboration_server_available': False, 'focused_edition': profile == 'public-safe',
+                      # The public edition shows only what a newcomer can find and use: see the release checklist, section 7.
+                      'focused_edition': profile == 'public-safe',
                       'public_release_authorized': False}
         if '</head>' not in html:
             raise ValueError('HTML template has no head closing tag.')
