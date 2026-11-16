@@ -24,6 +24,22 @@
     <label id="atlasRefSurfaceControl" hidden><input type="checkbox" id="atlasRefSurface"> Show inferred surface</label>
   </div>
   <p id="atlasRefStatus" class="atlas-ref-status" aria-live="polite">Reference anatomy is separate from specimen observations.</p>
+  <section class="atlas-match" aria-labelledby="atlasMatchTitle">
+    <h3 id="atlasMatchTitle">Find the plane closest to your section</h3>
+    <p class="atlas-match-lead">Compares the outlines of the section open in Image analysis with every atlas plane and shows the one it resembles most. It needs a whole-cerebellum outline and the pixel size.</p>
+    <div class="atlas-match-actions"><button type="button" id="atlasMatchRun">Find the closest plane</button><button type="button" id="atlasMatchStop" hidden>Stop</button><button type="button" id="atlasMatchSave" disabled>Save the result</button></div>
+    <progress id="atlasMatchProgress" max="1" value="0" hidden aria-label="Planes compared"></progress>
+    <p id="atlasMatchStatus" class="atlas-ref-status" role="status" aria-live="polite"></p>
+    <p id="atlasMatchUncertain" class="atlas-match-caution" hidden>The next plane fits almost as well, so the position is uncertain.</p>
+    <p id="atlasMatchSize" class="atlas-match-caution" hidden>The best fit is at the limit of the allowed size change. Check the pixel size of the section.</p>
+    <dl id="atlasMatchResult" class="atlas-match-result" hidden>
+      <div><dt>Closest plane</dt><dd id="atlasMatchPlane" translate="no"></dd></div>
+      <div><dt>Lateral position</dt><dd id="atlasMatchLateral" translate="no"></dd></div>
+      <div><dt>Mean outline distance</dt><dd id="atlasMatchDistance" translate="no"></dd></div>
+      <div><dt>Next closest plane</dt><dd id="atlasMatchNext" translate="no"></dd></div>
+      <div><dt>Margin over the next</dt><dd id="atlasMatchMargin" translate="no"></dd></div>
+    </dl>
+  </section>
   <div class="atlas-ref-placed">
     <label for="atlasRefPlacedFile">Sections placed on the atlas (file on this computer)<input type="file" id="atlasRefPlacedFile" accept=".json,application/json" disabled></label>
     <label for="atlasRefPlacedAnimal">Placed animal<select id="atlasRefPlacedAnimal" disabled></select></label>

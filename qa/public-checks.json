@@ -254,5 +254,13 @@
  [
   "node",
   "qa/check_analysis_figure.cjs"
+ ],
+ [
+  "node",
+  "qa/check_atlas_match_core.cjs"
+ ],
+ [
+  "node",
+  "qa/check_atlas_match_browser.cjs"
  ]
 ]
