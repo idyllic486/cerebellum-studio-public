@@ -250,5 +250,9 @@
  [
   "node",
   "qa/check_focused_edition.cjs"
+ ],
+ [
+  "node",
+  "qa/check_analysis_figure.cjs"
  ]
 ]

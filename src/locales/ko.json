@@ -3941,5 +3941,11 @@
   "About these files": "이 파일들에 대하여",
   "Image view": "영상 보기",
   "Enter the reviewer name to approve.": "승인하려면 검토자 이름을 입력하세요.",
-  "Turn on the confirmation to approve.": "승인하려면 위의 확인 스위치를 켜세요."
+  "Turn on the confirmation to approve.": "승인하려면 위의 확인 스위치를 켜세요.",
+  "Save figure as SVG": "그림을 SVG로 저장",
+  "Save figure as PNG": "그림을 PNG로 저장",
+  "Figure saved.": "그림을 저장했습니다.",
+  "Figure saved. These outlines are a draft and are not approved.": "그림을 저장했습니다. 이 윤곽은 초안이며 승인되지 않았습니다.",
+  "There are no outlines to draw yet.": "아직 그릴 윤곽이 없습니다.",
+  "Open the section image first.": "먼저 절편 영상을 여세요."
 }

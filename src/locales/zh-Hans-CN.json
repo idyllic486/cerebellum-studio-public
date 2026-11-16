@@ -3941,5 +3941,11 @@
   "About these files": "关于这些文件",
   "Image view": "图像视图",
   "Enter the reviewer name to approve.": "请输入审阅者姓名以进行批准。",
-  "Turn on the confirmation to approve.": "请打开上方的确认开关以进行批准。"
+  "Turn on the confirmation to approve.": "请打开上方的确认开关以进行批准。",
+  "Save figure as SVG": "将图保存为 SVG",
+  "Save figure as PNG": "将图保存为 PNG",
+  "Figure saved.": "已保存图。",
+  "Figure saved. These outlines are a draft and are not approved.": "已保存图。这些轮廓是草稿，尚未批准。",
+  "There are no outlines to draw yet.": "目前没有可绘制的轮廓。",
+  "Open the section image first.": "请先打开切片图像。"
 }

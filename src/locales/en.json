@@ -3941,5 +3941,11 @@
   "About these files": "About these files",
   "Image view": "Image view",
   "Enter the reviewer name to approve.": "Enter the reviewer name to approve.",
-  "Turn on the confirmation to approve.": "Turn on the confirmation to approve."
+  "Turn on the confirmation to approve.": "Turn on the confirmation to approve.",
+  "Save figure as SVG": "Save figure as SVG",
+  "Save figure as PNG": "Save figure as PNG",
+  "Figure saved.": "Figure saved.",
+  "Figure saved. These outlines are a draft and are not approved.": "Figure saved. These outlines are a draft and are not approved.",
+  "There are no outlines to draw yet.": "There are no outlines to draw yet.",
+  "Open the section image first.": "Open the section image first."
 }

@@ -3941,5 +3941,11 @@
   "About these files": "これらのファイルについて",
   "Image view": "画像表示",
   "Enter the reviewer name to approve.": "承認するにはレビュー担当者名を入力してください。",
-  "Turn on the confirmation to approve.": "承認するには上の確認スイッチをオンにしてください。"
+  "Turn on the confirmation to approve.": "承認するには上の確認スイッチをオンにしてください。",
+  "Save figure as SVG": "図を SVG で保存",
+  "Save figure as PNG": "図を PNG で保存",
+  "Figure saved.": "図を保存しました。",
+  "Figure saved. These outlines are a draft and are not approved.": "図を保存しました。この輪郭は下書きで、承認されていません。",
+  "There are no outlines to draw yet.": "描く輪郭がまだありません。",
+  "Open the section image first.": "先に切片画像を開いてください。"
 }
