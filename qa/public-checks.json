@@ -262,5 +262,9 @@
  [
   "node",
   "qa/check_atlas_match_browser.cjs"
+ ],
+ [
+  "node",
+  "qa/check_atlas_stack_browser.cjs"
  ]
 ]

@@ -3969,5 +3969,15 @@
   "The closest plane is shown and the section is laid on it. This is an estimate from shape alone, not a measured position; left and right are not told apart.": "가장 닮은 면을 보여 주고 그 위에 절편을 올렸습니다. 모양만으로 한 추정이며 실측 위치가 아닙니다. 좌우는 구분하지 않습니다.",
   "The closest plane is shown and the section is laid on it. These outlines are a draft and are not approved. This is an estimate from shape alone, not a measured position; left and right are not told apart.": "가장 닮은 면을 보여 주고 그 위에 절편을 올렸습니다. 이 윤곽은 초안이며 승인되지 않았습니다. 모양만으로 한 추정이며 실측 위치가 아닙니다. 좌우는 구분하지 않습니다.",
   "The next plane fits almost as well, so the position is uncertain.": "그다음 면도 거의 같은 정도로 맞습니다. 위치가 불확실합니다.",
-  "The best fit is at the limit of the allowed size change. Check the pixel size of the section.": "가장 잘 맞는 결과가 허용된 크기 변화의 한계에 있습니다. 절편의 픽셀 크기를 확인하세요."
+  "The best fit is at the limit of the allowed size change. Check the pixel size of the section.": "가장 잘 맞는 결과가 허용된 크기 변화의 한계에 있습니다. 절편의 픽셀 크기를 확인하세요.",
+  "Animal in the open study": "열어 둔 연구의 개체",
+  "Stack this animal's sections": "이 개체의 절편 쌓기",
+  "Sections stacked · planes used · sections left out:": "쌓은 절편 · 쓰인 면 · 제외한 절편:",
+  "Plane": "면",
+  "Caution": "주의",
+  "Open a study in Study & 3D first.": "먼저 연구 및 3D에서 연구를 여세요.",
+  "No section of this animal has both a whole-cerebellum outline and a pixel size.": "이 개체에는 소뇌 전체 윤곽과 픽셀 크기를 모두 가진 절편이 없습니다.",
+  "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "각 절편을 모든 아틀라스 면과 비교하고 있습니다. 이 컴퓨터에서만 실행되며 절편 하나에 30초쯤 걸립니다.",
+  "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "절편들을 각각 가장 닮은 면에 쌓았습니다. ! 표시가 있는 줄은 불확실합니다. 모양만으로 한 추정이며 실측 위치가 아닙니다. 좌우는 구분하지 않습니다.",
+  "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "절편들을 각각 가장 닮은 면에 쌓았습니다. 모양만으로 한 추정이며 실측 위치가 아닙니다. 좌우는 구분하지 않습니다."
 }

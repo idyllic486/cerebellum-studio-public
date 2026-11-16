@@ -1138,3 +1138,18 @@ body[data-edition=focused] #researchView #analysisRasterFailure.is-converted:not
 .atlas-explorer .atlas-match-result:not(#_#_) dd{margin:0;font-size:22px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#0b0b0c}
 .atlas-explorer .atlas-match-caution:not(#_#_){font-size:14px;font-weight:600;color:#9a4a00;max-width:80ch}
 .atlas-explorer .atlas-match-caution:not(#_#_)[hidden]{display:none}
+/* While its workspace scrolls, the workspace menu rides inside the header's empty middle, so it never lies over the page.
+   Where the header has no room for it, the menu simply stays in its place in the page. */
+@media(min-width:1180px){#researchView #workspaceNav:not(#_#_):not(.x):not(.y){top:6px;z-index:40}}
+@media(max-width:1179px){#researchView #workspaceNav:not(#_#_):not(.x):not(.y){position:relative!important;top:auto;z-index:auto}}
+#researchView #workspaceNav.no-dock:not(#_#_):not(.x):not(.y){position:relative!important;top:auto;z-index:auto}
+.atlas-explorer .atlas-match-stack:not(#_#_){display:flex;flex-wrap:wrap;align-items:end;gap:10px 14px}
+.atlas-explorer .atlas-match-stack:not(#_#_)>label{display:grid;gap:7px;font-size:15px;font-weight:650;color:#1c1c1e}
+.atlas-explorer .atlas-match-table:not(#_#_){justify-self:stretch;overflow-x:auto}
+.atlas-explorer .atlas-match-table:not(#_#_)[hidden]{display:none}
+.atlas-explorer .atlas-match-table:not(#_#_) .atlas-match-count{margin:0 0 10px;font-size:14px;color:#4a4a4f}
+.atlas-explorer .atlas-match-table:not(#_#_) table{border-collapse:collapse;min-width:520px;width:100%;font-variant-numeric:tabular-nums}
+.atlas-explorer .atlas-match-table:not(#_#_) :is(th,td){padding:9px 14px 9px 0;text-align:left;font-size:14px;border-bottom:1px solid rgba(0,0,0,.08)}
+.atlas-explorer .atlas-match-table:not(#_#_) th{font-weight:650;color:#55555a}
+.atlas-explorer .atlas-match-table:not(#_#_) tr.is-caution td:last-child{color:#9a4a00;font-weight:700}
+.atlas-explorer .visually-hidden:not(#_#_){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}

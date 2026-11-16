@@ -28,6 +28,7 @@
     <h3 id="atlasMatchTitle">Find the plane closest to your section</h3>
     <p class="atlas-match-lead">Compares the outlines of the section open in Image analysis with every atlas plane and shows the one it resembles most. It needs a whole-cerebellum outline and the pixel size.</p>
     <div class="atlas-match-actions"><button type="button" id="atlasMatchRun">Find the closest plane</button><button type="button" id="atlasMatchStop" hidden>Stop</button><button type="button" id="atlasMatchSave" disabled>Save the result</button></div>
+    <div class="atlas-match-stack"><label for="atlasMatchAnimal">Animal in the open study<select id="atlasMatchAnimal" disabled></select></label><button type="button" id="atlasMatchStackRun" disabled>Stack this animal's sections</button></div>
     <progress id="atlasMatchProgress" max="1" value="0" hidden aria-label="Planes compared"></progress>
     <p id="atlasMatchStatus" class="atlas-ref-status" role="status" aria-live="polite"></p>
     <p id="atlasMatchUncertain" class="atlas-match-caution" hidden>The next plane fits almost as well, so the position is uncertain.</p>
@@ -39,6 +40,10 @@
       <div><dt>Next closest plane</dt><dd id="atlasMatchNext" translate="no"></dd></div>
       <div><dt>Margin over the next</dt><dd id="atlasMatchMargin" translate="no"></dd></div>
     </dl>
+    <div id="atlasMatchStackTable" class="atlas-match-table" hidden>
+      <p class="atlas-match-count">Sections stacked · planes used · sections left out: <strong id="atlasMatchStackCount" translate="no"></strong></p>
+      <table><thead><tr><th scope="col">Section</th><th scope="col">Plane</th><th scope="col">Lateral position</th><th scope="col">Mean outline distance</th><th scope="col">Margin over the next</th><th scope="col"><span class="visually-hidden">Caution</span></th></tr></thead><tbody id="atlasMatchStackList"></tbody></table>
+    </div>
   </section>
   <div class="atlas-ref-placed">
     <label for="atlasRefPlacedFile">Sections placed on the atlas (file on this computer)<input type="file" id="atlasRefPlacedFile" accept=".json,application/json" disabled></label>

@@ -3969,5 +3969,15 @@
   "The closest plane is shown and the section is laid on it. This is an estimate from shape alone, not a measured position; left and right are not told apart.": "The closest plane is shown and the section is laid on it. This is an estimate from shape alone, not a measured position; left and right are not told apart.",
   "The closest plane is shown and the section is laid on it. These outlines are a draft and are not approved. This is an estimate from shape alone, not a measured position; left and right are not told apart.": "The closest plane is shown and the section is laid on it. These outlines are a draft and are not approved. This is an estimate from shape alone, not a measured position; left and right are not told apart.",
   "The next plane fits almost as well, so the position is uncertain.": "The next plane fits almost as well, so the position is uncertain.",
-  "The best fit is at the limit of the allowed size change. Check the pixel size of the section.": "The best fit is at the limit of the allowed size change. Check the pixel size of the section."
+  "The best fit is at the limit of the allowed size change. Check the pixel size of the section.": "The best fit is at the limit of the allowed size change. Check the pixel size of the section.",
+  "Animal in the open study": "Animal in the open study",
+  "Stack this animal's sections": "Stack this animal's sections",
+  "Sections stacked · planes used · sections left out:": "Sections stacked · planes used · sections left out:",
+  "Plane": "Plane",
+  "Caution": "Caution",
+  "Open a study in Study & 3D first.": "Open a study in Study & 3D first.",
+  "No section of this animal has both a whole-cerebellum outline and a pixel size.": "No section of this animal has both a whole-cerebellum outline and a pixel size.",
+  "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.",
+  "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.",
+  "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart."
 }

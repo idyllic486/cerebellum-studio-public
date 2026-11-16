@@ -3,7 +3,7 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{PNG}=require('pngjs');
 module.exports=async function universalCards({browser,origin,record,livePage,analysisState}){
- const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'}),page=await context.newPage(),errors=[],external=[],writes=[];
+ const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'}),page=await context.newPage(),errors=[],external=[],writes=[];await context.addInitScript(()=>{/* These steps exercise every workspace, including the ones the default layout tucks away. */window.CerebellumEdition='full';});
  page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(![origin,'data:','blob:'].some(prefix=>r.url().startsWith(prefix)))external.push(r.url());if(!['GET','HEAD'].includes(r.method()))writes.push({method:r.method(),url:r.url()});});
  const evidence={schema:'cerebellum-universal-guidance/1',pass:false,activated:[],unavailable:[],responsive:[]};
  const frame=()=>page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));

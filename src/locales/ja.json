@@ -3969,5 +3969,15 @@
   "The closest plane is shown and the section is laid on it. This is an estimate from shape alone, not a measured position; left and right are not told apart.": "最も近い面を表示し、その上に切片を重ねました。形状のみによる推定で、実測位置ではありません。左右は区別しません。",
   "The closest plane is shown and the section is laid on it. These outlines are a draft and are not approved. This is an estimate from shape alone, not a measured position; left and right are not told apart.": "最も近い面を表示し、その上に切片を重ねました。この輪郭は下書きで、承認されていません。形状のみによる推定で、実測位置ではありません。左右は区別しません。",
   "The next plane fits almost as well, so the position is uncertain.": "次の面もほぼ同じ程度に合うため、位置は不確かです。",
-  "The best fit is at the limit of the allowed size change. Check the pixel size of the section.": "最良の結果が許容されるサイズ変化の限界にあります。切片のピクセルサイズを確認してください。"
+  "The best fit is at the limit of the allowed size change. Check the pixel size of the section.": "最良の結果が許容されるサイズ変化の限界にあります。切片のピクセルサイズを確認してください。",
+  "Animal in the open study": "開いている研究の個体",
+  "Stack this animal's sections": "この個体の切片を積み重ねる",
+  "Sections stacked · planes used · sections left out:": "積み重ねた切片 · 使用した面 · 除外した切片:",
+  "Plane": "面",
+  "Caution": "注意",
+  "Open a study in Study & 3D first.": "先に「研究と 3D」で研究を開いてください。",
+  "No section of this animal has both a whole-cerebellum outline and a pixel size.": "この個体には小脳全体の輪郭とピクセルサイズの両方を持つ切片がありません。",
+  "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "各切片をすべてのアトラス面と比較しています。このコンピューター上で実行され、切片ごとに約30秒かかります。",
+  "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "切片をそれぞれ最も近い面に積み重ねました。! の付いた行は不確かです。形状のみによる推定で、実測位置ではありません。左右は区別しません。",
+  "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "切片をそれぞれ最も近い面に積み重ねました。形状のみによる推定で、実測位置ではありません。左右は区別しません。"
 }

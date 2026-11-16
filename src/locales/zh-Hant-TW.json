@@ -3969,5 +3969,15 @@
   "The closest plane is shown and the section is laid on it. This is an estimate from shape alone, not a measured position; left and right are not told apart.": "已顯示最相近的平面並將切片疊於其上。這僅是依形狀所作的估計，並非實測位置；不區分左右。",
   "The closest plane is shown and the section is laid on it. These outlines are a draft and are not approved. This is an estimate from shape alone, not a measured position; left and right are not told apart.": "已顯示最相近的平面並將切片疊於其上。這些輪廓是草稿，尚未核准。這僅是依形狀所作的估計，並非實測位置；不區分左右。",
   "The next plane fits almost as well, so the position is uncertain.": "次相近的平面幾乎同樣吻合，因此位置並不確定。",
-  "The best fit is at the limit of the allowed size change. Check the pixel size of the section.": "最佳結果位於容許尺寸變化的極限。請檢查切片的像素大小。"
+  "The best fit is at the limit of the allowed size change. Check the pixel size of the section.": "最佳結果位於容許尺寸變化的極限。請檢查切片的像素大小。",
+  "Animal in the open study": "已開啟研究中的個體",
+  "Stack this animal's sections": "堆疊此個體的切片",
+  "Sections stacked · planes used · sections left out:": "已堆疊切片 · 使用的平面 · 略過的切片：",
+  "Plane": "平面",
+  "Caution": "注意",
+  "Open a study in Study & 3D first.": "請先在「研究與 3D」中開啟研究。",
+  "No section of this animal has both a whole-cerebellum outline and a pixel size.": "此個體沒有同時具備小腦整體輪廓與像素大小的切片。",
+  "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "正在將每個切片與所有圖譜平面比較。僅在此電腦上執行，每個切片約需半分鐘。",
+  "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "已將切片堆疊於各自最相近的平面。標示 ! 的列並不確定。這僅是依形狀所作的估計，並非實測位置；不區分左右。",
+  "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "已將切片堆疊於各自最相近的平面。這僅是依形狀所作的估計，並非實測位置；不區分左右。"
 }
