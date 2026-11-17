@@ -1730,7 +1730,7 @@
   "Study contains a stale approval.": "研究に失効した承認が含まれています。",
   "Study contains a stale or altered approval:": "研究に失効または改変された承認が含まれています：",
   "Study exceeds 20000 ROIs.": "研究が20000 ROIを超えています。",
-  "Study exceeds two million ROI vertices.": "研究が200万ROI頂点を超えています。",
+  "Study exceeds six million ROI vertices.": "研究が600万ROI頂点を超えています。",
   "Study history exceeds 5000 events.": "研究履歴が5000イベントを超えています。",
   "Study JSON contains a non-finite number.": "研究JSONに有限でない数値が含まれています。",
   "Study JSON exceeds 96 MiB.": "研究JSONが96 MiBを超えています。",

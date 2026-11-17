@@ -1730,7 +1730,7 @@
   "Study contains a stale approval.": "研究包含已失效的批准。",
   "Study contains a stale or altered approval:": "研究包含已失效或被修改的批准：",
   "Study exceeds 20000 ROIs.": "研究超过 20000 个 ROI。",
-  "Study exceeds two million ROI vertices.": "研究超过 200 万个 ROI 顶点。",
+  "Study exceeds six million ROI vertices.": "研究超过 600 万个 ROI 顶点。",
   "Study history exceeds 5000 events.": "研究历史超过 5000 个事件。",
   "Study JSON contains a non-finite number.": "研究 JSON 包含非有限数值。",
   "Study JSON exceeds 96 MiB.": "研究 JSON 超过 96 MiB。",

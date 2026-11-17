@@ -51,12 +51,13 @@ if(save)save.addEventListener('click',()=>{if(!last)return;const url=URL.createO
    Sections that match the same plane lie on top of each other; nothing is interpolated between them. */
 const animalSelect=$('atlasMatchAnimal'),stackRun=$('atlasMatchStackRun'),list=$('atlasMatchStackList');let stackWorkers=[],lastStack=null;
 const layerOf=roi=>{const l=roi.label!=null&&roi.label!==''?String(roi.label).toUpperCase():(/^(CB|ML|GL|WM)(?:_|$)/i.exec(roi.name||'')||[])[1]?.toUpperCase();return['CB','GL','WM'].includes(l)?l:null;};
-function studyAnimals(){const study=window.CerebellumStudy?.snapshot?.();return study?.animals?.length?study.animals:[];}
+function studyAnimals(){const api=window.CerebellumStudy;if(api?.animalList)return api.animalList();const study=api?.snapshot?.();return study?.animals?.length?study.animals:[];}
+function studyAnimal(id){const api=window.CerebellumStudy;if(api?.animal)return api.animal(id);return(api?.snapshot?.()?.animals||[]).find(a=>a.id===id)||null;}
 function refreshAnimals(){if(!animalSelect)return;const animals=studyAnimals(),keep=animalSelect.value;animalSelect.replaceChildren(...animals.map(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=a.id+(a.group?' · '+a.group:'');o.translate=false;return o;}));
  if(animals.some(a=>a.id===keep))animalSelect.value=keep;animalSelect.disabled=!animals.length;if(stackRun)stackRun.disabled=!animals.length||stackWorkers.length>0;}
 function stackBusy(on){if(stackRun)stackRun.disabled=on;run.disabled=on;if(stop)stop.hidden=!on;if(bar){bar.hidden=!on;if(on){bar.value=0;bar.max=1;}}}
 function stopStack(){stackWorkers.forEach(w=>w.terminate());stackWorkers=[];stackBusy(false);refreshAnimals();}
-if(stackRun)stackRun.addEventListener('click',()=>{const atlas=window.CerebellumAtlasExplorer?.atlas?.(),animal=studyAnimals().find(a=>a.id===animalSelect.value);
+if(stackRun)stackRun.addEventListener('click',()=>{const atlas=window.CerebellumAtlasExplorer?.atlas?.(),animal=studyAnimal(animalSelect.value);
  if(!atlas){say('The atlas is still loading. Try again in a moment.');return;}if(!animal){say('Open a study in Study & 3D first.');return;}
  const jobs=[],skipped=[];for(const section of animal.sections){if(section.included===false)continue;const um=section.calibration?.um_per_pixel_x,umY=section.calibration?.um_per_pixel_y;
   const outlines=(section.rois||[]).filter(r=>r.included!==false&&(r.kind||'area')==='area'&&r.paths?.length&&layerOf(r)).map(r=>({name:layerOf(r),closed:true,paths:r.paths}));

@@ -1730,7 +1730,7 @@
   "Study contains a stale approval.": "Study contains a stale approval.",
   "Study contains a stale or altered approval:": "Study contains a stale or altered approval:",
   "Study exceeds 20000 ROIs.": "Study exceeds 20000 ROIs.",
-  "Study exceeds two million ROI vertices.": "Study exceeds two million ROI vertices.",
+  "Study exceeds six million ROI vertices.": "Study exceeds six million ROI vertices.",
   "Study history exceeds 5000 events.": "Study history exceeds 5000 events.",
   "Study JSON contains a non-finite number.": "Study JSON contains a non-finite number.",
   "Study JSON exceeds 96 MiB.": "Study JSON exceeds 96 MiB.",

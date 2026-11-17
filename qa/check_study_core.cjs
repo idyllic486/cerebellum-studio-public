@@ -57,6 +57,10 @@ const approveAll=async input=>{let out=input;for(const a of input.animals)for(co
  // A source-sized 60000-vertex contour is retained, without reducing geometry for measurement.
  const longPath=[];for(let edge=0;edge<4;edge++)for(let i=0;i<15000;i++){const t=10*i/15000;longPath.push(edge===0?[t,0]:edge===1?[10,t]:edge===2?[10-t,10]:[0,10-t]);}const large=study([{id:'large',sections:[{...section('dense',0),rois:[{name:'ML_TOTAL',kind:'area',closed:true,paths:[longPath]}]}]}]);assert.equal(large.animals[0].sections[0].rois[0].paths[0].length,60000);assert.deepEqual(large.animals[0].sections[0].rois[0].paths[0],longPath);assert.equal(C.sectionArea(large.animals[0].sections[0],'ML').value_um2,600);
 
+ // A real cohort (five animals, 66 sections of pixel-edge outlines) holds 3.7 million vertices: more than two million must open
+ {assert.equal(C.LIMITS.vertices,6000000);const ring=[];for(let edge=0;edge<4;edge++)for(let i=0;i<24000;i++){const t=10*i/24000;ring.push(edge===0?[t,0]:edge===1?[10,t]:edge===2?[10-t,10]:[0,10-t]);}
+  const many=study([{id:'cohort',sections:Array.from({length:25},(_,n)=>({...section('wide-'+n,n*10,n+1),rois:[{name:'ML_TOTAL',kind:'area',closed:true,paths:[ring]}]}))}]);
+  assert.equal(many.animals[0].sections.reduce((t,x)=>t+x.rois[0].paths[0].length,0),2400000,'2.4 million vertices are accepted');}
  const readiness=await C.stageReadiness(groups);assert.equal(readiness.stages.length,6);assert.notEqual(readiness.stages[2].status,'ready');assert.notEqual(readiness.stages[5].scientific_status,'validated');
  console.log('StudyCore passed: native-pixel union/holes, strict continuous-area option, unequal Z integration, missingness, exclusions, approval integrity, coverage gates, animal-level WT–KO comparison and source-preserving bridges. Synthetic tests only.');
 })().catch(e=>{console.error(e);process.exitCode=1;});

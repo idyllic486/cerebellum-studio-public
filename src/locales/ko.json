@@ -1730,7 +1730,7 @@
   "Study contains a stale approval.": "연구에 더 이상 유효하지 않은 승인이 있습니다.",
   "Study contains a stale or altered approval:": "연구에 더 이상 유효하지 않거나 변경된 승인이 있습니다:",
   "Study exceeds 20000 ROIs.": "연구의 ROI 수가 20000개를 초과합니다.",
-  "Study exceeds two million ROI vertices.": "연구의 ROI 꼭짓점 수가 2백만 개를 초과합니다.",
+  "Study exceeds six million ROI vertices.": "연구의 ROI 꼭짓점 수가 6백만 개를 초과합니다.",
   "Study history exceeds 5000 events.": "연구 이력이 5000개 사건을 초과합니다.",
   "Study JSON contains a non-finite number.": "연구 JSON에 유한하지 않은 수가 있습니다.",
   "Study JSON exceeds 96 MiB.": "연구 JSON이 96 MiB를 초과합니다.",
