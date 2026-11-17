@@ -31,18 +31,31 @@
     <div class="atlas-match-stack"><label for="atlasMatchAnimal">Animal in the open study<select id="atlasMatchAnimal" disabled></select></label><button type="button" id="atlasMatchStackRun" disabled>Stack this animal's sections</button></div>
     <progress id="atlasMatchProgress" max="1" value="0" hidden aria-label="Planes compared"></progress>
     <p id="atlasMatchStatus" class="atlas-ref-status" role="status" aria-live="polite"></p>
-    <p id="atlasMatchUncertain" class="atlas-match-caution" hidden>The next plane fits almost as well, so the position is uncertain.</p>
+    <p id="atlasMatchUncertain" class="atlas-match-caution" hidden>Planes over a wide range fit about as well, so the position is uncertain.</p>
     <p id="atlasMatchSize" class="atlas-match-caution" hidden>The best fit is at the limit of the allowed size change. Check the pixel size of the section.</p>
     <dl id="atlasMatchResult" class="atlas-match-result" hidden>
       <div><dt>Closest plane</dt><dd id="atlasMatchPlane" translate="no"></dd></div>
       <div><dt>Lateral position</dt><dd id="atlasMatchLateral" translate="no"></dd></div>
       <div><dt>Mean outline distance</dt><dd id="atlasMatchDistance" translate="no"></dd></div>
       <div><dt>Next closest plane</dt><dd id="atlasMatchNext" translate="no"></dd></div>
-      <div><dt>Margin over the next</dt><dd id="atlasMatchMargin" translate="no"></dd></div>
+      <div><dt>Planes about as close</dt><dd id="atlasMatchMargin" translate="no"></dd></div>
     </dl>
     <div id="atlasMatchStackTable" class="atlas-match-table" hidden>
       <p class="atlas-match-count">Sections stacked · planes used · sections left out: <strong id="atlasMatchStackCount" translate="no"></strong></p>
-      <table><thead><tr><th scope="col">Section</th><th scope="col">Plane</th><th scope="col">Lateral position</th><th scope="col">Mean outline distance</th><th scope="col">Margin over the next</th><th scope="col"><span class="visually-hidden">Caution</span></th></tr></thead><tbody id="atlasMatchStackList"></tbody></table>
+      <table><thead><tr><th scope="col">Section</th><th scope="col">Plane</th><th scope="col">Lateral position</th><th scope="col">Mean outline distance</th><th scope="col">Planes about as close</th><th scope="col"><span class="visually-hidden">Caution</span></th></tr></thead><tbody id="atlasMatchStackList"></tbody></table>
+      <div id="atlasMatchVolumes" class="atlas-match-volumes" hidden>
+        <h4>Volume between the matched positions</h4>
+        <p class="atlas-match-lead">Section area integrated over the matched lateral positions, one side only. It is an estimate in the atlas frame, not a measured volume, and no section thickness enters it.</p>
+        <dl class="atlas-match-result">
+          <div><dt>Positions used</dt><dd id="atlasMatchVolumeRange" translate="no"></dd></div>
+          <div><dt>Whole cerebellum</dt><dd id="atlasMatchVolumeCb" translate="no"></dd></div>
+          <div><dt>Granular layer</dt><dd id="atlasMatchVolumeGL" translate="no"></dd></div>
+          <div><dt>White matter</dt><dd id="atlasMatchVolumeWM" translate="no"></dd></div>
+          <div><dt>Remainder (molecular and Purkinje layers)</dt><dd id="atlasMatchVolumeRest" translate="no"></dd></div>
+        </dl>
+        <div class="atlas-match-stack"><label for="atlasMatchRangeLow">Compare over the same range: from (µm)<input type="number" id="atlasMatchRangeLow" inputmode="decimal" min="0" step="any"></label><label for="atlasMatchRangeHigh">to (µm)<input type="number" id="atlasMatchRangeHigh" inputmode="decimal" min="0" step="any"></label></div>
+        <p id="atlasMatchVolumeNote" class="atlas-match-caution" role="status" hidden></p>
+      </div>
     </div>
   </section>
   <div class="atlas-ref-placed">

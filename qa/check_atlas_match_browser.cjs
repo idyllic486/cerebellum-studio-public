@@ -29,7 +29,10 @@ async function main(){
     await run.click();await page.waitForFunction(()=>window.CerebellumAtlasMatch.snapshot(),null,{timeout:240000});
     const made=await page.evaluate(()=>CerebellumAtlasMatch.snapshot()),atlas=JSON.parse(fs.readFileSync(path.join(root,'assets/atlas-open/ccfv3-bbp-25/sagittal-planes.json'),'utf8'));
     // The page reports what the matching core computes for the same outlines
-    const outlines=review.rois.filter(r=>r.included!==false&&['CB','GL','WM'].includes(r.label)).map(r=>({name:r.label,closed:true,paths:r.paths})),own=M.match(outlines,8,atlas,{useNames:false});
+    const E=require('../src/editable_roi_core.js'),outlines=review.rois.filter(r=>r.included!==false&&['CB','GL','WM'].includes(r.label)).map(r=>({name:r.label,closed:true,paths:r.paths})),W=review.source.width,H=review.source.height,mask=new Uint8Array(W*H);
+    // GL and WM are compared as one outline, traced from the two layers together, as the page does
+    for(const o of outlines)if(o.name!=='CB')E.rasterInto(mask,W,H,o.paths,1);const own=M.match(outlines.concat([{name:'GL+WM',closed:true,paths:E.traceRings(mask,W,H,1)}]),8,atlas,{useNames:false});assert.equal(made.granular_outline,'GL and WM together');
+    const near=made.all.filter(r=>r.distance_um<=made.best.distance_um+5).map(r=>r.lateral_um);assert.deepEqual(made.planes_about_as_close,{within_um:5,lateral_um:[Math.min(...near),Math.max(...near)],planes:near.length});assert.equal(made.cautions.includes('uncertain'),Math.max(...near)-Math.min(...near)>500);assert.equal(made.caution_rules.status,'proposed');
     assert.equal(made.best.figure,own.best.figure);assert.ok(Math.abs(made.best.distance_um-own.best.distance_um)<1e-6);assert.equal(made.candidates_tried,atlas.plates.length);assert.equal(made.outlines_approved,false);assert.equal(made.made_in,'browser');assert.equal(made.names_used,false);
     assert.equal(await page.locator('#atlasRefPlate').inputValue(),String(made.best.plate_index),'The closest plane is the one shown');
     assert.match(await page.locator('#atlasMatchPlane').innerText(),new RegExp('^'+(made.best.plate_index+1)+' / '+atlas.plates.length+'$'));assert.match(await status.innerText(),/draft and are not approved/);assert.match(await status.innerText(),/not a measured position/);

@@ -261,6 +261,10 @@
  ],
  [
   "node",
+  "qa/check_atlas_volume_core.cjs"
+ ],
+ [
+  "node",
   "qa/check_atlas_match_browser.cjs"
  ],
  [

@@ -21,12 +21,17 @@ async function main(){
     const take=async(id,name)=>{const[d]=await Promise.all([page.waitForEvent('download'),page.locator('#'+id).click()]);const file=path.join(scratch,name);await d.saveAs(file);return{file,name:d.suggestedFilename()};};
     // Vector figure, pixel size unknown
     let svg=await take('analysisFigureSVG','unknown.svg');assert.equal(svg.name,'synthetic-section-figure.svg');let text=fs.readFileSync(svg.file,'utf8');
-    assert.equal((text.match(/<path /g)||[]).length,state.rois.filter(r=>r.included!==false).length,'One path for each outline shown');
+    const named=state.rois.filter(r=>r.included!==false&&r.label&&r.label!=='UNASSIGNED'),unnamed=state.rois.filter(r=>r.included!==false).length-named.length;assert.ok(unnamed>0,'The example carries an outline without a structure name');
+    assert.equal((text.match(/<path /g)||[]).length,named.length,'One path for each named outline; outlines without a structure are left out');assert.match(text,new RegExp(unnamed+' outlines? without a structure name left out\\.'));assert.ok(!text.includes('UNASSIGNED'));
     assert.ok(!/id="scale-bar"/.test(text),'No scale bar without a pixel size');assert.match(text,/Pixel size unknown; no scale bar\./);assert.match(text,/Draft outlines, not approved\./);
     assert.ok(!/blob:|vector-effect|127\.0\.0\.1/.test(text),'The file stands alone and its line weights are fixed');assert.match(text,/<image [^>]*href="data:image\/png;base64,/,'The section image is embedded');
     const first=state.rois.find(r=>r.included!==false).paths[0][0];assert.ok(text.includes('M'+(Math.round(first[0]*100)/100)+','+(Math.round(first[1]*100)/100)),'Coordinates are the source pixels');
-    for(const label of new Set(state.rois.map(r=>r.label)))assert.ok(text.includes('>'+label),'Legend names '+label);
-    assert.match(await page.locator('#analysisFigureNote').innerText(),/draft/i);
+    for(const label of new Set(named.map(r=>r.label)))assert.ok(text.includes('>'+label),'Legend names '+label);
+    assert.match(await page.locator('#analysisFigureNote').innerText(),/draft.*without a structure name were left out/i);
+    // The figure keeps its own colours whatever the ROI file carried, and a structure drawn as a line gets a line in the legend
+    const drawn=await page.evaluate(()=>{const built=CerebellumAnalysisFigure.build({approval:null,rois:[{id:'a',label:'CB',paths:[[[10,10],[90,10],[90,90],[10,90]]],style:{stroke_color_argb:0xff00ff00}},{id:'b',label:'PL',closed:false,geometry:'line',paths:[[[20,20],[80,80]]],style:{stroke_color_argb:0xffff0000}}]},{width:100,height:100,shown:null,um:null,raster:null,title:'t'}).svg;
+      return{pl:built.querySelector('#outlines [data-label="PL"]').getAttribute('stroke'),cb:built.querySelector('#outlines [data-label="CB"]').getAttribute('stroke'),swatch:built.querySelector('#legend line')?.getAttribute('stroke'),boxes:built.querySelectorAll('#legend rect').length};});
+    assert.deepEqual(drawn,{pl:'#a8324a',cb:'#2b2b2b',swatch:'#a8324a',boxes:1});
     // Outlines only: no picture inside
     await page.locator('#analysisViewMode').selectOption('roi');svg=await take('analysisFigureSVG','roi.svg');text=fs.readFileSync(svg.file,'utf8');assert.ok(!/<image /.test(text),'Outlines-only view exports no image');
     // One structure: only what is shown
