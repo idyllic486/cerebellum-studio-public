@@ -3576,5 +3576,6 @@
   "No section of this animal has both a whole-cerebellum outline and a pixel size.": "이 개체에는 소뇌 전체 윤곽과 픽셀 크기를 모두 가진 절편이 없습니다.",
   "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "각 절편을 모든 아틀라스 면과 비교하고 있습니다. 이 컴퓨터에서만 실행되며 절편 하나에 30초쯤 걸립니다.",
   "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "절편들을 각각 가장 닮은 면에 쌓았습니다. ! 표시가 있는 줄은 불확실합니다. 모양만으로 한 추정이며 실측 위치가 아닙니다. 좌우는 구분하지 않습니다.",
-  "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "절편들을 각각 가장 닮은 면에 쌓았습니다. 모양만으로 한 추정이며 실측 위치가 아닙니다. 좌우는 구분하지 않습니다."
+  "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "절편들을 각각 가장 닮은 면에 쌓았습니다. 모양만으로 한 추정이며 실측 위치가 아닙니다. 좌우는 구분하지 않습니다.",
+  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "* 표시한 숫자: 옮겨진 가장 바깥 절편이 구간 끝에 못 미쳐, 그 면적을 구간 끝까지(최대 한 면) 그대로 이어서 계산했습니다."
 }

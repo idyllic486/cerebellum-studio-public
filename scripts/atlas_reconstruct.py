@@ -41,11 +41,14 @@ def integral(points, low, high):
     return float(sum((values[i] + values[i + 1]) / 2 * (grid[i + 1] - grid[i]) for i in range(len(grid) - 1)))
 
 
-def sensitivity(entry, plate_positions, common, draws, seed):
+def sensitivity(entry, plate_positions, common, draws, seed, carry_ends=False):
     """How much the volumes move when every section's match is off by up to one plate either way, drawn independently and
-    evenly from {one plate medial, as matched, one plate lateral}. Returns the 2.5th, 50th and 97.5th percentile in mm3."""
+    evenly from {one plate medial, as matched, one plate lateral}. Returns the 2.5th, 50th and 97.5th percentile in mm3.
+    With carry_ends and a stated range, a draw that stops short of the range by no more than one plate keeps its outermost
+    area up to the end of the range: an assumption about the missing sliver, so it is asked for by name."""
     rng = np.random.default_rng(seed)
     index = {p: i for i, p in enumerate(plate_positions)}
+    gap = max((b - a for a, b in zip(plate_positions, plate_positions[1:])), default=0)
     out = {}
     for name in VALUES:
         sections = [s for s in entry['sections'] if s[name] is not None]
@@ -57,6 +60,10 @@ def sensitivity(entry, plate_positions, common, draws, seed):
                 moved.setdefault(plate_positions[i], []).append(s[name])
             points = sorted((p, float(np.mean(v))) for p, v in moved.items())
             low, high = common if common else (points[0][0], points[-1][0])
+            if carry_ends and common:
+                if points[0][0] - low > gap or high - points[-1][0] > gap:
+                    continue
+                points = ([(low, points[0][1])] if points[0][0] > low else []) + points + ([(high, points[-1][1])] if points[-1][0] < high else [])
             value = integral(points, low, high)
             if value is not None:
                 found.append(value / 1000)

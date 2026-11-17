@@ -29,5 +29,12 @@ assert.throws(()=>V.arrange([],null),/no placed sections/);assert.throws(()=>V.a
  {const close=V.sensitivity([{...two[0]},{...two[1],lateral_um:300}],planes,null,{draws:3000,seed:1}),full=close.values.Cb?close.values.Cb.draws_with_full_range:0;assert.ok(close.values.Cb===null||Math.abs(full/3000-8/9)<.03);}
  assert.equal(V.sensitivity(two,planes,[0,500],{draws:500}).values.Cb,null,'Too few draws reach a range wider than the sections');near(V.sensitivity(two,planes,[200,300],{draws:500}).values.Cb.median,.2);
  const edge=V.sensitivity([{sample:'a',lateral_um:0,values:{Cb:1}},{sample:'b',lateral_um:500,values:{Cb:1}}],planes,null,{draws:2000});assert.ok(edge.values.Cb.p97_5<=.5+1e-12,'A section at the end of the atlas cannot move past it');
- assert.throws(()=>V.sensitivity([{sample:'x',lateral_um:50,values:{Cb:1}}],planes,null),/not on an atlas plane/);}
-console.log('Atlas volume core: integral, averaged shared positions, remainder, stated range, refusals, spread when matches are off by one plane.');
+ assert.throws(()=>V.sensitivity([{sample:'x',lateral_um:50,values:{Cb:1}}],planes,null),/not on an atlas plane/);
+ // Outermost sections on the ends of a stated range: half the draws stop short, so the plain spread is null and the
+ // carried one keeps the outermost area up to the end. A constant area therefore gives exactly area times range.
+ {const flat=[100,200,300,400].map((p,i)=>({sample:'f'+i,lateral_um:p,values:{Cb:3,GL_TOTAL:1,WM:null}})),made=V.sensitivity(flat,planes,[100,400],{draws:2000}),c=made.values_with_ends_carried;
+  assert.equal(made.values.Cb,null);assert.ok(c&&c.Cb&&c.WM===null);near(c.Cb.p2_5,.9);near(c.Cb.p97_5,.9);near(c.GL_TOTAL.median,.3);assert.equal(c.Cb.draws_used,2000);assert.ok(Math.abs(c.Cb.draws_with_an_end_carried/2000-(1-(7/9)*(7/9)))<.04);
+  assert.equal(V.sensitivity(flat,planes,[100,400],{draws:2000,carry_ends:false}).values_with_ends_carried,null);assert.equal(V.sensitivity(flat,planes,null,{draws:500}).values_with_ends_carried,null,'Only a stated range has ends to carry to');
+  assert.equal(V.sensitivity(flat,planes,[200,300],{draws:500}).values_with_ends_carried,null,'Nothing is carried when the plain spread exists');
+  assert.equal(V.sensitivity(flat,planes,[0,500],{draws:500}).values_with_ends_carried.Cb,null,'A range a whole plane wider than the sections is not carried to');}}
+console.log('Atlas volume core: integral, averaged shared positions, remainder, stated range, refusals, spread when matches are off by one plane, with the outermost area carried to the end of a stated range where a moved section stops short.');

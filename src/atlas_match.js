@@ -98,6 +98,9 @@ function stackOne(animalId,whenDone){const atlas=window.CerebellumAtlasExplorer?
 if(stackRun)stackRun.addEventListener('click',()=>stackOne(animalSelect.value));
 /* Every animal of the study, one after another, then their volumes over the stretch of positions all of them reach.
    A description of these animals, in the atlas frame; no test is made. */
+/* The off-by-one-plane range of one value as text. A star marks a range that needed the outermost area kept up to the
+   end of the stated range, because a moved outermost section stopped short of it. */
+function spreadText(spread,name){const plain=spread?.values?.[name],carried=plain?null:spread?.values_with_ends_carried?.[name],v=plain||carried;return v?fmt(v.p2_5,2)+' – '+fmt(v.p97_5,2)+(carried?' *':''):'';}
 function compareAll(){const animals=studyAnimals(),core=window.AtlasVolumeCore;if(animals.length<2||!core)return;
  for(const input of[low,high])if(input)input.value='';comparing=true;compared=null;stackBusy(true);const made=[];let at=0;
  const next=()=>{if(!comparing)return;if(at>=animals.length){finish();return;}const id=animals[at++].id;if(animalSelect)animalSelect.value=id;
@@ -109,7 +112,10 @@ function compareAll(){const animals=studyAnimals(),core=window.AtlasVolumeCore;i
    return{animal:r.animal,group:r.group,sections:r.sections_matched,own_range_um:r.volumes.range_um,volume_mm3_common_range:over?over.volume_mm3_common_range:null,if_matches_are_off_by_one_plane:spread,sections_marked:r.sections.filter(x=>x.cautions.length).length,unreviewed_model_drafts:r.unreviewed_model_drafts.length};});
   const body=$('atlasMatchCompareList'),box=$('atlasMatchCompare');
   if(body){body.replaceChildren(...rows.map(row=>{const tr=document.createElement('tr'),v=row.volume_mm3_common_range,cell=n=>v&&v[n]!=null?fmt(v[n],2)+' mm³':'–';
-    for(const text of[row.animal,row.group||'–',String(row.sections),fmt(row.own_range_um[0]/1000,2)+' – '+fmt(row.own_range_um[1]/1000,2)+' mm',cell('Cb'),cell('GL_TOTAL'),cell('WM'),cell('Cb-GL-WM')]){const td=document.createElement('td');td.textContent=text;td.translate=false;tr.append(td);}return tr;}));}
+    for(const text of[row.animal,row.group||'–',String(row.sections),fmt(row.own_range_um[0]/1000,2)+' – '+fmt(row.own_range_um[1]/1000,2)+' mm']){const td=document.createElement('td');td.textContent=text;td.translate=false;tr.append(td);}
+    for(const name of['Cb','GL_TOTAL','WM','Cb-GL-WM']){const td=document.createElement('td'),text=spreadText(row.if_matches_are_off_by_one_plane,name);td.textContent=cell(name);td.translate=false;if(text){const small=document.createElement('small');small.className='atlas-match-spread';small.textContent=text;td.append(small);}tr.append(td);}return tr;}));}
+  const anySpread=rows.some(r=>['Cb','GL_TOTAL','WM','Cb-GL-WM'].some(n=>spreadText(r.if_matches_are_off_by_one_plane,n))),anyCarried=rows.some(r=>['Cb','GL_TOTAL','WM','Cb-GL-WM'].some(n=>spreadText(r.if_matches_are_off_by_one_plane,n).endsWith('*')));
+  for(const[id,on]of[['atlasMatchCompareSpreadNote',anySpread],['atlasMatchCompareCarried',anyCarried]]){const n=$(id);if(n)n.hidden=!on;}
   const stretch=$('atlasMatchCompareRange');if(stretch)stretch.textContent=shared?fmt(shared[0]/1000,2)+' – '+fmt(shared[1]/1000,2)+' mm':'–';if(box)box.hidden=false;
   window.CerebellumAtlasExplorer?.loadPlaced?.({schema:'cerebellum-atlas-placed-stack/1',unit:'um',coordinate_order:['AP','DV','Lateral'],statement:usable[0].statement,atlas_source_sha256:usable[0].atlas_source_sha256,animals:Object.fromEntries(usable.map(m=>[m.record.animal,{group:m.record.group||undefined,sections:m.placed}]))});
   compared={schema:'cerebellum-atlas-match/1',statement:usable[0].record.statement,made_in:'browser',comparison:{statement:'Volumes of each animal over the stretch of matched positions that every animal reaches, in mm3. Estimates in the atlas frame, one side only, for these animals; no statistical test is made.',common_range_um:shared,animals_compared:rows.length,animals_left_out:animals.map(a=>a.id).filter(id=>!rows.some(r=>r.animal===id)),rows},animals:usable.map(m=>m.record)};last=compared;if(save)save.disabled=false;
@@ -131,8 +137,8 @@ function showVolumes(){const box=$('atlasMatchVolumes'),core=window.AtlasVolumeC
  set('atlasMatchVolumeCb',volumes.Cb);set('atlasMatchVolumeGL',volumes.GL_TOTAL);set('atlasMatchVolumeWM',volumes.WM);set('atlasMatchVolumeRest',volumes['Cb-GL-WM']);
  // The same volumes if every match were off by up to one plane either way
  let spread=null;try{if(made.positions_um.length>=2&&stackedPlanes)spread=core.sensitivity(stacked,stackedPlanes,volumes===made.volume_mm3_common_range?made.common_range_um:null);}catch(error){spread=null;}
- for(const[id,name]of[['atlasMatchSpreadCb','Cb'],['atlasMatchSpreadGL','GL_TOTAL'],['atlasMatchSpreadWM','WM'],['atlasMatchSpreadRest','Cb-GL-WM']]){const n=$(id),v=spread?.values?.[name];if(n)n.textContent=v?fmt(v.p2_5,2)+' – '+fmt(v.p97_5,2):'';}
- const spreadNote=$('atlasMatchSpreadNote');if(spreadNote)spreadNote.hidden=!spread||!Object.values(spread.values).some(Boolean);
+ for(const[id,name]of[['atlasMatchSpreadCb','Cb'],['atlasMatchSpreadGL','GL_TOTAL'],['atlasMatchSpreadWM','WM'],['atlasMatchSpreadRest','Cb-GL-WM']]){const n=$(id);if(n)n.textContent=spreadText(spread,name);}
+ const texts=['Cb','GL_TOTAL','WM','Cb-GL-WM'].map(n=>spreadText(spread,n)),spreadNote=$('atlasMatchSpreadNote'),carriedNote=$('atlasMatchSpreadCarried');if(spreadNote)spreadNote.hidden=!texts.some(Boolean);if(carriedNote)carriedNote.hidden=!texts.some(t=>t.endsWith('*'));
  if(note){note.textContent=problem;note.hidden=!problem;}box.hidden=false;
  if(lastStack){lastStack.volumes={schema:made.schema,statement:made.statement,positions_um:made.positions_um,sections_sharing_a_position:made.sections_sharing_a_position,range_um:made.range_um,mean_area_mm2:made.mean_area_mm2,volume_mm3_own_range:made.volume_mm3_own_range,common_range_um:made.common_range_um,volume_mm3_common_range:made.volume_mm3_common_range,if_matches_are_off_by_one_plane:spread};if(!compared)last=lastStack;}}
 for(const input of[low,high])if(input)input.addEventListener('input',showVolumes);

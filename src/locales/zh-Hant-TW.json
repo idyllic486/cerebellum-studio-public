@@ -3576,5 +3576,6 @@
   "No section of this animal has both a whole-cerebellum outline and a pixel size.": "此個體沒有同時具備小腦整體輪廓與像素大小的切片。",
   "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "正在將每個切片與所有圖譜平面比較。僅在此電腦上執行，每個切片約需半分鐘。",
   "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "已將切片堆疊於各自最相近的平面。標示 ! 的列並不確定。這僅是依形狀所作的估計，並非實測位置；不區分左右。",
-  "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "已將切片堆疊於各自最相近的平面。這僅是依形狀所作的估計，並非實測位置；不區分左右。"
+  "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "已將切片堆疊於各自最相近的平面。這僅是依形狀所作的估計，並非實測位置；不區分左右。",
+  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "標有 * 的數字:移動後最外側的切片未到達範圍端點,因此將其面積延續到範圍端點(最多一個平面)來計算。"
 }

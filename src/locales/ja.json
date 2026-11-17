@@ -3576,5 +3576,6 @@
   "No section of this animal has both a whole-cerebellum outline and a pixel size.": "この個体には小脳全体の輪郭とピクセルサイズの両方を持つ切片がありません。",
   "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "各切片をすべてのアトラス面と比較しています。このコンピューター上で実行され、切片ごとに約30秒かかります。",
   "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "切片をそれぞれ最も近い面に積み重ねました。! の付いた行は不確かです。形状のみによる推定で、実測位置ではありません。左右は区別しません。",
-  "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "切片をそれぞれ最も近い面に積み重ねました。形状のみによる推定で、実測位置ではありません。左右は区別しません。"
+  "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "切片をそれぞれ最も近い面に積み重ねました。形状のみによる推定で、実測位置ではありません。左右は区別しません。",
+  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "* の付いた数値:動かした最も外側の切片が範囲の端に届かないため、その面積を範囲の端まで(最大で1面)そのまま延ばして計算しました。"
 }

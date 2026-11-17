@@ -1170,3 +1170,6 @@ body[data-edition=focused] #researchView #analysisRasterFailure.is-converted:not
 .atlas-explorer .atlas-match-compare:not(#_#_)>h4{margin:0 0 10px;font-size:18px;font-weight:650;letter-spacing:-.015em}
 .atlas-explorer .atlas-match-compare:not(#_#_)>.atlas-match-lead{margin:0 0 10px;font-size:15px;line-height:1.6;color:#4a4a4f;max-width:72ch}
 .atlas-explorer .atlas-match-compare:not(#_#_) table{min-width:760px}
+
+/* Off-by-one-plane range under each volume of the comparison table */
+.atlas-explorer .atlas-match-compare:not(#_#_) td .atlas-match-spread{display:block;margin-top:2px;font-size:12px;font-weight:600;color:#55555a;font-variant-numeric:tabular-nums;white-space:nowrap}
