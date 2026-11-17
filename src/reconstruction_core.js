@@ -3,7 +3,9 @@
  */
 (function(root){'use strict';
 const VERSION='cerebellum-physical-reconstruction/1';
-const LIMITS=Object.freeze({sections:128,roiVertices:100000,vertices:2000000,planes:512,triangles:400000,atlasVertices:300000,atlasTriangles:600000,coordinate:1e8});
+/* The per-ROI limit was 100,000 until 2026-11-17. The largest real layer outline seen holds 96,572 vertices; the limit now
+   equals the review's own per-ROI limit, so an outline that can be reviewed can also be reconstructed. */
+const LIMITS=Object.freeze({sections:128,roiVertices:200000,vertices:2000000,planes:512,triangles:400000,atlasVertices:300000,atlasTriangles:600000,coordinate:1e8});
 const fail=m=>{throw Error(m);},finite=n=>typeof n==='number'&&Number.isFinite(n),copy=x=>JSON.parse(JSON.stringify(x));
 const coordinate=n=>finite(n)&&Math.abs(n)<=LIMITS.coordinate;
 const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],sub=(a,b)=>a.map((v,i)=>v-b[i]),cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
@@ -16,7 +18,7 @@ function normalize(series){
   if(s.included===false)fail('Exclude sections explicitly in the study before preparing the physical series.');
   if(!Array.isArray(s.rois)||!s.rois.length)fail(s.id+': a selected area ROI is missing; absence is not zero.');
   const rois=s.rois.map(r=>{if(!r||r.kind!=='area'||r.closed===false||!Array.isArray(r.paths)||!r.paths.length)fail(s.id+': only closed area ROIs are reconstructed.');let roiVertices=0;
-   const paths=r.paths.map(p=>{if(!Array.isArray(p)||p.length<3)fail('An area contour requires at least three points.');roiVertices+=p.length;vertices+=p.length;if(roiVertices>LIMITS.roiVertices)fail('An ROI exceeds 100,000 vertices; originals have not been simplified.');if(vertices>LIMITS.vertices)fail('Physical series exceeds two million vertices; originals have not been simplified.');return p.map(q=>{if(!Array.isArray(q)||q.length!==2||!q.every(coordinate))fail('ROI XY coordinates must be finite physical µm values.');return q.slice();});});
+   const paths=r.paths.map(p=>{if(!Array.isArray(p)||p.length<3)fail('An area contour requires at least three points.');roiVertices+=p.length;vertices+=p.length;if(roiVertices>LIMITS.roiVertices)fail('An ROI exceeds 200,000 vertices; originals have not been simplified.');if(vertices>LIMITS.vertices)fail('Physical series exceeds two million vertices; originals have not been simplified.');return p.map(q=>{if(!Array.isArray(q)||q.length!==2||!q.every(coordinate))fail('ROI XY coordinates must be finite physical µm values.');return q.slice();});});
    return {name:typeof r.name==='string'?r.name:'area',label:typeof r.label==='string'?r.label:null,kind:'area',closed:true,paths};});
   return {id:s.id,order,z_um:z,rois,source:s.source?copy(s.source):null};
  }).sort((a,b)=>a.order-b.order);

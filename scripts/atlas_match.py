@@ -28,6 +28,8 @@ SCHEMA = 'cerebellum-atlas-match/1'
 PARAMETERS = {'status': 'proposed', 'pixels_per_micron': 1.4, 'sample_step_um': 60.0, 'truncate_um': 400.0, 'name_margin': 0.15,
               'rotation_step_deg': 15, 'scale_range': [0.75, 1.3],
               'scale_factors': [0.88, 0.92, 0.96, 1.0, 1.04, 1.08, 1.12], 'refine_iterations': 12, 'max_candidates': 8}
+# One size change per animal (see animal_scale). Proposed values, not validated ones; the same as in src/atlas_match_core.js.
+ANIMAL_SCALE = {'status': 'proposed', 'wide_range': [0.75, 1.6], 'band_fraction': 0.12, 'min_sections': 3}
 ALIASES = {'4-5Cb': '4/5Cb', 'FI': 'Fl', 'Fl': 'Fl', 'PFI': 'PFl', 'PFl': 'PFl'}
 NOT_LOBULES = {'Med', 'IntA', 'IntP', 'Lat', 'IntDL', 'IntPPC', 'MedDL', 'LatPC'}
 LOBULE_ROI = re.compile(r'^(?:ML|GL|PL)_(.+?)_part\d+$')
@@ -167,6 +169,27 @@ def match(rois, atlas, parameters, use_names=True):
             'all': [{k: r[k] for k in ('figure', 'lateral_um', 'name_score', 'distance_um')} for r in rows]}, kept
 
 
+def animal_scale(scales, rule=ANIMAL_SCALE):
+    """One size change per animal. Sections of one animal that fit away from the limits of a wide range need nearly the same
+    size change; a section left free can instead be drawn, by shrinking, onto the small plates at the lateral end. From the
+    size change each section took over the wide range: the animal's median over the sections that did not end at a limit,
+    the band around it, and the indices of the sections outside the band, which are to be matched again inside it."""
+    wide = rule['wide_range']
+    free = sorted(v for v in scales if wide[0] * 1.001 < v < wide[1] * 0.999)
+    if len(free) < rule['min_sections']:
+        return {'status': 'proposed', 'applied': False, 'reason': 'Fewer than %d sections fitted away from the limits of the wide range.' % rule['min_sections'],
+                'wide_range': list(wide), 'again': []}
+    n = len(free)
+    median = free[(n - 1) // 2] if n % 2 else (free[n // 2 - 1] + free[n // 2]) / 2
+    band = [median * (1 - rule['band_fraction']), median * (1 + rule['band_fraction'])]
+    return {'status': 'proposed', 'applied': True, 'median_scale': median, 'band': band, 'band_fraction': rule['band_fraction'], 'wide_range': list(wide),
+            'from_sections': n, 'again': [i for i, v in enumerate(scales) if v < band[0] or v > band[1]]}
+
+
+def animal_of(sample):
+    return sample.rsplit('-', 1)[0]
+
+
 def placed(kept, t):
     return {name: {'closed': v['closed'], 'paths': [np.round(transform(p, t), 1).tolist() for p in v['paths']]} for name, v in kept.items()}
 
@@ -190,8 +213,11 @@ def main(argv=None):
     parser.add_argument('--shape-only', action='store_true', help='Ignore lobule names in the ROI files; every plate is tried.')
     parser.add_argument('--max-candidates', type=int, default=PARAMETERS['max_candidates'],
                         help='Plates tried per section among those the names allow; 0 tries them all.')
-    parser.add_argument('--scale-range', default='%g,%g' % tuple(PARAMETERS['scale_range']), metavar='LOW,HIGH',
+    parser.add_argument('--scale-range', default=None, metavar='LOW,HIGH',
                         help='How much a section may be shrunk or enlarged to fit a plate. An atlas of a larger brain needs a wider range.')
+    parser.add_argument('--animal-scale', action='store_true',
+                        help='One size change per animal: match every section over the wide range (%g to %g unless --scale-range is given), then match again, '
+                             'inside the band around the animal median, the sections that fell outside it. The animal is the sample name before its last hyphen.' % tuple(ANIMAL_SCALE['wide_range']))
     parser.add_argument('--jobs', type=int, default=1, help='Sections matched side by side. The result does not depend on it.')
     args = parser.parse_args(argv)
     try:
@@ -201,7 +227,7 @@ def main(argv=None):
         require(atlas.get('schema') in ATLAS_SCHEMAS and atlas.get('unit') == 'um', 'Not a sagittal atlas series in micrometres.')
         require(args.max_candidates >= 0 and args.jobs >= 1, 'Give a candidate count of 0 or more and at least one job.')
         try:
-            scale_range = [float(v) for v in args.scale_range.split(',')]
+            scale_range = [float(v) for v in args.scale_range.split(',')] if args.scale_range else list(ANIMAL_SCALE['wide_range'] if args.animal_scale else PARAMETERS['scale_range'])
         except ValueError:
             scale_range = []
         require(len(scale_range) == 2 and 0 < scale_range[0] < scale_range[1], 'Give the scale range as LOW,HIGH.')
@@ -211,23 +237,44 @@ def main(argv=None):
             name, _, path = item.partition('=')
             require(name and path and name not in [s[0] for s in sections], 'Give each section as NAME=ROIS.zip, once.')
             sections.append((name, Path(path).resolve()))
-        rows, outlines = [], {}
+        rows, outlines, current_range = [], {}, scale_range
         jobs = [(name, path, atlas, parameters, not args.shape_only) for name, path in sections]
-        def collect(done):                       # each section is reported as soon as it is matched, in the order given
+        def collect(done, replace=False):        # each section is reported as soon as it is matched, in the order given
             for name, roi_file, digest, found, moved in done:
-                rows.append(dict(found, sample=name, roi_file=roi_file, roi_sha256=digest))
+                row = dict(found, sample=name, roi_file=roi_file, roi_sha256=digest, scale_range=list(current_range))
+                if replace:
+                    rows[[r['sample'] for r in rows].index(name)] = row
+                else:
+                    rows.append(row)
                 outlines[name] = {'figure': found['best']['figure'], 'lateral_um': found['best']['lateral_um'], 'rois': moved}
                 print('%s: figure %d at %.0f um, distance %.0f um, names %.2f' % (name, found['best']['figure'], found['best']['lateral_um'],
                                                                                   found['best']['distance_um'], found['best']['name_score']), file=sys.stderr, flush=True)
-        if args.jobs > 1:
-            import multiprocessing
-            with multiprocessing.get_context('spawn').Pool(args.jobs) as pool:
-                collect(pool.imap(match_file, jobs, chunksize=1))
-        else:
-            collect(map(match_file, jobs))
+        def run(todo, replace=False):
+            if args.jobs > 1 and len(todo) > 1:
+                import multiprocessing
+                with multiprocessing.get_context('spawn').Pool(args.jobs) as pool:
+                    collect(pool.imap(match_file, todo, chunksize=1), replace)
+            else:
+                collect(map(match_file, todo), replace)
+        run(jobs)
+        animals = None
+        if args.animal_scale:
+            animals = {}
+            for animal in sorted({animal_of(name) for name, _ in sections}):
+                members = [i for i, (name, _) in enumerate(sections) if animal_of(name) == animal]
+                rule = animal_scale([rows[i]['best']['scale'] for i in members], dict(ANIMAL_SCALE, wide_range=scale_range))
+                again = [members[k] for k in rule.pop('again')]
+                rule['rematched'] = [sections[i][0] for i in again]
+                rule['first_pass'] = [{'section': sections[i][0], 'lateral_um': rows[i]['best']['lateral_um'], 'scale': rows[i]['best']['scale'],
+                                       'distance_um': rows[i]['best']['distance_um']} for i in again]
+                animals[animal] = rule
+                if again:
+                    current_range = rule['band']
+                    print('%s: median size change %.3f, %d section(s) matched again inside %.3f to %.3f' % (animal, rule['median_scale'], len(again), *rule['band']), file=sys.stderr, flush=True)
+                    run([(sections[i][0], sections[i][1], atlas, dict(parameters, scale_range=rule['band']), not args.shape_only) for i in again], replace=True)
         output.mkdir(parents=True)
         result = {'schema': SCHEMA, 'statement': STATEMENT, 'parameters': parameters, 'shape_only': args.shape_only, 'atlas_sha256': file_digest(args.atlas),
-                  'atlas_status': atlas.get('status'), 'code_sha256': file_digest(Path(__file__).resolve()), 'sections': rows}
+                  'atlas_status': atlas.get('status'), 'code_sha256': file_digest(Path(__file__).resolve()), 'animal_scale': animals, 'sections': rows}
         (output / 'atlas-match.json').write_text(json.dumps(result, indent=1) + '\n', encoding='utf-8')
         (output / 'placed-outlines.json').write_text(json.dumps({'schema': 'cerebellum-atlas-placed-outlines/1', 'statement': STATEMENT, 'unit': 'um',
                                                                 'frame': atlas.get('series', {}).get('coordinate_frame'), 'sections': outlines}) + '\n', encoding='utf-8')

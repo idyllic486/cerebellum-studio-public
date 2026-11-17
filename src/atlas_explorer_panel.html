@@ -28,7 +28,7 @@
     <h3 id="atlasMatchTitle">Find the plane closest to your section</h3>
     <p class="atlas-match-lead">Compares the outlines of the section open in Image analysis with every atlas plane and shows the one it resembles most. It needs a whole-cerebellum outline and the pixel size.</p>
     <div class="atlas-match-actions"><button type="button" id="atlasMatchRun">Find the closest plane</button><button type="button" id="atlasMatchStop" hidden>Stop</button><button type="button" id="atlasMatchSave" disabled>Save the result</button></div>
-    <div class="atlas-match-stack"><label for="atlasMatchAnimal">Animal in the open study<select id="atlasMatchAnimal" disabled></select></label><button type="button" id="atlasMatchStackRun" disabled>Stack this animal's sections</button></div>
+    <div class="atlas-match-stack"><label for="atlasMatchAnimal">Animal in the open study<select id="atlasMatchAnimal" disabled></select></label><button type="button" id="atlasMatchStackRun" disabled>Stack this animal's sections</button><button type="button" id="atlasMatchCompareRun" disabled>Stack and compare all animals</button></div>
     <p class="atlas-match-lead atlas-match-method">Sections of one animal are taken to share one size change. A section that fits only with a different one is matched again within the animal's range.</p>
     <progress id="atlasMatchProgress" max="1" value="0" hidden aria-label="Planes compared"></progress>
     <p id="atlasMatchStatus" class="atlas-ref-status" role="status" aria-live="polite"></p>
@@ -59,6 +59,12 @@
         <div class="atlas-match-stack"><label for="atlasMatchRangeLow">Compare over the same range: from (µm)<input type="number" id="atlasMatchRangeLow" inputmode="decimal" min="0" step="any"></label><label for="atlasMatchRangeHigh">to (µm)<input type="number" id="atlasMatchRangeHigh" inputmode="decimal" min="0" step="any"></label></div>
         <p id="atlasMatchVolumeNote" class="atlas-match-caution" role="status" hidden></p>
       </div>
+    </div>
+    <div id="atlasMatchCompare" class="atlas-match-table atlas-match-compare" hidden>
+      <h4>Animals over the same stretch</h4>
+      <p class="atlas-match-lead">Each animal's sections are stacked, then the volumes are integrated over the stretch of positions that every animal reaches. These are estimates in the atlas frame for these animals only; with so few animals no statistical test is made.</p>
+      <p class="atlas-match-count">Stretch that every animal reaches: <strong id="atlasMatchCompareRange" translate="no"></strong></p>
+      <table><thead><tr><th scope="col">Animal</th><th scope="col">Group</th><th scope="col">Sections</th><th scope="col">Own span</th><th scope="col">Whole cerebellum</th><th scope="col">Granular layer</th><th scope="col">White matter</th><th scope="col">Remainder (molecular and Purkinje layers)</th></tr></thead><tbody id="atlasMatchCompareList"></tbody></table>
     </div>
   </section>
   <div class="atlas-ref-placed">

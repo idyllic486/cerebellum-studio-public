@@ -114,6 +114,24 @@ def main():
         viewer = (folder / 'rec' / 'viewer.html').read_text()
         assert '@DATA@' not in viewer and 'S-1' in viewer and str(folder) not in viewer
         assert A.main(['--atlas', str(folder / 'atlas.json'), '--section', 'S-1=' + str(folder / 'S-1.zip'), '--output', str(folder / 'match')]) == 2
+        # One size change per animal: three sections that agree, and one that fits only by shrinking, which is matched again inside the band.
+        rule = A.animal_scale([1.2, 1.25, 0.75, 1.22, 1.6, 0.9])
+        assert rule['applied'] and close(rule['median_scale'], 1.21) and rule['from_sections'] == 4 and rule['again'] == [2, 4, 5] and close(rule['band'][0], 1.21 * 0.88)
+        assert A.animal_scale([1.2, 1.3, 0.75])['applied'] is False and A.animal_scale([1.0, 1.0, 1.0])['again'] == []
+        for n, (lobes, turn, scale) in enumerate([(5, 0.4, 1.0), (5, 2.0, 1.0), (7, 1.1, 1.0), (7, 0.2, 1.3)], 1):
+            (folder / ('T-%d.zip' % n)).write_bytes(D.roi_zip_bytes(section_rois(lobes, [], turn, scale, np.array([15000.0, -15000.0]), False)))
+        arguments = ['--atlas', str(folder / 'atlas.json'), '--shape-only', '--animal-scale', '--output', str(folder / 'band')]
+        for n in range(1, 5):
+            arguments += ['--section', 'T-%d=%s' % (n, folder / ('T-%d.zip' % n))]
+        assert A.main(arguments) == 0
+        band = json.loads((folder / 'band' / 'atlas-match.json').read_text())
+        t = band['animal_scale']['T']
+        assert band['parameters']['scale_range'] == [0.75, 1.6] and t['applied'] and t['rematched'] == ['T-4'] and close(t['median_scale'], 1.0, 0.03), t
+        assert t['first_pass'][0]['scale'] < t['band'][0], 'Left free, the larger section fits by shrinking'
+        last = band['sections'][3]
+        assert last['sample'] == 'T-4' and last['scale_range'] == t['band'] and t['band'][0] - 1e-9 <= last['best']['scale'] <= t['band'][1] + 1e-9
+        assert [r['best']['figure'] for r in band['sections'][:3]] == [2, 2, 3] and all(r['scale_range'] == [0.75, 1.6] for r in band['sections'][:3])
+        assert written.get('animal_scale') is None, 'Without the option nothing is matched again'
         assert C.main(['--match', str(folder / 'match'), '--manifest', str(folder / 'm.json'), '--output', str(folder / 'rec')]) == 2
     print('Atlas matching and reconstruction checks passed on made-up shapes.')
 

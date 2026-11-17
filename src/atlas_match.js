@@ -12,7 +12,7 @@ const NEAR_UM=5,WIDE_UM=500;
 /* Size change allowed when nothing is known about the animal, and the band around an animal's own typical size change.
    Real sections of one animal need nearly the same size change (spread of a few per cent), while a single section left
    free to shrink can be drawn to the small planes at the lateral end. Both are proposed values, not validated ones. */
-const WIDE_SCALE=[.75,1.6],ANIMAL_BAND=.12,ANIMAL_MIN_SECTIONS=3;
+const RULE=window.AtlasMatchCore.ANIMAL_SCALE,WIDE_SCALE=RULE.wide_range;
 function similar(result){const near=result.all.filter(r=>r.distance_um<=result.best.distance_um+NEAR_UM).map(r=>r.lateral_um);return{within_um:NEAR_UM,lateral_um:[Math.min(...near),Math.max(...near)],planes:near.length};}
 function cautionsOf(result,span){const best=result.best,range=result.parameters.scale_range,out=[];if(span.lateral_um[1]-span.lateral_um[0]>WIDE_UM)out.push('uncertain');if(best.scale<=range[0]*1.001||best.scale>=range[1]*.999)out.push('size');return out;}
 const spanText=span=>span.lateral_um[0]===span.lateral_um[1]?fmt(span.lateral_um[0]/1000,2)+' mm':fmt(span.lateral_um[0]/1000,2)+' – '+fmt(span.lateral_um[1]/1000,2)+' mm';
@@ -45,27 +45,28 @@ run.addEventListener('click',()=>{let input,atlas;
  worker.onerror=()=>{finish();say('The comparison could not be completed in this browser.');};
  worker.postMessage({outlines:input.outlines,umPerPixel:input.umPerPixel,width:input.width,height:input.height,parameters:{scale_range:WIDE_SCALE},atlas:{unit:atlas.unit,plates:atlas.plates.map(p=>({figure:p.figure,lateral_um:p.lateral_um,labels:p.labels,paths:p.paths.filter(q=>q.role==='boundary_ink'||q.role==='published_compartment').map(q=>({role:q.role,closed:q.closed,points:q.points}))}))}});});
 if(stop)stop.addEventListener('click',()=>{finish();say('The comparison was stopped. Nothing was changed.');});
-if(save)save.addEventListener('click',()=>{if(!last)return;const url=URL.createObjectURL(new Blob([JSON.stringify(last,null,1)+'\n'],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=(last.section||last.animal||'section').replace(/\.[^.]+$/,'')+'-atlas-match.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+if(save)save.addEventListener('click',()=>{if(!last)return;const url=URL.createObjectURL(new Blob([JSON.stringify(last,null,1)+'\n'],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=(last.section||last.animal||(last.comparison?'animals-compared':'section')).replace(/\.[^.]+$/,'')+'-atlas-match.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 
 /* Every included section of one study animal, each matched on its own, then stacked at their matched positions.
    Sections that match the same plane lie on top of each other; nothing is interpolated between them. */
-const animalSelect=$('atlasMatchAnimal'),stackRun=$('atlasMatchStackRun'),list=$('atlasMatchStackList');let stackWorkers=[],lastStack=null;
+const animalSelect=$('atlasMatchAnimal'),stackRun=$('atlasMatchStackRun'),compareRun=$('atlasMatchCompareRun'),list=$('atlasMatchStackList');let stackWorkers=[],lastStack=null,comparing=false,compared=null;
 const layerOf=roi=>{const l=roi.label!=null&&roi.label!==''?String(roi.label).toUpperCase():(/^(CB|ML|GL|WM)(?:_|$)/i.exec(roi.name||'')||[])[1]?.toUpperCase();return['CB','GL','WM'].includes(l)?l:null;};
 function studyAnimals(){const api=window.CerebellumStudy;if(api?.animalList)return api.animalList();const study=api?.snapshot?.();return study?.animals?.length?study.animals:[];}
 function studyAnimal(id){const api=window.CerebellumStudy;if(api?.animal)return api.animal(id);return(api?.snapshot?.()?.animals||[]).find(a=>a.id===id)||null;}
 function refreshAnimals(){if(!animalSelect)return;const animals=studyAnimals(),keep=animalSelect.value;animalSelect.replaceChildren(...animals.map(a=>{const o=document.createElement('option');o.value=a.id;o.textContent=a.id+(a.group?' · '+a.group:'');o.translate=false;return o;}));
- if(animals.some(a=>a.id===keep))animalSelect.value=keep;animalSelect.disabled=!animals.length;if(stackRun)stackRun.disabled=!animals.length||stackWorkers.length>0;}
-function stackBusy(on){if(stackRun)stackRun.disabled=on;run.disabled=on;if(stop)stop.hidden=!on;if(bar){bar.hidden=!on;if(on){bar.value=0;bar.max=1;}}}
-function stopStack(){stackWorkers.forEach(w=>w.terminate());stackWorkers=[];stackBusy(false);refreshAnimals();}
-if(stackRun)stackRun.addEventListener('click',()=>{const atlas=window.CerebellumAtlasExplorer?.atlas?.(),animal=studyAnimal(animalSelect.value);
- if(!atlas){say('The atlas is still loading. Try again in a moment.');return;}if(!animal){say('Open a study in Study & 3D first.');return;}
+ if(animals.some(a=>a.id===keep))animalSelect.value=keep;animalSelect.disabled=!animals.length;const idle=!stackWorkers.length&&!comparing;if(stackRun)stackRun.disabled=!animals.length||!idle;if(compareRun)compareRun.disabled=animals.length<2||!idle;}
+function stackBusy(on){on=on||comparing;if(stackRun)stackRun.disabled=on;if(compareRun)compareRun.disabled=on;run.disabled=on;if(stop)stop.hidden=!on;if(bar){bar.hidden=!on;if(on){bar.value=0;bar.max=1;}}}
+function stopStack(){comparing=false;stackWorkers.forEach(w=>w.terminate());stackWorkers=[];stackBusy(false);refreshAnimals();}
+/* `done` is told what was made (or null when nothing could be), so that several animals can be stacked one after another. */
+function stackOne(animalId,whenDone){const atlas=window.CerebellumAtlasExplorer?.atlas?.(),animal=studyAnimal(animalId);
+ if(!atlas){say('The atlas is still loading. Try again in a moment.');whenDone?.(null);return;}if(!animal){say('Open a study in Study & 3D first.');whenDone?.(null);return;}
  const jobs=[],skipped=[];for(const section of animal.sections){if(section.included===false)continue;const um=section.calibration?.um_per_pixel_x,umY=section.calibration?.um_per_pixel_y;
   const outlines=(section.rois||[]).filter(r=>r.included!==false&&(r.kind||'area')==='area'&&r.paths?.length&&layerOf(r)).map(r=>({name:layerOf(r),closed:true,paths:r.paths}));
   if(!(um>0)||!Number.isFinite(um)||(Number.isFinite(umY)&&umY>0&&Math.abs(umY-um)>um*.001)||!outlines.some(o=>o.name==='CB'))skipped.push(section.id);else jobs.push({id:section.id,outlines,umPerPixel:um,width:section.source?.width,height:section.source?.height});}
- if(!jobs.length){say('No section of this animal has both a whole-cerebellum outline and a pixel size.');return;}
+ if(!jobs.length){say('No section of this animal has both a whole-cerebellum outline and a pixel size.');whenDone?.(null);return;}
  const sent={unit:atlas.unit,plates:atlas.plates.map(p=>({figure:p.figure,lateral_um:p.lateral_um,labels:p.labels,paths:p.paths.filter(q=>q.role==='boundary_ink'||q.role==='published_compartment').map(q=>({role:q.role,closed:q.closed,points:q.points}))}))};
  const planes=atlas.plates.length,done=new Array(jobs.length).fill(0),results=new Array(jobs.length).fill(null),ranges=new Array(jobs.length).fill(WIDE_SCALE);let queue=jobs.map((_,i)=>i),total=jobs.length*planes,passed=0,second=false,failed=null,animalScale=null;
- const finishAll=()=>{stackWorkers.forEach(w=>w.terminate());stackWorkers=[];stackBusy(false);refreshAnimals();if(failed){say(failed);return;}
+ const finishAll=()=>{stackWorkers.forEach(w=>w.terminate());stackWorkers=[];stackBusy(false);refreshAnimals();if(failed){say(failed);whenDone?.(null);return;}
   const rows=jobs.map((job,i)=>{const r=results[i],best=r.best,span=similar(r),cautions=cautionsOf(r,span);if(animalScale&&animalScale.rematched.includes(job.id)&&!cautions.includes('size')&&(best.scale<=animalScale.band[0]*1.001||best.scale>=animalScale.band[1]*.999))cautions.push('size');
    const px=r.areas_px2,mm2=n=>px&&px[n]!=null?px[n]*job.umPerPixel*job.umPerPixel/1e6:null;
    return{section:job.id,um_per_pixel:job.umPerPixel,scale_range:r.parameters.scale_range,granular_outline:r.granular_outline,area_mm2:{Cb:mm2('Cb'),GL_TOTAL:mm2('GL_TOTAL'),WM:mm2('WM')},cautions,best,runner_up:r.runner_up,margin_um:r.margin_um,planes_about_as_close:span,placed:r.placed};});
@@ -77,16 +78,15 @@ if(stackRun)stackRun.addEventListener('click',()=>{const atlas=window.Cerebellum
   stacked=rows.map(row=>({sample:row.section,lateral_um:row.best.lateral_um,values:row.area_mm2}));stackedPlanes=atlas.plates.map(p=>p.lateral_um);
   // Model drafts that nobody has reviewed often land on the wrong plane; say so rather than show them as if they were settled.
   const drafts=animal.sections.filter(x=>x.origin==='model'&&!x.review&&jobs.some(j=>j.id===x.id)).map(x=>x.id),draftNote=$('atlasMatchDrafts');if(draftNote)draftNote.hidden=!drafts.length;
-  lastStack={schema:'cerebellum-atlas-match/1',statement:results[0].statement,made_in:'browser',animal:animal.id,group:animal.group||null,atlas_source_sha256:atlas.source?.sha256||null,parameters:results[0].parameters,caution_rules:{status:'proposed',uncertain_when_span_over_um:WIDE_UM,size_when_scale_at_limit:true},animal_scale:animalScale,unreviewed_model_drafts:drafts,sections_matched:rows.length,sections_skipped:skipped,sections:rows.map(({placed,...row})=>row)};last=lastStack;showVolumes();if(save)save.disabled=false;
+  lastStack={schema:'cerebellum-atlas-match/1',statement:results[0].statement,made_in:'browser',animal:animal.id,group:animal.group||null,atlas_source_sha256:atlas.source?.sha256||null,parameters:results[0].parameters,caution_rules:{status:'proposed',uncertain_when_span_over_um:WIDE_UM,size_when_scale_at_limit:true},animal_scale:animalScale,unreviewed_model_drafts:drafts,sections_matched:rows.length,sections_skipped:skipped,sections:rows.map(({placed,...row})=>row)};if(!comparing){compared=null;const box=$('atlasMatchCompare');if(box)box.hidden=true;}last=lastStack;showVolumes();if(save)save.disabled=false;
   const positions=new Set(rows.map(r=>r.best.plate_index)).size;$('atlasMatchStackCount').textContent=rows.length+' · '+positions+(skipped.length?' · '+skipped.length:'');
-  say(rows.some(r=>r.cautions.length)?'The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.':'The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.');};
+  say(rows.some(r=>r.cautions.length)?'The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.':'The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.');
+  whenDone?.({record:JSON.parse(JSON.stringify(lastStack)),rows:stacked.slice(),placed:sections,planes:stackedPlanes,statement:results[0].statement,atlas_source_sha256:atlas.source?.sha256||null});};
  /* After every section has been matched once: the animal's typical size change is the median over the sections that did
     not end at a limit of the wide range. A section outside the band around it is matched again inside the band. */
- const secondPass=()=>{const free=results.map(r=>r.best.scale).filter(v=>v>WIDE_SCALE[0]*1.001&&v<WIDE_SCALE[1]*.999).sort((x,y)=>x-y);
-  if(free.length<ANIMAL_MIN_SECTIONS){animalScale={status:'proposed',applied:false,reason:'Fewer than '+ANIMAL_MIN_SECTIONS+' sections fitted away from the limits of the wide range.',wide_range:WIDE_SCALE};return false;}
-  const median=free.length%2?free[(free.length-1)/2]:(free[free.length/2-1]+free[free.length/2])/2,band=[median*(1-ANIMAL_BAND),median*(1+ANIMAL_BAND)],again=[];
-  results.forEach((r,i)=>{if(r.best.scale<band[0]||r.best.scale>band[1])again.push(i);});
-  animalScale={status:'proposed',applied:true,median_scale:median,band,band_fraction:ANIMAL_BAND,wide_range:WIDE_SCALE,from_sections:free.length,rematched:again.map(i=>jobs[i].id),first_pass:again.map(i=>({section:jobs[i].id,lateral_um:results[i].best.lateral_um,scale:results[i].best.scale,distance_um:results[i].best.distance_um}))};
+ const secondPass=()=>{const rule=window.AtlasMatchCore.animalScale(results.map(r=>r.best.scale)),again=rule.again;
+  if(!rule.applied){animalScale={status:rule.status,applied:false,reason:rule.reason,wide_range:rule.wide_range};return false;}const band=rule.band;
+  animalScale={status:rule.status,applied:true,median_scale:rule.median_scale,band,band_fraction:rule.band_fraction,wide_range:rule.wide_range,from_sections:rule.from_sections,rematched:again.map(i=>jobs[i].id),first_pass:again.map(i=>({section:jobs[i].id,lateral_um:results[i].best.lateral_um,scale:results[i].best.scale,distance_um:results[i].best.distance_um}))};
   if(!again.length)return false;for(const i of again){ranges[i]=band;results[i]=null;done[i]=0;}passed=(jobs.length-again.length)*planes;total=passed+again.length*planes;queue=again.slice();second=true;return true;};
  const start=()=>{if(failed||!queue.length)return false;const i=queue.shift(),w=new Worker('./assets/atlas_match_worker.js');stackWorkers.push(w);
   w.onmessage=event=>{const m=event.data;if(m.progress){done[i]=m.progress[0];if(bar){bar.max=total;bar.value=second?passed+ranges.reduce((sum,r,k)=>sum+(r===WIDE_SCALE?0:done[k]),0):done.reduce((x,y)=>x+y,0);}return;}
@@ -94,7 +94,28 @@ if(stackRun)stackRun.addEventListener('click',()=>{const atlas=window.Cerebellum
    if(start()||stackWorkers.length||!results.every(Boolean))return;
    if(!second&&secondPass()){for(let k=0;k<lanes;k++)start();return;}finishAll();};
   w.onerror=()=>{failed='The comparison could not be completed in this browser.';finishAll();};w.postMessage({outlines:jobs[i].outlines,umPerPixel:jobs[i].umPerPixel,width:jobs[i].width,height:jobs[i].height,parameters:{scale_range:ranges[i]},atlas:sent});return true;};
- const lanes=Math.max(1,Math.min(4,(navigator.hardwareConcurrency||2)-1,jobs.length));for(let k=0;k<lanes;k++)start();});
+ const lanes=Math.max(1,Math.min(4,(navigator.hardwareConcurrency||2)-1,jobs.length));for(let k=0;k<lanes;k++)start();}
+if(stackRun)stackRun.addEventListener('click',()=>stackOne(animalSelect.value));
+/* Every animal of the study, one after another, then their volumes over the stretch of positions all of them reach.
+   A description of these animals, in the atlas frame; no test is made. */
+function compareAll(){const animals=studyAnimals(),core=window.AtlasVolumeCore;if(animals.length<2||!core)return;
+ for(const input of[low,high])if(input)input.value='';comparing=true;compared=null;stackBusy(true);const made=[];let at=0;
+ const next=()=>{if(!comparing)return;if(at>=animals.length){finish();return;}const id=animals[at++].id;if(animalSelect)animalSelect.value=id;
+  stackOne(id,result=>{if(!comparing)return;if(result)made.push(result);stackBusy(true);say('Stacking each animal in turn. This takes about a minute for each animal.');setTimeout(next,0);});};
+ const finish=()=>{comparing=false;stackBusy(false);refreshAnimals();const usable=made.filter(m=>m.record.volumes&&m.record.volumes.positions_um.length>=2);
+  if(usable.length<2){say('Fewer than two animals could be stacked, so there is nothing to compare.');return;}
+  const lowest=Math.max(...usable.map(m=>m.record.volumes.range_um[0])),highest=Math.min(...usable.map(m=>m.record.volumes.range_um[1])),shared=lowest<highest?[lowest,highest]:null;
+  const rows=usable.map(m=>{const r=m.record,over=shared?core.arrange(m.rows,shared):null;let spread=null;try{if(shared)spread=core.sensitivity(m.rows,m.planes,shared);}catch(error){spread=null;}
+   return{animal:r.animal,group:r.group,sections:r.sections_matched,own_range_um:r.volumes.range_um,volume_mm3_common_range:over?over.volume_mm3_common_range:null,if_matches_are_off_by_one_plane:spread,sections_marked:r.sections.filter(x=>x.cautions.length).length,unreviewed_model_drafts:r.unreviewed_model_drafts.length};});
+  const body=$('atlasMatchCompareList'),box=$('atlasMatchCompare');
+  if(body){body.replaceChildren(...rows.map(row=>{const tr=document.createElement('tr'),v=row.volume_mm3_common_range,cell=n=>v&&v[n]!=null?fmt(v[n],2)+' mm³':'–';
+    for(const text of[row.animal,row.group||'–',String(row.sections),fmt(row.own_range_um[0]/1000,2)+' – '+fmt(row.own_range_um[1]/1000,2)+' mm',cell('Cb'),cell('GL_TOTAL'),cell('WM'),cell('Cb-GL-WM')]){const td=document.createElement('td');td.textContent=text;td.translate=false;tr.append(td);}return tr;}));}
+  const stretch=$('atlasMatchCompareRange');if(stretch)stretch.textContent=shared?fmt(shared[0]/1000,2)+' – '+fmt(shared[1]/1000,2)+' mm':'–';if(box)box.hidden=false;
+  window.CerebellumAtlasExplorer?.loadPlaced?.({schema:'cerebellum-atlas-placed-stack/1',unit:'um',coordinate_order:['AP','DV','Lateral'],statement:usable[0].statement,atlas_source_sha256:usable[0].atlas_source_sha256,animals:Object.fromEntries(usable.map(m=>[m.record.animal,{group:m.record.group||undefined,sections:m.placed}]))});
+  compared={schema:'cerebellum-atlas-match/1',statement:usable[0].record.statement,made_in:'browser',comparison:{statement:'Volumes of each animal over the stretch of matched positions that every animal reaches, in mm3. Estimates in the atlas frame, one side only, for these animals; no statistical test is made.',common_range_um:shared,animals_compared:rows.length,animals_left_out:animals.map(a=>a.id).filter(id=>!rows.some(r=>r.animal===id)),rows},animals:usable.map(m=>m.record)};last=compared;if(save)save.disabled=false;
+  say(shared?'Every animal is stacked. Volumes are compared over the stretch all of them reach. These are estimates from shape alone, not measured positions.':'The animals do not share a stretch of positions, so their volumes cannot be compared.');};
+ next();}
+if(compareRun)compareRun.addEventListener('click',compareAll);
 /* Volumes between the matched positions of the stacked animal. Over the animal's own span, or over a range typed in, so
    that two animals can be compared over the same stretch. */
 let stacked=null,stackedPlanes=null;const low=$('atlasMatchRangeLow'),high=$('atlasMatchRangeHigh');
@@ -113,9 +134,9 @@ function showVolumes(){const box=$('atlasMatchVolumes'),core=window.AtlasVolumeC
  for(const[id,name]of[['atlasMatchSpreadCb','Cb'],['atlasMatchSpreadGL','GL_TOTAL'],['atlasMatchSpreadWM','WM'],['atlasMatchSpreadRest','Cb-GL-WM']]){const n=$(id),v=spread?.values?.[name];if(n)n.textContent=v?fmt(v.p2_5,2)+' – '+fmt(v.p97_5,2):'';}
  const spreadNote=$('atlasMatchSpreadNote');if(spreadNote)spreadNote.hidden=!spread||!Object.values(spread.values).some(Boolean);
  if(note){note.textContent=problem;note.hidden=!problem;}box.hidden=false;
- if(lastStack){lastStack.volumes={schema:made.schema,statement:made.statement,positions_um:made.positions_um,sections_sharing_a_position:made.sections_sharing_a_position,range_um:made.range_um,mean_area_mm2:made.mean_area_mm2,volume_mm3_own_range:made.volume_mm3_own_range,common_range_um:made.common_range_um,volume_mm3_common_range:made.volume_mm3_common_range,if_matches_are_off_by_one_plane:spread};last=lastStack;}}
+ if(lastStack){lastStack.volumes={schema:made.schema,statement:made.statement,positions_um:made.positions_um,sections_sharing_a_position:made.sections_sharing_a_position,range_um:made.range_um,mean_area_mm2:made.mean_area_mm2,volume_mm3_own_range:made.volume_mm3_own_range,common_range_um:made.common_range_um,volume_mm3_common_range:made.volume_mm3_common_range,if_matches_are_off_by_one_plane:spread};if(!compared)last=lastStack;}}
 for(const input of[low,high])if(input)input.addEventListener('input',showVolumes);
-if(stop)stop.addEventListener('click',()=>{if(stackWorkers.length){stopStack();say('The comparison was stopped. Nothing was changed.');}});
+if(stop)stop.addEventListener('click',()=>{if(stackWorkers.length||comparing){stopStack();say('The comparison was stopped. Nothing was changed.');}});
 if(animalSelect){refreshAnimals();window.addEventListener('cerebellum-workspace-open',refreshAnimals);document.querySelector('.site-header')?.addEventListener('click',()=>setTimeout(refreshAnimals,0));animalSelect.addEventListener('focus',refreshAnimals);animalSelect.addEventListener('pointerdown',refreshAnimals);new IntersectionObserver(e=>{if(e.some(x=>x.isIntersecting))refreshAnimals();}).observe(animalSelect);}
-window.CerebellumAtlasMatch=Object.freeze({snapshot:()=>last?JSON.parse(JSON.stringify(last)):null,busy:()=>!!worker||stackWorkers.length>0,refreshAnimals});
+window.CerebellumAtlasMatch=Object.freeze({snapshot:()=>last?JSON.parse(JSON.stringify(last)):null,busy:()=>!!worker||stackWorkers.length>0||comparing,refreshAnimals});
 })();

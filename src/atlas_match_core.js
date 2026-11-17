@@ -102,5 +102,16 @@ function match(outlines,umPerPixel,atlas,options={}){const parameters=Object.ass
  return{schema:SCHEMA,statement:STATEMENT,parameters,section_lobules:names,names_used:names.length>0,candidates_tried:rows.length,best:rows[0],runner_up:rows[1]||null,
   margin_um:rows.length>1?rows[1].distance_um-rows[0].distance_um:null,all:rows.map(r=>({figure:r.figure,lateral_um:r.lateral_um,name_score:r.name_score,distance_um:r.distance_um})),placed:placed(kept,rows[0])};}
 
-return Object.freeze({SCHEMA,PARAMETERS,STATEMENT,sectionLobules,plateLobules,jaccard,resample,sectionPoints,platePoints,fit,transform,placed,match});
+/* One size change per animal. Sections of one animal that fit away from the limits of a wide range need nearly the same
+   size change; a section left free can instead be drawn, by shrinking, onto the small planes at the lateral end. Given the
+   size change each section took over the wide range, this returns the animal's median over the sections that did not end
+   at a limit, the band around it, and which sections (by index) fall outside the band and are to be matched again inside
+   it. With fewer than `min_sections` usable sections nothing is matched again. Proposed values, not validated ones. */
+const ANIMAL_SCALE=Object.freeze({status:'proposed',wide_range:[.75,1.6],band_fraction:.12,min_sections:3});
+function animalScale(scales,rule=ANIMAL_SCALE){const wide=rule.wide_range,free=scales.filter(v=>v>wide[0]*1.001&&v<wide[1]*.999).sort((x,y)=>x-y);
+ if(free.length<rule.min_sections)return{status:'proposed',applied:false,reason:'Fewer than '+rule.min_sections+' sections fitted away from the limits of the wide range.',wide_range:wide.slice(),again:[]};
+ const median=free.length%2?free[(free.length-1)/2]:(free[free.length/2-1]+free[free.length/2])/2,band=[median*(1-rule.band_fraction),median*(1+rule.band_fraction)],again=[];
+ scales.forEach((v,i)=>{if(v<band[0]||v>band[1])again.push(i);});
+ return{status:'proposed',applied:true,median_scale:median,band,band_fraction:rule.band_fraction,wide_range:wide.slice(),from_sections:free.length,again};}
+return Object.freeze({SCHEMA,PARAMETERS,STATEMENT,ANIMAL_SCALE,animalScale,sectionLobules,plateLobules,jaccard,resample,sectionPoints,platePoints,fit,transform,placed,match});
 });
