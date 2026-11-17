@@ -4,7 +4,7 @@ importScripts('./editable_roi_core.js','./atlas_match_core.js');
 /* The match compares the whole-cerebellum outline and the outline of granular layer with white matter taken together,
    as the laboratory ROI files carry it (GL+WM). A review carries GL and WM as separate layers; taken one by one their
    shared border would be counted more than once and the match would drift. So the outer outline of GL and WM together
-   is traced here, at the section's own pixels, and added as GL+WM. Without the image size the layers are used as given.
+   (holes left out) is traced here, at the section's own pixels, and added as GL+WM. Without the image size the layers are used as given.
    The same pass counts the pixels of each layer, which gives the section areas a volume is integrated from. */
 function withCombined(outlines,width,height){const E=self.EditableROICore,is=(o,names)=>names.includes(String(o.name).toUpperCase());
  const given=outlines.some(o=>o.name==='GL+WM'),layers=outlines.filter(o=>is(o,['GL','GL_TOTAL','WM','WM_TOTAL']));
@@ -15,9 +15,12 @@ function withCombined(outlines,width,height){const E=self.EditableROICore,is=(o,
  const count=[0,0,0];for(let i=0;i<mask.length;i++){const v=mask[i];if(v){if(v&1)count[0]++;if(v&2)count[1]++;if(v&4)count[2]++;}}
  const areas_px2={Cb:seen[1]?count[0]:null,GL_TOTAL:seen[2]?count[1]:null,WM:seen[4]?count[2]:null};
  if(given)return{outlines,granular_outline:'as given',areas_px2};if(!layers.length)return{outlines,granular_outline:'none',areas_px2};
- const rings=E.traceRings(mask,width,height,6);if(!rings.length)return{outlines,granular_outline:'layers one by one',areas_px2};
+ // Outer outlines only. Where the two layers do not quite meet, the slivers left between them would otherwise be traced
+ // as holes all along their shared border, which is the very double counting this step is here to avoid.
+ const traced=E.traceRings(mask,width,height,6);if(!traced.length)return{outlines,granular_outline:'layers one by one',areas_px2};
+ const signed=traced.map(E.signedArea),outer=Math.sign(signed.reduce((m,v)=>Math.abs(v)>Math.abs(m)?v:m,0)),rings=traced.filter((_,i)=>Math.sign(signed[i])===outer);
  return{outlines:outlines.concat([{name:'GL+WM',closed:true,paths:rings}]),granular_outline:'GL and WM together',areas_px2};}
-self.onmessage=event=>{const{outlines,umPerPixel,atlas,width,height}=event.data;
- try{const input=withCombined(outlines,width,height),result=self.AtlasMatchCore.match(input.outlines,umPerPixel,atlas,{useNames:false,onProgress:(done,total)=>self.postMessage({progress:[done,total]})});
+self.onmessage=event=>{const{outlines,umPerPixel,atlas,width,height,parameters}=event.data;
+ try{const input=withCombined(outlines,width,height),result=self.AtlasMatchCore.match(input.outlines,umPerPixel,atlas,{useNames:false,parameters:parameters||undefined,onProgress:(done,total)=>self.postMessage({progress:[done,total]})});
   result.granular_outline=input.granular_outline;result.areas_px2=input.areas_px2;self.postMessage({result});}
  catch(error){self.postMessage({error:String(error&&error.message||error)});}};

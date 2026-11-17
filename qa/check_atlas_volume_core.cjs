@@ -20,4 +20,14 @@ assert.equal(V.arrange(sections,[0,2500]).volume_mm3_common_range.Cb,null,'No vo
 // One position gives no volume; bad input is refused
 assert.equal(V.arrange(sections.slice(2),null).volume_mm3_own_range.Cb,null);
 assert.throws(()=>V.arrange([],null),/no placed sections/);assert.throws(()=>V.arrange([{sample:'x',values:{}}],null),/no matched position/);assert.throws(()=>V.arrange(sections,[10,10]),/smaller first/);
-console.log('Atlas volume core: integral, averaged shared positions, remainder, stated range, refusals.');
+// If every match were off by up to one plane: same seed, same answer; the spread brackets what the moves allow
+{const planes=[0,100,200,300,400,500],two=[{sample:'a',lateral_um:100,values:{Cb:2,GL_TOTAL:1,WM:null}},{sample:'b',lateral_um:400,values:{Cb:2,GL_TOTAL:1,WM:null}}],one=V.sensitivity(two,planes,null,{draws:3000,seed:7}),again=V.sensitivity(two,planes,null,{draws:3000,seed:7});
+ assert.deepEqual(one,again);assert.notDeepEqual(V.sensitivity(two,planes,null,{draws:3001,seed:8}),one);assert.equal(one.status,'proposed');assert.equal(one.moved_by_planes,1);
+ // constant area 2 mm2: the volume is 2 x distance, and the distance is 100 to 500 um, 300 most often
+ near(one.values.Cb.p2_5,.2);near(one.values.Cb.p97_5,1);near(one.values.Cb.median,.6);assert.equal(one.values.Cb.draws_with_full_range,3000);assert.equal(one.values.WM,null,'No value, no spread');assert.equal(one.values['Cb-GL-WM'],null);
+ // two planes apart, about one draw in nine puts both sections on the same plane and has no volume; those draws are left out and counted
+ {const close=V.sensitivity([{...two[0]},{...two[1],lateral_um:300}],planes,null,{draws:3000,seed:1}),full=close.values.Cb?close.values.Cb.draws_with_full_range:0;assert.ok(close.values.Cb===null||Math.abs(full/3000-8/9)<.03);}
+ assert.equal(V.sensitivity(two,planes,[0,500],{draws:500}).values.Cb,null,'Too few draws reach a range wider than the sections');near(V.sensitivity(two,planes,[200,300],{draws:500}).values.Cb.median,.2);
+ const edge=V.sensitivity([{sample:'a',lateral_um:0,values:{Cb:1}},{sample:'b',lateral_um:500,values:{Cb:1}}],planes,null,{draws:2000});assert.ok(edge.values.Cb.p97_5<=.5+1e-12,'A section at the end of the atlas cannot move past it');
+ assert.throws(()=>V.sensitivity([{sample:'x',lateral_um:50,values:{Cb:1}}],planes,null),/not on an atlas plane/);}
+console.log('Atlas volume core: integral, averaged shared positions, remainder, stated range, refusals, spread when matches are off by one plane.');

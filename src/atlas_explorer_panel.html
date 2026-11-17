@@ -29,9 +29,11 @@
     <p class="atlas-match-lead">Compares the outlines of the section open in Image analysis with every atlas plane and shows the one it resembles most. It needs a whole-cerebellum outline and the pixel size.</p>
     <div class="atlas-match-actions"><button type="button" id="atlasMatchRun">Find the closest plane</button><button type="button" id="atlasMatchStop" hidden>Stop</button><button type="button" id="atlasMatchSave" disabled>Save the result</button></div>
     <div class="atlas-match-stack"><label for="atlasMatchAnimal">Animal in the open study<select id="atlasMatchAnimal" disabled></select></label><button type="button" id="atlasMatchStackRun" disabled>Stack this animal's sections</button></div>
+    <p class="atlas-match-lead atlas-match-method">Sections of one animal are taken to share one size change. A section that fits only with a different one is matched again within the animal's range.</p>
     <progress id="atlasMatchProgress" max="1" value="0" hidden aria-label="Planes compared"></progress>
     <p id="atlasMatchStatus" class="atlas-ref-status" role="status" aria-live="polite"></p>
     <p id="atlasMatchUncertain" class="atlas-match-caution" hidden>Planes over a wide range fit about as well, so the position is uncertain.</p>
+    <p id="atlasMatchDrafts" class="atlas-match-caution" hidden>Some of these sections are model drafts that have not been reviewed. Drafts often land on the wrong plane; review them first.</p>
     <p id="atlasMatchSize" class="atlas-match-caution" hidden>The best fit is at the limit of the allowed size change. Check the pixel size of the section.</p>
     <dl id="atlasMatchResult" class="atlas-match-result" hidden>
       <div><dt>Closest plane</dt><dd id="atlasMatchPlane" translate="no"></dd></div>
@@ -48,11 +50,12 @@
         <p class="atlas-match-lead">Section area integrated over the matched lateral positions, one side only. It is an estimate in the atlas frame, not a measured volume, and no section thickness enters it.</p>
         <dl class="atlas-match-result">
           <div><dt>Positions used</dt><dd id="atlasMatchVolumeRange" translate="no"></dd></div>
-          <div><dt>Whole cerebellum</dt><dd id="atlasMatchVolumeCb" translate="no"></dd></div>
-          <div><dt>Granular layer</dt><dd id="atlasMatchVolumeGL" translate="no"></dd></div>
-          <div><dt>White matter</dt><dd id="atlasMatchVolumeWM" translate="no"></dd></div>
-          <div><dt>Remainder (molecular and Purkinje layers)</dt><dd id="atlasMatchVolumeRest" translate="no"></dd></div>
+          <div><dt>Whole cerebellum</dt><dd id="atlasMatchVolumeCb" translate="no"></dd><small id="atlasMatchSpreadCb" class="atlas-match-spread" translate="no"></small></div>
+          <div><dt>Granular layer</dt><dd id="atlasMatchVolumeGL" translate="no"></dd><small id="atlasMatchSpreadGL" class="atlas-match-spread" translate="no"></small></div>
+          <div><dt>White matter</dt><dd id="atlasMatchVolumeWM" translate="no"></dd><small id="atlasMatchSpreadWM" class="atlas-match-spread" translate="no"></small></div>
+          <div><dt>Remainder (molecular and Purkinje layers)</dt><dd id="atlasMatchVolumeRest" translate="no"></dd><small id="atlasMatchSpreadRest" class="atlas-match-spread" translate="no"></small></div>
         </dl>
+        <p id="atlasMatchSpreadNote" class="atlas-match-lead atlas-match-method" hidden>Small figures: the range if every match were off by up to one plane either way (95% of 2,000 random draws).</p>
         <div class="atlas-match-stack"><label for="atlasMatchRangeLow">Compare over the same range: from (µm)<input type="number" id="atlasMatchRangeLow" inputmode="decimal" min="0" step="any"></label><label for="atlasMatchRangeHigh">to (µm)<input type="number" id="atlasMatchRangeHigh" inputmode="decimal" min="0" step="any"></label></div>
         <p id="atlasMatchVolumeNote" class="atlas-match-caution" role="status" hidden></p>
       </div>

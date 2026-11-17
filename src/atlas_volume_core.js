@@ -25,5 +25,21 @@ function arrange(sections,common){if(!Array.isArray(sections)||!sections.length)
  if(common&&!(known(common[0])&&known(common[1])&&common[0]<common[1]))throw Error('Give the range as two positions in micrometres, the smaller first.');
  return{schema:SCHEMA,statement:STATEMENT,sections:rows.map(({order,...r})=>r),positions_um:positions,sections_sharing_a_position:rows.length-positions.length,range_um:[positions[0],positions[positions.length-1]],
   mean_area_mm2:mean,volume_mm3_own_range:volume(positions[0],positions[positions.length-1]),common_range_um:common?[common[0],common[1]]:null,volume_mm3_common_range:common?volume(common[0],common[1]):null};}
-return Object.freeze({SCHEMA,VALUES,STATEMENT,integral,arrange});
+/* How much the volumes move when every section's match is off by up to one plane either way: each section is moved,
+   independently and evenly, to {one plane medial, as matched, one plane lateral}, and the volumes are integrated again.
+   Returns the 2.5th, 50th and 97.5th percentile in mm3 per value, or null for a value when fewer than nine draws in ten
+   reach the range. The method is that of scripts/atlas_reconstruct.py; the random numbers are not, so the two agree
+   closely but not digit for digit. `planes` are the lateral positions of the atlas planes. */
+function random(seed){let a=seed>>>0;return()=>{a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function percentile(sorted,q){const at=(sorted.length-1)*q,lo=Math.floor(at),hi=Math.ceil(at);return sorted[lo]+(sorted[hi]-sorted[lo])*(at-lo);}
+function sensitivity(sections,planes,common,options={}){const draws=options.draws||2000,next=random(options.seed===undefined?20261111:options.seed),positions=planes.slice().sort((a,b)=>a-b),index=new Map(positions.map((p,i)=>[p,i]));
+ if(common&&!(known(common[0])&&known(common[1])&&common[0]<common[1]))throw Error('Give the range as two positions in micrometres, the smaller first.');
+ const rows=sections.map(s=>{if(!index.has(s.lateral_um))throw Error('A section is not on an atlas plane.');const v=s.values||{},cb=known(v.Cb)?v.Cb:null,gl=known(v.GL_TOTAL)?v.GL_TOTAL:null,wm=known(v.WM)?v.WM:null;return{at:index.get(s.lateral_um),Cb:cb,GL_TOTAL:gl,WM:wm,'Cb-GL-WM':cb===null||gl===null||wm===null?null:cb-gl-wm};});
+ const out={};
+ for(const name of VALUES){const used=rows.filter(r=>r[name]!==null),found=[];
+  for(let d=0;d<draws;d++){const sum=new Map(),count=new Map();for(const r of used){const i=Math.min(positions.length-1,Math.max(0,r.at+Math.floor(next()*3)-1)),p=positions[i];sum.set(p,(sum.get(p)||0)+r[name]);count.set(p,(count.get(p)||0)+1);}
+   const points=[...sum.keys()].sort((a,b)=>a-b).map(p=>[p,sum.get(p)/count.get(p)]);if(!points.length)continue;const value=common?integral(points,common[0],common[1]):integral(points,points[0][0],points[points.length-1][0]);if(value!==null)found.push(value/1000);}
+  if(found.length<draws*.9){out[name]=null;continue;}found.sort((a,b)=>a-b);out[name]={p2_5:percentile(found,.025),median:percentile(found,.5),p97_5:percentile(found,.975),draws_with_full_range:found.length};}
+ return{status:'proposed',moved_by_planes:1,draws,values:out};}
+return Object.freeze({SCHEMA,VALUES,STATEMENT,integral,arrange,sensitivity});
 });
