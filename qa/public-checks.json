@@ -73,10 +73,6 @@
  ],
  [
   "node",
-  "qa/check_methods_core.cjs"
- ],
- [
-  "node",
   "qa/check_analysis_typed_core.cjs"
  ],
  [
@@ -90,18 +86,6 @@
  [
   "node",
   "qa/check_raster_candidate.cjs"
- ],
- [
-  "node",
-  "qa/check_sensitivity_core.cjs"
- ],
- [
-  "node",
-  "qa/check_benchmark_core.cjs"
- ],
- [
-  "node",
-  "qa/check_spatial_core.cjs"
  ],
  [
   "node",

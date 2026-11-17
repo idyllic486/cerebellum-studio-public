@@ -35,7 +35,7 @@ async function main(){
       await page.close();
     }
     assert.deepEqual(errors,[]);
-    {const page=await browser.newPage({viewport:{width:1280,height:900}});await page.goto('http://127.0.0.1:'+server.address().port+'/?edition=full');await page.locator('body.ready').waitFor({timeout:60000});assert.equal(await page.evaluate(()=>document.body.dataset.edition),undefined);await page.locator('.site-header [data-tab="research"]').click();const all=await page.locator('#workspaceNav [data-workspace-mode]').evaluateAll(nodes=>nodes.filter(n=>n.getBoundingClientRect().width>0).length);assert.equal(all,5,'?edition=full offers every workspace');await page.close();}
+    {const page=await browser.newPage({viewport:{width:1280,height:900}});await page.goto('http://127.0.0.1:'+server.address().port+'/?edition=full');await page.locator('body.ready').waitFor({timeout:60000});assert.equal(await page.evaluate(()=>document.body.dataset.edition),undefined);await page.locator('.site-header [data-tab="research"]').click();const all=await page.locator('#workspaceNav [data-workspace-mode]').evaluateAll(nodes=>nodes.filter(n=>n.getBoundingClientRect().width>0).length);assert.equal(all,3,'There are three workspaces in every layout');await page.locator('#workspaceNav [data-workspace-mode="study"]').click();assert.ok(await page.locator('#studyTab6').isVisible(),'?edition=full shows the stage the focused layout leaves out');assert.ok(await page.locator('#researchInputTitle').isVisible(),'and keeps the register open');await page.close();}
     console.log('Focused edition: three workspaces, five study stages, no stray entry points, at 1280 and 360 px.');
   }finally{await browser.close();server.close();}
 }

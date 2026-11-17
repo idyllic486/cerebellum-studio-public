@@ -987,7 +987,7 @@ dialog.focus-details-dialog .focus-details-body:not(#_#_) :is(.analysis-toolbar,
 #researchView .study-register:not(#_#_)>.study-note{margin:0;max-width:72ch}
 #researchView #studyRegisterBody:not(#_#_){justify-self:stretch;min-width:0;margin-top:10px;display:grid;gap:18px}
 #researchView #studyRegisterBody:not(#_#_)[hidden]{display:none}
-#researchView #studyRegisterBody:not(#_#_) :is(.annotation-intro,.research-workspace){display:none!important}
+body[data-edition=focused] #researchView #studyRegisterBody:not(#_#_) :is(.annotation-intro,.research-workspace){display:none!important}
 #researchView #studyRegisterBody:not(#_#_) #workspaceObservations{display:block;min-width:0}
 #researchView #studyRegisterBody:not(#_#_) .study-bridge{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin:0}
 

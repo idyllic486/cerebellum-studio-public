@@ -8,7 +8,6 @@
 (function(){'use strict';
 const TRACKS=[
  {selector:'#workspaceNav',active:'[aria-current="page"]',tone:'light'},
- {selector:'#workspaceToolsNav',active:'[aria-pressed="true"]',tone:'light'},
  {selector:'.analysis-label-chips',active:'[aria-pressed="true"]',tone:'light'},
  {selector:'#studySteps',active:'[aria-selected="true"]',tone:'light'},
  {selector:'#cutFamilyNav,.family-nav',active:'.active',tone:'light'},

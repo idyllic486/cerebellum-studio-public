@@ -13,7 +13,7 @@ import zipfile
 
 R = Path(__file__).resolve().parent
 PANELS = ['annotation', 'source', 'project', 'cohort', 'research', 'workspace', 'analysis',
-          'study', 'science_tools', 'private_collaboration', 'methods', 'lab', 'spatial', 'atlas_explorer']
+          'study', 'science_tools', 'private_collaboration', 'atlas_explorer']
 LOCALES = ['en', 'ko', 'ja', 'zh-Hant-TW', 'zh-Hans-CN', 'templates', 'supplemental']
 GUIDES = {'NISSL_WORKFLOW_GUIDE.md': 'analysis-pipeline-guide.md',
           'STUDY_WORKFLOW_GUIDE.md': 'study-pipeline-guide.md',
