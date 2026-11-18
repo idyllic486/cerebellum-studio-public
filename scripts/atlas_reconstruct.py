@@ -179,6 +179,12 @@ def main(argv=None):
         for animal, entry in animals.items():
             entry['group'] = groups[animal]
             entry['volume_mm3_if_matches_are_off_by_one_plate'] = None if plates is None else sensitivity(entry, plates, common, args.draws, 20261111)
+            # Where a moved outermost section stops short of the common range, the plain spread is missing; give the one
+            # with the outermost area kept up to the end of the range, apart and only for the values that lack the plain one.
+            plain = entry['volume_mm3_if_matches_are_off_by_one_plate']
+            short = [] if plain is None or common is None else [n for n in VALUES if plain[n] is None and any(s[n] is not None for s in entry['sections'])]
+            carried = sensitivity(entry, plates, common, args.draws, 20261111, carry_ends=True) if short else None
+            entry['volume_mm3_if_matches_are_off_by_one_plate_ends_carried'] = {n: carried[n] if n in short else None for n in VALUES} if short else None
         output.mkdir(parents=True)
         result = {'schema': SCHEMA, 'statement': STATEMENT, 'match_sha256': file_digest(args.match / 'atlas-match.json'),
                   'manifest_sha256': file_digest(args.manifest), 'common_range_um': common, 'animals': animals,
