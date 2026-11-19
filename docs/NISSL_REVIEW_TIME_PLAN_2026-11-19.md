@@ -29,14 +29,18 @@ states for work outside the page, such as in Fiji. See the workflow guide, secti
 
 ## Proposed design
 
-**Material.** Sections that have never been outlined. The analysed series is every sixth section, so the sections
-between them are the natural source if they were imaged or can be imaged. *Open question for the researcher: do
-images of the unanalysed sections exist?* On the researcher's computer only the analysed sections were found when
-this was written; the slides or the microscope computer may hold more. If not, the comparison has to wait for new animals, or accept the memory
-problem and say so.
+**Material.** Sections that have never been outlined. The analysed series is every sixth section, and the sections
+between them were the natural source. **Answered by the researcher, 2026-11-19: the sections in between do not exist,
+neither as images nor as slides.** Every section of the present animals has therefore already been outlined by the
+reviewer, and the comparison below cannot be run on them without the memory problem. Two ways remain:
 
-**Pairs.** Take pairs of neighbouring unanalysed sections of the same animal (for example the two sections either
-side of an analysed one). Within each pair, one section is done from the draft and the other from an empty image,
+- *Wait for new animals* (recommended, proposed): time the sections of the next animals as they are reviewed. With
+  only every sixth section available, a pair is two consecutive sections of the series (about six section steps
+  apart), which differ more than true neighbours; this weakens the pairing and should be said in the result.
+- *Use sections already outlined*, stating that memory helps both arms and that the result is a rough indication only.
+
+**Pairs.** Take pairs of neighbouring never-outlined sections of the same animal (in a new animal, consecutive
+sections of the series). Within each pair, one section is done from the draft and the other from an empty image,
 which arm gets which decided by a coin toss written down before starting. Neighbours are about equally hard, so the
 pair removes most of the section-to-section difference.
 
@@ -77,7 +81,8 @@ empty arm. Anything else is reported as it is.
 
 ## Decisions needed from the researcher
 
-1. Whether images of unanalysed sections exist, and which animals.
+1. ~~Whether images of unanalysed sections exist.~~ Answered 2026-11-19: they do not. Open instead: wait for new
+   animals, or use sections already outlined.
 2. The number of pairs and the threshold above.
 3. Page or Fiji as the tool for the comparison.
 4. Whether to keep the 60 second cutoff.
