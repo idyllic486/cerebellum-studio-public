@@ -3577,5 +3577,13 @@
   "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "各切片をすべてのアトラス面と比較しています。このコンピューター上で実行され、切片ごとに約30秒かかります。",
   "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "切片をそれぞれ最も近い面に積み重ねました。! の付いた行は不確かです。形状のみによる推定で、実測位置ではありません。左右は区別しません。",
   "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "切片をそれぞれ最も近い面に積み重ねました。形状のみによる推定で、実測位置ではありません。左右は区別しません。",
-  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "* の付いた数値:動かした最も外側の切片が範囲の端に届かないため、その面積を範囲の端まで(最大で1面)そのまま延ばして計算しました。"
+  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "* の付いた数値:動かした最も外側の切片が範囲の端に届かないため、その面積を範囲の端まで(最大で1面)そのまま延ばして計算しました。",
+  "Review time measured on this page: ": "この画面で計った確認時間: ",
+  "Pauses longer than one minute and time with the page hidden are not counted.": "1分を超える中断と、画面が隠れていた時間は数えません。",
+  "Review time recorded with this approval: ": "この承認に記録された確認時間: ",
+  "Outside this page, as stated: ": "画面外の作業(申告値): ",
+  "Time spent editing outside this page, in minutes (as you state it)": "この画面の外で修正した時間、分(申告値)",
+  "For example, time in Fiji": "例: Fijiでの作業時間",
+  "Measured review time is not a usable number.": "計った確認時間が使える数値ではありません。",
+  "Time spent outside this page must be between 0 and 6000 minutes.": "画面外の時間は0分から6000分の間で入力してください。"
 }

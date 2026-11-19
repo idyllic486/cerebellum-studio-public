@@ -3577,5 +3577,13 @@
   "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "正在将每个切片与所有图谱平面比较。仅在此计算机上运行，每个切片约需半分钟。",
   "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "已将切片堆叠于各自最相近的平面。标有 ! 的行并不确定。这仅是依形状所作的估计，并非实测位置；不区分左右。",
   "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "已将切片堆叠于各自最相近的平面。这仅是依形状所作的估计，并非实测位置；不区分左右。",
-  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "标有 * 的数字:移动后最外侧的切片未到达范围端点,因此将其面积延续到范围端点(最多一个平面)来计算。"
+  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "标有 * 的数字:移动后最外侧的切片未到达范围端点,因此将其面积延续到范围端点(最多一个平面)来计算。",
+  "Review time measured on this page: ": "在此页面测得的审阅时间：",
+  "Pauses longer than one minute and time with the page hidden are not counted.": "超过一分钟的停顿以及页面被隐藏的时间不计入。",
+  "Review time recorded with this approval: ": "此批准所记录的审阅时间：",
+  "Outside this page, as stated: ": "页面外的作业（自述）：",
+  "Time spent editing outside this page, in minutes (as you state it)": "在此页面外编辑的时间，分钟（自述）",
+  "For example, time in Fiji": "例如在 Fiji 的时间",
+  "Measured review time is not a usable number.": "测得的审阅时间不是可用的数值。",
+  "Time spent outside this page must be between 0 and 6000 minutes.": "页面外的时间必须介于 0 到 6000 分钟。"
 }

@@ -3577,5 +3577,13 @@
   "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "각 절편을 모든 아틀라스 면과 비교하고 있습니다. 이 컴퓨터에서만 실행되며 절편 하나에 30초쯤 걸립니다.",
   "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "절편들을 각각 가장 닮은 면에 쌓았습니다. ! 표시가 있는 줄은 불확실합니다. 모양만으로 한 추정이며 실측 위치가 아닙니다. 좌우는 구분하지 않습니다.",
   "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "절편들을 각각 가장 닮은 면에 쌓았습니다. 모양만으로 한 추정이며 실측 위치가 아닙니다. 좌우는 구분하지 않습니다.",
-  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "* 표시한 숫자: 옮겨진 가장 바깥 절편이 구간 끝에 못 미쳐, 그 면적을 구간 끝까지(최대 한 면) 그대로 이어서 계산했습니다."
+  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "* 표시한 숫자: 옮겨진 가장 바깥 절편이 구간 끝에 못 미쳐, 그 면적을 구간 끝까지(최대 한 면) 그대로 이어서 계산했습니다.",
+  "Review time measured on this page: ": "이 화면에서 잰 검토 시간: ",
+  "Pauses longer than one minute and time with the page hidden are not counted.": "1분 넘게 멈춘 시간과 화면이 가려진 시간은 세지 않습니다.",
+  "Review time recorded with this approval: ": "이 승인에 기록된 검토 시간: ",
+  "Outside this page, as stated: ": "화면 밖 작업, 직접 적은 값: ",
+  "Time spent editing outside this page, in minutes (as you state it)": "이 화면 밖에서 수정한 시간, 분 (직접 적는 값)",
+  "For example, time in Fiji": "예: Fiji에서 쓴 시간",
+  "Measured review time is not a usable number.": "잰 검토 시간이 쓸 수 있는 숫자가 아닙니다.",
+  "Time spent outside this page must be between 0 and 6000 minutes.": "화면 밖에서 쓴 시간은 0분에서 6000분 사이여야 합니다."
 }

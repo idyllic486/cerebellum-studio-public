@@ -257,7 +257,23 @@
   }
   function qcSignature(state){return canonical({rois:state.rois,flags:qualityFlags(state)});}
   function acknowledgeQC(state,note){text(note,'QC review note',2000);const next=clone(action(state,'acknowledge_qc',{note,flags:qualityFlags(state)},()=>{},false));next.qc_acknowledgement={note,signature:qcSignature(next)};return freeze(next);}
-  async function approve(state,{reviewer,protocol,checked,coordinatesChecked=false}={}) {
+  /* Review time. A timer counts the time a person works on a review in this page: the gap between two inputs is counted
+     when it is no longer than the idle cutoff, and nothing is counted while the page is hidden. The tail after the last
+     input is not counted. The cutoff is a proposed value. Time spent outside the page (ImageJ, Fiji) cannot be seen and is
+     recorded apart, as the reviewer states it. */
+  const REVIEW_TIME=Object.freeze({status:'proposed',idle_cutoff_s:60,max_minutes:6000});
+  function reviewTimer(saved){const t={active_ms:0,inputs:0,started_at:null,last:null};
+    if(saved!==undefined&&saved!==null){object(saved,'Saved review time');if(!Number.isFinite(saved.active_ms)||saved.active_ms<0||saved.active_ms>REVIEW_TIME.max_minutes*60000||!Number.isInteger(saved.inputs)||saved.inputs<0||(saved.started_at!==null&&typeof saved.started_at!=='string'))fail('Invalid saved review time.');t.active_ms=saved.active_ms;t.inputs=saved.inputs;t.started_at=saved.started_at;}
+    const credit=now=>{if(!Number.isFinite(now))fail('A review time needs a clock value.');if(t.last!==null&&now>=t.last&&now-t.last<=REVIEW_TIME.idle_cutoff_s*1000)t.active_ms+=now-t.last;};
+    return {input(now,iso){credit(now);t.last=now;t.inputs++;if(t.started_at===null)t.started_at=typeof iso==='string'?iso:new Date().toISOString();},pause(now){credit(now);t.last=null;},
+      seconds(){return Math.round(t.active_ms/100)/10;},save(){return {active_ms:t.active_ms,inputs:t.inputs,started_at:t.started_at};}};}
+  function reviewTimeRecord(value){object(value,'Review time');const active=value.active_seconds,stated=value.stated_outside_minutes??null;
+    if(!Number.isFinite(active)||active<0||active>REVIEW_TIME.max_minutes*60)fail('Measured review time is not a usable number.');
+    if(stated!==null&&(!Number.isFinite(stated)||stated<0||stated>REVIEW_TIME.max_minutes))fail('Time spent outside this page must be between 0 and 6000 minutes.');
+    if(!Number.isInteger(value.inputs)||value.inputs<0||(value.started_at!==null&&value.started_at!==undefined&&typeof value.started_at!=='string'))fail('Invalid review time record.');
+    return {status:REVIEW_TIME.status,method:'Active time on this page: gaps between inputs longer than the idle cutoff and time with the page hidden are not counted.',idle_cutoff_s:REVIEW_TIME.idle_cutoff_s,active_seconds:active,inputs:value.inputs,started_at:value.started_at??null,stated_outside_minutes:stated,stated_outside_note:'As the reviewer states it; not measured.'};}
+  function reviewTime(state){const last=state?.approval?state.history[state.history.length-1]:null;return last&&last.type==='approve'&&last.detail&&last.detail.review_time?clone(last.detail.review_time):null;}
+  async function approve(state,{reviewer,protocol,checked,coordinatesChecked=false,reviewTime:measured=null}={}) {
     validateState(state);text(reviewer,'reviewer name',200);text(protocol,'review protocol',4000);if(checked!==true)fail('Explicit source, contours and metadata review confirmation is required.');
     if(!state.metadata.single_section_confirmed)fail('Confirm that this image contains one section before approval.');
     if(!state.metadata.animal_id.trim()||!state.metadata.section_id.trim())fail('Animal and section identifiers are required before approval.');
@@ -266,7 +282,7 @@
     const flags=qualityFlags(state);if(flags.some(f=>f.code==='unassigned'))fail('Assign tissue labels to included ROIs before approval.');
     if(flags.some(f=>f.code==='geometry_label_mismatch'))fail('Correct the geometry label before approval: CB, ML, GL and WM require areas; PL and FISSURE require open lines; LANDMARK requires points. Use OTHER for explicitly reviewed generic geometry.');
     if(flags.length&&(!state.qc_acknowledgement||state.qc_acknowledgement.signature!==qcSignature(state)))fail('Review the geometry screening flags and record a QC acknowledgement before approval.');
-    const next=clone(action(state,'approve',{reviewer,protocol,...(state.original_prediction.origin==='imagej'?{coordinates_checked:true}:{})},()=>{},false));next.qc_acknowledgement=state.qc_acknowledgement??null;const out=clone(next);
+    const timed=measured===null||measured===undefined?null:reviewTimeRecord(measured);const next=clone(action(state,'approve',{reviewer,protocol,...(state.original_prediction.origin==='imagej'?{coordinates_checked:true}:{}),...(timed?{review_time:timed}:{})},()=>{},false));next.qc_acknowledgement=state.qc_acknowledgement??null;const out=clone(next);
     out.approval={reviewer,protocol,checked:true,at:next.history[next.history.length-1].at,fingerprint:await fingerprint(next),identity:'self-entered; not authenticated'};return freeze(out);
   }
   function measure(roi,metadata=initialMetadata()) {
@@ -352,6 +368,6 @@
     if(actual.sha256!==state.source.sha256||actual.width!==state.source.width||actual.height!==state.source.height)fail('Saved analysis does not match this source image.');
     const previous=clone(state.approval);return action(state,'reopen_draft',{previous_approval:previous,note:'Imported records are claims, not authenticated signatures. Fresh local approval is required.'},()=>{},false);
   }
-  const api=Object.freeze({SCHEMA,LEGACY_SCHEMA,INPUT_SCHEMA,PREDICTION_SCHEMA,LIMITS,LABELS,AREA_LABELS,kindOf,create,createFromROIs,attachMeasurementCSV,validatePrediction,validateOriginal,addROI,deleteROI,setLabel,setRegion,removeSourceFile,checkpointHistory,insertVertex,deleteVertex,replacePaths,undo,redo,exportDraftROIs,qualityFlags,qualityFlagsForROIs,acknowledgeQC,editVertex,setMetadata,setExclusion,approve,exportApproved,measure,fingerprint,importDraft});
+  const api=Object.freeze({SCHEMA,LEGACY_SCHEMA,INPUT_SCHEMA,PREDICTION_SCHEMA,LIMITS,LABELS,AREA_LABELS,kindOf,create,createFromROIs,attachMeasurementCSV,validatePrediction,validateOriginal,addROI,deleteROI,setLabel,setRegion,removeSourceFile,checkpointHistory,insertVertex,deleteVertex,replacePaths,undo,redo,exportDraftROIs,qualityFlags,qualityFlagsForROIs,acknowledgeQC,editVertex,setMetadata,setExclusion,approve,REVIEW_TIME,reviewTimer,reviewTime,exportApproved,measure,fingerprint,importDraft});
   root.AnalysisCore=api;if(typeof module==='object'&&module.exports)module.exports=api;
 })(typeof globalThis!=='undefined'?globalThis:window);

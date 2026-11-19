@@ -31,6 +31,20 @@ For the separate **Observations** workspace, extract the original image and the 
 
 The current site is a research prototype. It has no validated production Nissl model or server-side inference queue. Physical reconstruction and animal-level comparison are software workflows with input requirements and assumptions; they do not establish independent-animal biological validity. Atlas alignment requires explicit reference and landmark evidence rather than automatic anatomical identification.
 
+## Review time
+
+While a section is under review and not approved, the page measures the time you work on it and shows the count above
+the approval controls. A gap between two inputs counts when it is no longer than 60 seconds; longer pauses and time with
+the page hidden are not counted. The count is kept on your computer under the fingerprint of the image, so a reload or a
+second sitting adds to the same review. Time spent in ImageJ or Fiji cannot be seen by the page: enter it yourself, in
+minutes, in the field below the count. Both numbers are written into the approval record (`review_time` in the last
+history entry, which the approval fingerprint covers) and leave with the approved export. They are kept apart: one is
+measured, the other is what you state.
+
+The 60 second cutoff is a proposed value, not a validated one. To learn whether drafts save time, review some sections
+starting from a model draft and draw others of similar position from an empty image, and compare the recorded times;
+the page does not make that comparison for you.
+
 ## Direct browser generation
 
 With a compatible, user-trained Local Lab pixel-forest JSON model, choose the model in the image workspace. The site computes a native-pixel ROI draft in a cancellable Worker; an image selected later can generate automatically. This is real model inference and requires trained weights, which are not included. ONNX models continue to use the local runner. The same original-source matching, calibration, editing and approval rules apply. Failed or cancelled jobs retain the preceding review. See BROWSER_MODEL.md for the numerical contract and verification limits.

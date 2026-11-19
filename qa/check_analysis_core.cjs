@@ -47,6 +47,18 @@ const checkInvalid = modify => {const p=prediction();modify(p);assert.throws(()=
   reviewed=C.setExclusion(reviewed,'second',true,'Torn tissue; excluded by protocol');
   const approved=await C.approve(reviewed,{reviewer:'Fixture reviewer',protocol:'Synthetic contours, metadata and exclusions inspected',checked:true});
   assert.equal(approved.approval.fingerprint,await C.fingerprint(approved));
+  // Review time: gaps up to the idle cutoff count, longer gaps and hidden time do not, the tail after the last input does not
+  {const t=C.reviewTimer();assert.equal(t.seconds(),0);t.input(0,'2026-01-01T00:00:00.000Z');t.input(30000);t.input(50000);t.input(200000);t.input(210000);t.pause(215000);t.input(900000);t.input(900000+C.REVIEW_TIME.idle_cutoff_s*1000);t.input(900001+2*C.REVIEW_TIME.idle_cutoff_s*1000);
+   assert.equal(t.seconds(),65+C.REVIEW_TIME.idle_cutoff_s);const saved=t.save();assert.equal(saved.inputs,8);assert.equal(saved.started_at,'2026-01-01T00:00:00.000Z');const again=C.reviewTimer(saved);again.input(10);again.input(1010);assert.equal(again.seconds(),66+C.REVIEW_TIME.idle_cutoff_s);
+   assert.equal(C.REVIEW_TIME.status,'proposed');assert.throws(()=>C.reviewTimer({active_ms:-1,inputs:0,started_at:null}),/saved review time/);assert.throws(()=>C.reviewTimer({active_ms:1,inputs:1.5,started_at:null}),/saved review time/);assert.throws(()=>t.input(NaN),/clock/);
+   assert.equal(C.reviewTime(approved),null,'An approval without a measured time records none');
+   const timed=await C.approve(reviewed,{reviewer:'Fixture reviewer',protocol:'Synthetic contours inspected',checked:true,reviewTime:{active_seconds:125.5,inputs:40,started_at:'2026-01-01T00:00:00.000Z',stated_outside_minutes:12}}),record=C.reviewTime(timed);
+   assert.equal(record.active_seconds,125.5);assert.equal(record.stated_outside_minutes,12);assert.equal(record.status,'proposed');assert.equal(record.idle_cutoff_s,C.REVIEW_TIME.idle_cutoff_s);assert.match(record.stated_outside_note,/not measured/);
+   assert.equal(timed.approval.fingerprint,await C.fingerprint(timed));const report=(await C.exportApproved(timed)).report;assert.equal(report.analysis.history.at(-1).detail.review_time.active_seconds,125.5,'The approved export carries the time');
+   // The time is bound to the approval: changing it afterwards breaks the fingerprint
+   const forged=JSON.parse(JSON.stringify(timed));forged.history.at(-1).detail.review_time.active_seconds=5;await assert.rejects(C.exportApproved(forged),/approval/i);
+   assert.equal(C.reviewTime(C.setMetadata(timed,{z_um:3})),null,'A change after approval drops the approval and its time');
+   for(const bad of[{active_seconds:-1,inputs:0},{active_seconds:1e9,inputs:0},{active_seconds:1,inputs:0,stated_outside_minutes:-2},{active_seconds:1,inputs:0,stated_outside_minutes:7000},{active_seconds:1,inputs:-1},{active_seconds:NaN,inputs:0}])await assert.rejects(C.approve(reviewed,{reviewer:'r',protocol:'p',checked:true,reviewTime:bad}),/review time|outside this page/i);}
   const out=await C.exportApproved(approved);
   assert.equal(out.files.length,1);assert.equal(out.files[0].name,'CB_outer.roi');
   const parsed=R.parseROI(out.files[0].bytes,out.files[0].name);
@@ -79,5 +91,5 @@ const checkInvalid = modify => {const p=prediction();modify(p);assert.throws(()=
   // Missing scale produces empty physical cells, never zero or invented units.
   assert.equal(fe.report.measurements[0].area_um2,null);assert.equal(fe.report.measurements[0].z_um,null);
   assert.equal(state.history.length,0);assert.equal(state.approval,null);
-  console.log('Analysis core passed: original identity, topology/holes, physical units, Float32 ImageJ round-trip, exclusions and approval invalidation (synthetic only).');
+  console.log('Analysis core passed: original identity, topology/holes, physical units, Float32 ImageJ round-trip, exclusions, approval invalidation and review time bound to the approval (synthetic only).');
 })().catch(error=>{console.error(error);process.exitCode=1;});

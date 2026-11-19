@@ -3577,5 +3577,13 @@
   "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.": "Comparing each section with every atlas plane. This runs on this computer and takes about half a minute for each section.",
   "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.": "The sections are stacked at their closest planes. Rows marked ! are uncertain. These are estimates from shape alone, not measured positions; left and right are not told apart.",
   "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.": "The sections are stacked at their closest planes. These are estimates from shape alone, not measured positions; left and right are not told apart.",
-  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most)."
+  "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).": "Figures marked *: a moved outermost section stopped short of the range, so its area was kept up to the end of the range (one plane at most).",
+  "Review time measured on this page: ": "Review time measured on this page: ",
+  "Pauses longer than one minute and time with the page hidden are not counted.": "Pauses longer than one minute and time with the page hidden are not counted.",
+  "Review time recorded with this approval: ": "Review time recorded with this approval: ",
+  "Outside this page, as stated: ": "Outside this page, as stated: ",
+  "Time spent editing outside this page, in minutes (as you state it)": "Time spent editing outside this page, in minutes (as you state it)",
+  "For example, time in Fiji": "For example, time in Fiji",
+  "Measured review time is not a usable number.": "Measured review time is not a usable number.",
+  "Time spent outside this page must be between 0 and 6000 minutes.": "Time spent outside this page must be between 0 and 6000 minutes."
 }

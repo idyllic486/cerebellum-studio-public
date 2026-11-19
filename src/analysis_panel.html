@@ -120,6 +120,8 @@
         <h3>Approve the reviewed result</h3>
         <div class="analysis-pair"><label class="research-field">Reviewer name<input id="analysisReviewer" type="text" maxlength="120" autocomplete="name"></label><label class="research-field">Protocol / review note<input id="analysisProtocol" type="text" maxlength="2000" placeholder="Boundary definition and checks performed"></label></div>
         <label class="analysis-check"><input id="analysisChecked" type="checkbox">I checked the source image, boundaries, exclusions and calibration.</label>
+        <p id="analysisReviewTime" class="mini analysis-review-time" role="status" hidden></p>
+        <label class="research-field analysis-outside-time">Time spent editing outside this page, in minutes (as you state it)<input id="analysisOutsideMinutes" type="number" inputmode="decimal" min="0" max="6000" step="any" placeholder="For example, time in Fiji"></label>
         <p class="mini">Reviewer names are self-entered. Every saved boundary, label, inclusion, metadata or undo/redo change requires a new approval.</p>
         <div class="analysis-actions"><button id="analysisApprove" type="button" class="primary" disabled>Approve reviewed result</button><button id="analysisExport" type="button" disabled>Download approved results</button><button id="analysisContinueStudy" type="button" disabled>Continue in Study</button></div><p id="analysisApproveHint" class="analysis-approve-hint" role="status" aria-live="polite"></p>
         <p class="mini">Copy this reviewed section directly into Study. The source image and this review stay here; Study requires its own review and physical coordinates.</p>

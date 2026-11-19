@@ -1173,3 +1173,7 @@ body[data-edition=focused] #researchView #analysisRasterFailure.is-converted:not
 
 /* Off-by-one-plane range under each volume of the comparison table */
 .atlas-explorer .atlas-match-compare:not(#_#_) td .atlas-match-spread{display:block;margin-top:2px;font-size:12px;font-weight:600;color:#55555a;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* Measured review time above the approval controls */
+.analysis-panel .analysis-approval:not(#_#_) .analysis-review-time{margin:10px 0 2px;font-variant-numeric:tabular-nums;color:#1d1d1f;font-weight:600}
+.analysis-panel .analysis-approval:not(#_#_) .analysis-outside-time{max-width:520px}
