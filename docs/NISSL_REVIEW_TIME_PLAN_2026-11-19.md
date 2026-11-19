@@ -39,6 +39,18 @@ reviewer, and the comparison below cannot be run on them without the memory prob
   apart), which differ more than true neighbours; this weakens the pairing and should be said in the result.
 - *Use sections already outlined*, stating that memory helps both arms and that the result is a rough indication only.
 
+**Chosen by the researcher, 2026-11-19: use the sections already outlined.** A run sheet was prepared the same day and
+is kept with the research data, not in this repository. It deviates from the proposal below in these ways:
+
+- Only the two animals that did not train the model are used. For the three training animals the model has learnt
+  from the reviewer's own outlines, so its drafts would be better than they will be on new material.
+- A pair is two consecutive sections of the every-sixth series: six pairs in each animal, twelve pairs, 24 sections.
+- Two sittings; the two sections of a pair fall in different sittings, and each sitting holds six draft and six empty
+  sections in alternation. Arms and order come from a seeded random generator, the seed written in the run sheet.
+- The reviewer does not open the earlier outlines during the run.
+
+The result will be reported as a rough indication, with the memory problem stated.
+
 **Pairs.** Take pairs of neighbouring never-outlined sections of the same animal (in a new animal, consecutive
 sections of the series). Within each pair, one section is done from the draft and the other from an empty image,
 which arm gets which decided by a coin toss written down before starting. Neighbours are about equally hard, so the
@@ -81,8 +93,9 @@ empty arm. Anything else is reported as it is.
 
 ## Decisions needed from the researcher
 
-1. ~~Whether images of unanalysed sections exist.~~ Answered 2026-11-19: they do not. Open instead: wait for new
-   animals, or use sections already outlined.
+1. ~~Whether images of unanalysed sections exist.~~ Answered 2026-11-19: they do not. Chosen 2026-11-19: use sections
+   already outlined.
 2. The number of pairs and the threshold above.
-3. Page or Fiji as the tool for the comparison.
+3. ~~Page or Fiji as the tool for the comparison.~~ Chosen 2026-11-19: the page, for both arms. The draft arm uses
+   the built-in model; the empty arm starts a manual review and draws every ROI.
 4. Whether to keep the 60 second cutoff.
